@@ -1,0 +1,29 @@
+block variables
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    base(href="/")
+
+    title Amarino França.
+
+    meta(name="description" content="Multidisciplinary Digital Designer")
+
+    link(href="main.css" rel="stylesheet" type="text/css")
+
+    //- meta(property="og:type" content="website")
+    //- meta(property="og:title" content=meta.primary.meta_title)
+    //- meta(property="og:description" content=meta.primary.meta_description)
+
+  body
+    include ./components/preloader
+    include ./components/intro
+    include ./components/nav
+
+    .content#content(data-template=template)
+      block content
+
+  script(src='main.js')

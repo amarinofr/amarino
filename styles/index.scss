@@ -1,0 +1,23 @@
+@import './utils/variables';
+@import './utils/functions';
+@import './utils/mixins';
+@import './utils/vendors';
+
+@import './base/reset';
+@import './base/fonts';
+
+@import './utils/responsive';
+
+@import './common/titles';
+@import './common/text';
+@import './common/ui';
+
+@import './base/base';
+
+
+@import './pages/about/about';
+@import './pages/home/home';
+@import './pages/works/works';
+
+@import './components/preloader';
+@import './components/nav';
