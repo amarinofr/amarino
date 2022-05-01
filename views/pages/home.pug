@@ -1,4 +1,5 @@
 extends ../base.pug
+include ./components/intro
 
 block variables
   - var template = 'home'
@@ -6,3 +7,33 @@ block variables
 block content
   .home
     .home_wrapper
+      .home_intro_wrapper
+        .home_intro= home.data.intro_title
+        .home_intro_skills= home.data.intro_skills
+        .home_intro_line
+      .home_works
+        .home_works_wrapper
+          .home_works_title
+            .home_works_title_icon
+            h1.home_works_title_h1 Selected Works
+
+          .home_works_list
+            .home_works_list_wrapper
+              each work in projects
+                  .home_works_single
+                    figure.home_works_single_thumbnail
+                      img.home_works_single_image(src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                    .home_works_single_details
+                      .home_works_single_skills=work.data.skills
+                    h2.home_works_single_title=work.data.title
+                    .home_works_single_button
+                      a.home_works_single_link(a href=`/work/${work.uid}`) View more
+                      .home_works_single_button_icon
+                  .home_works_single_line
+
+        .home_contact
+          .home_contact_wrapper
+            .home_contact_button
+              a.home_contact_button_link(href="mailto:amarinofr@afrworks.com" alt="Contact Me") Contact me
+              .home_contact_button_icon
+

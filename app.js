@@ -16,7 +16,7 @@ const endpoint = process.env.PRISMIC_ENDPOINT
 const handleLinkResolver = (doc) => {
   if (doc.type === 'home') return `/${doc.uid}`
   if (doc.type === 'about') return `/${doc.uid}`
-  if (doc.type === 'work') return `/${doc.uid}`
+  if (doc.type === 'work') return `/work/${doc.uid}`
   return '/'
 }
 
@@ -45,17 +45,24 @@ app.get('/', async (req, res) => {
       'works.data.title',
       'works.data.project_number',
       'works.data.skills',
-      'works.data.featured_image'
+      'works.data.featured_image',
+      'works.uid',
+      'works.href'
     ]
   })
-
-  console.log(intro)
 
   res.render('pages/home', { intro, home, projects })
 })
 
 app.get('/about', async (req, res) => {
   const about = await client.getSingle('about')
+
+  console.log(about);
+
+    // projects.forEach(project => {
+    //   console.log([projects])
+    //   // console.log(project.data.featured_image)
+    // })
 
   res.render('pages/about', { about })
 })
