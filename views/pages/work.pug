@@ -6,3 +6,67 @@ block variables
 block content
   .work
     .work_wrapper
+      .work_intro
+        .work_intro_wrapper
+          h2.work_intro_title=single.data.title
+          .work_intro_skills=single.data.skills
+          .line_bottom
+
+      .work_details
+        .work_details_wrapper
+          .work_details_left
+            .work_details_left_top
+              .work_details_title Project Description
+                .work_details_icon
+              .work_details_text!=ctx.prismicH.asHTML(single.data.description)
+            .work_details_bottom
+              .work_details_live
+                | See it live at
+                br
+                =single.data.link
+              .work_details_technical=single.data.technical_stuff
+          .work_details_right
+            figure.work_details_photo
+              img.work_details.image(src=single.data.featured_image.url alt=single.data.featured_image.alt)
+
+        .work_content
+          .work_content_wrapper
+            .work_content_solution
+              h2.work_content_solution_title The Usual Suspects
+              .work_content_suspects
+                .work_content_suspects_problem
+                  .work_content_suspects_problem_title Problem
+                  .work_content_suspects_problem_text=single.data.problem
+              .work_content_suspects_solution
+                .work_content_suspects_solution_title Solution
+                .work_content_suspects_solution_text=single.data.solution
+
+            .work_content_featured
+              .work_content_featured_wrapper
+                .work_content_featured_text=single.data.featured_text
+                .work_content_featured_images
+                  each image in single.data.auxiliar_images
+                    figure.work_content_featured_images_photo
+                      img.work_content_featured_images_image(src=image.image.url alt=image.image.alt)
+
+            if (single.data.ui_and_color_palette)
+              .work_content_ui
+                .work_content_ui_wrapper
+                  figure.work_content_ui_photo
+                    img.work_content_ui_image(src=single.data.ui_and_color_palette.url alt=single.data.ui_and_color_palette.alt)
+
+            .work_content_screenshots
+              .work_content_screenshots_wrapper
+                .work_content_screenshots_icon
+                .work_content_screenshots_title Some Screenshots
+                .work_content_screenshots_list
+                  each screenshot in single.data.screenshots
+                    figure.work_content_screenshots_list_item
+                      img.work_content_screenshots_list_image(src=screenshot.image.url alt=screenshot.image.alt)
+
+            .work_content_next_project
+              .work_content_next_project_wrapper
+                .work_content_next_project_button
+                  .work_content_next_project_icon
+                  .work_content_next_project_link
+                    a(href=`/work/${single.data.next_project.uid}`) Next project

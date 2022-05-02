@@ -1,0 +1,37 @@
+html {
+  @extend %cover;
+  font-size: calc(100vw/1512*10);
+
+  @include media('<phone') {
+    font-size: calc(100vw/768*10);
+  }
+}
+
+body {
+  @extend %cover;
+  font-family: $font-vc;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.content {
+  @extend %cover;
+}
+
+.line_bottom {
+  width: 100%;
+  position: relative;
+}
+
+.line_thick {
+  width: 100%;
+  border-top: 0.3rem solid $color-black;
+  display: block;
+}
+
+.line_thin {
+  width: 100%;
+  border-top: 0.15rem solid $color-black;
+  display: block;
+  margin-top: 0.15rem
+}

@@ -10,3 +10,42 @@ block content
       .about_intro
         .about_intro_wrapper
           h1.about_intro_text!=ctx.prismicH.asHTML(about.data.intro)
+          figure.about_intro_photo
+            img.about_intro_photo_image(src=about.data.selfie.url alt=about.data.selfie.alt)
+            figcaption.about_intro_photo_caption=about.data.selfie_caption
+        .about_extras
+          .about_extras_symbol *
+          .about_extras_text=about.data.extras
+          .about_extras_extra=about.data.extra_caption
+
+      .about_azores
+        .about_azores_wrapper
+          h3.about_azores_title ... so look at some photos of where I live instead.
+          each media in about.data.photos_azores
+            figure.about_azores_photo
+              img.about_azores_photo_image(src=media.image.url)
+              figcaption.about_azores_photo_caption=media.image_caption
+
+      .about_process
+        .about_process_wrapper
+          .line_top
+          .about_process_description!= ctx.prismicH.asHTML(about.data.process_description)
+          .line_bottom
+          h2.about_process_title I always
+            br
+            | Trust the process
+
+          .about_process_slider
+            .line_thin
+            ul.about_process_slider_list
+              each process in about.data.process
+                li.about_process_slider_list_item
+                  if process.process_image
+                    figure.about_process_slider_icon
+                      img.about_process_slider_image(src=process.process_image.url alt=process.process_image.url)
+                  .about_process_slider_number=process.process_number
+                  .about_process_slider_title=process.process_title
+                  .about_process_slider_text=process.process_text
+            .line_thin
+
+        include ../components/contact

@@ -1,0 +1,36 @@
+@font-face {
+  font-family: $font-vc;
+  src: url('../fonts/vc_medium.woff2') format('woff2'),
+      url('../fonts/vc_medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-vc;
+  src: url('../fonts/vc_bold.woff2') format('woff2'),
+      url('../fonts/vc_bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-ibm;
+  src: url('../fonts/ibm_medium.woff2') format('woff2'),
+      url('../fonts/ibm_medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-ibm;
+  src: url('../fonts/ibm_bold.woff2') format('woff2'),
+      url('../fonts/ibm_bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+

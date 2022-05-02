@@ -1,16 +1,16 @@
 extends ../base.pug
-include ./components/intro
 
 block variables
   - var template = 'home'
 
 block content
   .home
+    include ../components/intro
     .home_wrapper
       .home_intro_wrapper
         .home_intro= home.data.intro_title
         .home_intro_skills= home.data.intro_skills
-        .home_intro_line
+        .line_bottom
       .home_works
         .home_works_wrapper
           .home_works_title
@@ -31,9 +31,4 @@ block content
                       .home_works_single_button_icon
                   .home_works_single_line
 
-        .home_contact
-          .home_contact_wrapper
-            .home_contact_button
-              a.home_contact_button_link(href="mailto:amarinofr@afrworks.com" alt="Contact Me") Contact me
-              .home_contact_button_icon
-
+        include ../components/contact

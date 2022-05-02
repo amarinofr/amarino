@@ -1,0 +1,56 @@
+.preloader {
+  @extend %cover;
+
+  background-color: $color-white;
+  position: absolute;
+  z-index:z('preloader');
+  display: none;
+}
+
+.preloader_wrapper {
+  @extend %cover;
+
+  padding: 16.8rem 14.4rem 0 14.4rem;
+  position: relative;
+}
+
+.preloader_big_text {
+  @extend %title-472;
+
+  color: $color-black;
+  line-height: 0.7;
+}
+
+.preloader_small_text {
+  @extend %title-82;
+
+  color: $color-black;
+}
+
+.preloader_bottom {
+  width: 100%;
+  padding: 0 14.4rem;
+  position: absolute;
+  left: 0;
+  bottom: 4rem;
+  color: $color-black;
+}
+
+.preloader_bottom_left {
+  @extend %title-24;
+
+  float: left;
+  margin-top: 3rem;
+}
+
+.preloader_bottom_right {
+  @extend %text-16;
+
+  float: right;
+  margin-top: 3rem;
+}
+
+.preloader_bottom_number {
+
+}
+

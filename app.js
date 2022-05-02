@@ -57,20 +57,13 @@ app.get('/', async (req, res) => {
 app.get('/about', async (req, res) => {
   const about = await client.getSingle('about')
 
-  console.log(about);
-
-    // projects.forEach(project => {
-    //   console.log([projects])
-    //   // console.log(project.data.featured_image)
-    // })
-
   res.render('pages/about', { about })
 })
 
 app.get('/work/:uid', async (req, res) => {
-  const single = await client.getByUID('work', req.params.uid)
+  const single = await client.getByUID('works', req.params.uid)
 
-  res.render('work/work', {
+  res.render('pages/work', {
     single
   })
 })

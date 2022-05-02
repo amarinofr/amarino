@@ -32,7 +32,7 @@ class App {
     this.pages = {
       home: new Home(),
       about: new About(),
-      films: new Work()
+      work: new Work()
     }
 
     this.page = this.pages[this.template]
