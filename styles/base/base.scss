@@ -10,28 +10,172 @@ html {
 body {
   @extend %cover;
   font-family: $font-vc;
+  color: $color-black;
   font-size: 16px;
   font-weight: normal;
+  background-color: $color-white;
 }
 
+body.black {
+  color: $color-white;
+  background-color: $color-black;
+
+  svg {
+    path {
+      stroke: $color-white;
+    }
+  }
+
+  a {
+    color: $color-white;
+  }
+
+  .line_bottom, .line_top > * {
+    border-color: $color-white;
+  }
+}
+
+body.white {
+  color: $color-black;
+  background-color: $color-white;
+
+  svg {
+    path {
+      stroke: $color-black;
+    }
+  }
+
+  a {
+    color: $color-black;
+  }
+
+  .line_bottom, .line_top > * {
+    border-color: $color-black;
+  }
+}
+
+
 .content {
-  @extend %cover;
+  width: 100%;
+  position: fixed;
+  transform: rotate(0.01deg);
 }
 
 .line_bottom {
   width: 100%;
   position: relative;
+  transform: scaleX(0);
+  opacity: 0;
+
+  .line_thick {
+    width: 100%;
+    border-top: 3px solid $color-black;
+    display: block;
+  }
+
+  .line_thin {
+    width: 100%;
+    border-top: 1.5px solid $color-black;
+    display: block;
+    margin-top: 2.5px;
+  }
 }
 
-.line_thick {
+.line_top {
   width: 100%;
-  border-top: 0.3rem solid $color-black;
-  display: block;
+  transform: scaleX('0');
+  opacity: 0;
+  position: relative;
+
+  .line_thick {
+    width: 100%;
+    border-top: 3px solid $color-black;
+    display: block;
+    margin-top: 1.5px;
+  }
+
+  .line_thin {
+    width: 100%;
+    border-top: 1.5px solid $color-black;
+    display: block;
+  }
 }
 
-.line_thin {
+.big_button_icon {
+  width: 8.8rem;
+  height: 6.6rem;
+  position: relative;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.small_button_icon {
+  width: 4.8rem;
+  height: 3.6rem;
+  position: relative;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+
+[data-template="work"] {
+  color: $color-white;
+
+  .line_bottom {
+    .line_thick {
+      border-top: 3px solid $color-white;
+    }
+
+    .line_thin {
+      border-top: 1.5px solid $color-white;
+    }
+  }
+
+  .line_top {
+    opacity: 0;
+    transform: scaleX('0%');
+    .line_thick {
+      border-top: 3px solid $color-white;
+    }
+
+    .line_thin {
+      border-top: 1.5px solid $color-white;
+    }
+  }
+}
+
+svg {
   width: 100%;
-  border-top: 0.15rem solid $color-black;
-  display: block;
-  margin-top: 0.15rem
+  height: 100%;
+}
+
+[data-animation="title"] {
+  opacity: 0;
+  transform: scaleX(3.5);
+
+  span {
+    display: inline-block;
+    margin-right: 0.6rem;
+  }
+
+  span span {
+    @extend %animation;
+  }
+}
+
+.empty {
+  &::after {
+    content: " ";
+    padding: 0 1rem;
+  }
 }

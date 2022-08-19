@@ -2,11 +2,23 @@
   .intro_wrapper
     .intro_first_view
       .intro_ui Click on the pieces
-    .intro_second_view
-      .intro_second_view_text= intro.data.intro_text_1
-      .intro_second_view_button Continue
-    .intro_third_view
-      .intro_third_view_text= intro.data.intro_text_2
-        .intro_second_view_button Show me more
+      .intro_skip Skip Intro
+    //- .intro_second_view
+    //-   .intro_second_view_text!=ctx.prismicH.asHTML(intro.data.intro_text_1)
+    //-   .intro_second_view_button
+    //-     span.intro_second_view_button_text Continue
+    //-     svg.intro_second_view_button_icon(id='circle_icon' width='48' height='36' fill='none' viewBox='0 0 48 36' xmlns='http://www.w3.org/2000/svg')
+    //-       circle(cx='17.8824' cy='17.8824' r='17.3824' stroke='#BB4430')
+    //-       circle(cx='23.5294' cy='17.8824' r='17.3824' stroke='#BB4430')
+    //-       circle(cx='30.1176' cy='17.8824' r='17.3824' stroke='#BB4430')
+
+    //- .intro_third_view
+    //-   .intro_third_view_wrapper
+    //-     .intro_third_view_text!=ctx.prismicH.asHTML(intro.data.intro_text_2)
+    //-       .intro_second_view_button Show me more
+    //-         svg.small_button_icon(id='circle_icon' width='48' height='36' fill='none' viewBox='0 0 48 36' xmlns='http://www.w3.org/2000/svg')
+    //-           circle(cx='17.8824' cy='17.8824' r='17.3824' stroke='#BB4430')
+    //-           circle(cx='23.5294' cy='17.8824' r='17.3824' stroke='#BB4430')
+    //-           circle(cx='30.1176' cy='17.8824' r='17.3824' stroke='#BB4430')
 
     canvas.intro_pieces

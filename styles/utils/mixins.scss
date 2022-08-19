@@ -31,14 +31,25 @@
     display: flex;
 }
 
+%animation {
+  transform: translateX(100%) skewX(-12deg) rotate(0.1deg);
+  opacity: 0;
+  visibility: hidden;
+}
+
 %padding {
   padding: 0 14.4rem;
+}
+
+%indent {
+  text-indent: 3rem;
 }
 
 @mixin ratio ($height, $width) {
     font-size: 0;
     overflow: hidden;
     position: relative;
+
     &:after {
         content: '';
         display: inline-block;

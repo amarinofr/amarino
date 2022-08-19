@@ -2,9 +2,9 @@
   @extend %cover;
 
   background-color: $color-white;
-  position: absolute;
+  position: fixed;
   z-index:z('preloader');
-  display: none;
+  overflow: hidden;
 }
 
 .preloader_wrapper {
@@ -18,13 +18,31 @@
   @extend %title-472;
 
   color: $color-black;
+  opacity: 0;
+  transform: scaleX(3.5);
   line-height: 0.7;
+  position: relative;
+
+  span {
+    display: inline-block;
+    margin-right: -1rem;
+  }
+
+  span span {
+    @extend %animation;
+  }
 }
 
 .preloader_small_text {
   @extend %title-82;
 
   color: $color-black;
+  transform: scaleX(3.5);
+  opacity: 0;
+
+  span span {
+    @extend %animation;
+  }
 }
 
 .preloader_bottom {
@@ -39,6 +57,8 @@
 .preloader_bottom_left {
   @extend %title-24;
 
+  transform: translateY(-2rem);
+  opacity: 0;
   float: left;
   margin-top: 3rem;
 }
@@ -46,6 +66,8 @@
 .preloader_bottom_right {
   @extend %text-16;
 
+  transform: translateY(-2rem);
+  opacity: 0;
   float: right;
   margin-top: 3rem;
 }
@@ -53,4 +75,3 @@
 .preloader_bottom_number {
 
 }
-

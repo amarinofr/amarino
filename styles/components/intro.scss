@@ -1,0 +1,111 @@
+.intro {
+  @extend %cover;
+
+  position: fixed;
+  background-color: $color-white;
+  z-index: z('bring-front');
+}
+
+.intro_wrapper {
+  @extend %cover;
+}
+
+.intro_first_view {
+  @extend %cover;
+
+  flex-direction: column;
+  color: $color-black;
+}
+
+.intro_ui {
+  @extend %title-156;
+
+  font-size: 19.2rem;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 14rem;
+}
+
+.intro_second_view {
+  @extend %cover;
+  @extend %center;
+
+  width: 70.2rem;
+  padding-left: 14rem;
+  flex-direction: column;
+}
+
+.intro_second_view_text {
+  @extend %text-24;
+
+  strong {
+    font-weight: bold;
+  }
+}
+
+.intro_second_view_button {
+  @extend %title-24;
+
+  align-self: flex-start;
+  margin-top: 7.4rem;
+  display: flex;
+  line-height: 110%;
+  cursor: pointer;
+}
+
+.intro_second_view_button_icon {
+  margin-left: 1rem;
+}
+
+.intro_third_view {
+  @extend %cover;
+  @extend %center;
+
+  justify-content: flex-start;
+  background-color: $color-black;
+}
+
+.intro_third_view_wrapper {
+  // display: none;
+  width: 70.2rem;
+  padding-left: 14rem;
+  flex-direction: column;
+}
+
+.intro_third_view_text {
+  @extend %text-24;
+
+  color: $color-white;
+
+  strong {
+    font-weight: bold;
+  }
+}
+
+.intro_second_view_button {
+  @extend %title-24;
+
+  align-self: flex-start;
+  margin-top: 7.4rem;
+  display: flex;
+  line-height: 110%;
+  cursor: pointer;
+}
+
+.intro_third_view_button_icon {
+  margin-left: 1rem;
+}
+
+.intro_pieces {
+  @extend %cover;
+}
+
+.intro_skip {
+  position: absolute;
+  bottom: 0;
+  text-align: right;
+  padding: 0 14rem;
+  align-self: flex-end;
+  padding-bottom: 14rem;
+}
+

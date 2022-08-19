@@ -7,7 +7,14 @@
 
 %title-235 {
   font-family: $font-vc;
-  font-size: 23.5rem;
+  font-size: 26.5rem;
+  font-weight: bold;
+  line-height: 100%;
+}
+
+%title-156 {
+  font-family: $font-vc;
+  font-size: 15.6rem;
   font-weight: bold;
   line-height: 100%;
 }
@@ -24,6 +31,12 @@
   line-height: 100%;
 }
 
+%title-48 {
+  font-family: $font-vc;
+  font-size: 4.8rem;
+  line-height: 100%;
+}
+
 %title-32 {
   font-family: $font-vc;
   font-size: 3.2rem;
@@ -33,5 +46,11 @@
 %title-24 {
   font-family: $font-vc;
   font-size: 2.4rem;
+  line-height: 100%;
+}
+
+%title-22 {
+  font-family: $font-vc;
+  font-size: 2.2rem;
   line-height: 100%;
 }

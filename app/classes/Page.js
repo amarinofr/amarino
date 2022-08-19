@@ -1,34 +1,29 @@
 import GSAP from 'gsap'
 import Prefix from 'prefix'
 import { each } from 'lodash'
+import { splitText, splitWords } from 'utils/splitText'
+
+import Title from 'animations/Title'
+
+import AsyncLoad from 'classes/AsyncLoad'
 
 export default class Page {
   constructor ({ id, element, elements }) {
     this.selector = element
     this.selectorChildren = {
-      ...elements
+      ...elements,
+      animationsTitles: '[data-animation="title"]',
+
+      asyncloaders: '[data-src]'
     }
     this.id = id
     this.transformPrefix = Prefix('transform')
+    this.onMouseWheelEvent = this.easeScroll.bind(this)
   }
 
   create () {
     this.element = document.querySelector(this.selector)
     this.elements = {}
-
-    this.scroll = {
-      current: 0,
-      target: 0,
-      last: 0,
-      limit: 0,
-      smoothness: 10 /* The Higher the less smooth it is */
-    }
-
-    this.scroll.smoothness = this.scroll.smoothness / 100
-
-    this.body = document.body
-    this.html = document.documentElement
-    this.main = document.querySelector('.content')
 
     each(this.selectorChildren, (entry, key) => {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
@@ -44,11 +39,27 @@ export default class Page {
       }
     })
 
+    this.scroll = {
+      current: 0,
+      target: 0,
+      last: 0,
+      limit: 0,
+      smoothness: 8 /* The Higher the less smooth it is */
+    }
+    this.scroll.smoothness = this.scroll.smoothness / 100
+
+    this.createAsyncLoad()
     this.createAnimations()
   }
 
   createAnimations () {
+    this.animationsTitles = each(this.elements.animationsTitles, element => {
+      splitWords(element)
 
+      return new Title({
+        element
+      })
+    })
   }
 
   show () {
@@ -63,6 +74,7 @@ export default class Page {
 
       this.animationIn.call(_ => {
         this.addEventListeners()
+        this.onResize()
 
         resolve()
       })
@@ -77,16 +89,23 @@ export default class Page {
         autoAlpha: 0,
         onComplete: resolve
       })
+
+      window.scrollTo(0, 0)
+    })
+  }
+
+  createAsyncLoad () {
+    each(this.elements.asyncloaders, element => {
+      return new AsyncLoad({ element })
     })
   }
 
   onResize () {
-    this.scroll.limit = this.main.clientHeight + 'px'
-
-    each(this.animationsTitles, animation => animation.onResize())
+    this.scroll.limit = this.elements.wrapper.clientHeight + 'px'
+    document.body.style.height = this.scroll.limit
   }
 
-  easeScroll (event) {
+  easeScroll () {
     this.scroll.target = window.scrollY
   }
 
@@ -98,11 +117,11 @@ export default class Page {
       this.scroll.current = 0
     }
 
-    this.main.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`
+    this.elements.wrapper.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`
   }
 
   addEventListeners () {
-    window.addEventListener('scroll', this.easeScroll)
+    window.addEventListener('scroll', this.onMouseWheelEvent)
   }
 
   removeEventListeners () {

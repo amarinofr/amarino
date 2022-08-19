@@ -1,6 +1,8 @@
 import each from 'lodash/each'
 
 import Preloader from 'components/Preloader'
+import Nav from 'components/Nav'
+import Experience from 'components/Experience'
 
 import Home from 'pages/Home'
 import About from 'pages/About'
@@ -10,6 +12,7 @@ class App {
   constructor () {
     this.createPreloader()
     this.createContent()
+    this.createExperience()
     this.createPages()
 
     this.addLinkListeners()
@@ -20,12 +23,22 @@ class App {
 
   createPreloader () {
     this.preloader = new Preloader()
-    this.preloader.once('completed', this.onPreloaded.bind(this))
+    this.preloader.once('completed', _ => this.onPreloaded())
+  }
+
+  createExperience () {
+    this.experience = new Experience()
+  }
+
+  createNav () {
+    this.nav = new Nav()
   }
 
   createContent () {
     this.content = document.querySelector('.content')
     this.template = this.content.getAttribute('data-template')
+    this.body = document.querySelector('body')
+    this.body.setAttribute('data-template', this.template)
   }
 
   createPages () {
@@ -37,11 +50,11 @@ class App {
 
     this.page = this.pages[this.template]
     this.page.create()
-    this.onResize()
   }
 
   onPreloaded () {
     this.preloader.destroy()
+    this.createNav()
     this.page.show()
   }
 
@@ -61,14 +74,13 @@ class App {
       this.template = divContent.getAttribute('data-template')
 
       this.content.setAttribute('data-template', this.template)
+      this.body.setAttribute('data-template', this.template)
 
       this.content.innerHTML = divContent.innerHTML
 
       this.page = this.pages[this.template]
 
       this.page.create()
-
-      this.onResize()
 
       this.page.show()
 
@@ -82,11 +94,18 @@ class App {
     if (this.page && this.page.onResize) {
       this.page.onResize()
     }
+    if (this.experience && this.experience.onResize) {
+      this.experience.onResize()
+    }
   }
 
   update () {
     if (this.page && this.page.update) {
       this.page.update()
+    }
+
+    if (this.experience && this.experience.update) {
+      this.experience.update()
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))
@@ -101,11 +120,14 @@ class App {
 
     each(links, link => {
       link.onclick = event => {
-        event.preventDefault()
+        if (!link.classList.contains('prevent')) {
+          event.preventDefault()
+          const { href } = link
 
-        const { href } = link
+          this.onChange(href)
 
-        this.onChange(href)
+          window.scrollTo(0, 0)
+        }
       }
     })
   }

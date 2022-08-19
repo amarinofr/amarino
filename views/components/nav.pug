@@ -1,16 +1,18 @@
 header.nav_header
   .nav_header_wrapper
     .nav_logo
-      h1.nav_logo_title Amarino's website
+      h1.nav_logo_title
+        a.nav_logo_title_link.prevent(href="/") AMARINO's website
     nav.nav
       ul.nav_list
         li.nav_list_link
-          a.nav_link(href="/") Works
-        li.nav_list_link
+          a.nav_link_active(href="/") Works
           a.nav_link(href="/about") About
+      ul.nav_list_social_links_list
         li.nav_list_social_links
-          a.nav_social_link(href="https://www.linkedin.com/in/afrworks/" target="_blank") LinkedIn
-          a.nav_social_link(href="https://www.behance.net/afrworks" target="_blank") Behance
-
+          a.nav_social_link.prevent(href="https://www.linkedin.com/in/afrworks/" target="_blank") LinkedIn
+        li.nav_list_social_links
+          a.nav_social_link.prevent(href="https://www.behance.net/afrworks" target="_blank") Behance
   .line_top
-
+    .line_thin
+    .line_thick
