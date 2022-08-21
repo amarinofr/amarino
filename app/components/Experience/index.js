@@ -1,36 +1,42 @@
 import * as THREE from 'three'
-import GUI from 'lil-gui'
 
-import Camera from './components/camera'
-import World from './components/World'
-import Render from './components/Renderer'
-import Objects from './components/Objects'
+import Sizes from './utils/Sizes'
+import Time from './utils/Time'
+import Debug from './utils/Debug'
+
+import Camera from './components/Camera'
+import Renderer from './components/Renderer'
+
+import World from './World'
+
+let instance = null
 
 export default class Experience {
-  constructor () {
-    this.gui = new GUI()
-
-    this.sizes = {
-      width: window.innerWidth,
-      height: window.innerHeight
+  constructor (canvas) {
+    if (instance) {
+      return instance
     }
 
-    this.camera = new Camera(this.sizes.width, this.sizes.height)
+    instance = this
+
+    this.canvas = canvas
+    this.debug = new Debug()
+    this.sizes = new Sizes()
+    this.time = new Time()
+    this.scene = new THREE.Scene()
+    this.camera = new Camera()
+    this.renderer = new Renderer()
+
     this.world = new World()
-    this.renderer = new Render()
-    this.objects = new Objects()
 
-    console.log(this.objects)
-
-    this.clock = new THREE.Clock()
-    this.previousTime = 0
+    console.log(this.world)
 
     this.setup()
     this.addEventListeners()
   }
 
   setup () {
-    this.world.world.add(this.camera.camera)
+    // this.world.world.add(this.camera.camera)
   }
 
   addEventListeners (moved) {
@@ -49,22 +55,25 @@ export default class Experience {
     this.camera.camera.aspect = this.sizes.width / this.sizes.height
     this.camera.camera.updateProjectionMatrix()
 
-    // Update renderer
+    // // Update renderer
     this.renderer.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
   update () {
-    this.elapsedTime = this.clock.getElapsedTime()
-    this.deltaTime = this.elapsedTime - this.previousTime
-    this.previousTime = this.elapsedTime
+    const currentTime = Date.now()
+    this.delta = currentTime - this.time.current
+    this.time.current = currentTime
+    this.time.elapsed = this.time.current - this.time.start
+
+    // this.camera.controls.update()
 
     // Camera Movement
     // this.camera.camera.position.x = this.cursorX * 0.5
     // this.camera.camera.position.y = this.cursorY * 0.5
-    // this.camera.lookAt(new Vector3())
+    // this.camera.lookAt(new Vector3(this.legos.))
 
     // Render
-    this.renderer.renderer.render(this.world.world, this.camera.camera)
+    this.renderer.renderer.render(this.scene, this.camera.camera)
   }
 }

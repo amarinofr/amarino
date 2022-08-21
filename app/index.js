@@ -27,7 +27,7 @@ class App {
   }
 
   createExperience () {
-    this.experience = new Experience()
+    this.experience = new Experience(document.querySelector('.intro_pieces'))
   }
 
   createNav () {
