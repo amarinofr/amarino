@@ -18,23 +18,25 @@ export default class Legos {
   }
 
   createObjects () {
-    this.loaders.gltfLoader.load(
-      'models/legos.glb',
-      (gltf) => {
-        const legoPieceTop = gltf.scene.children.find((child) => child.name === 'Lego_model_top')
-        legoPieceTop.scale.set(0.2, 0.2, 0.2)
-        this.scene.add(legoPieceTop)
-      }
-    )
+    let obj = null
 
     this.loaders.gltfLoader.load(
       'models/legos.glb',
       (gltf) => {
-        const legoPieceBottom = gltf.scene.children.find((child) => child.name === 'Lego_model_bottom')
-        legoPieceBottom.scale.set(0.2, 0.2, 0.2)
-        legoPieceBottom.position.set(0, -0.15, 0)
-        this.scene.add(legoPieceBottom)
+        obj = gltf.scene
+        obj.scale.set(0.2, 0.2, 0.2)
+        this.scene.add(obj)
       }
     )
+
+    // this.loaders.gltfLoader.load(
+    //   'models/legos.glb',
+    //   (gltf) => {
+    //     const legoPieceBottom = gltf.scene.children.find((child) => child.name === 'Lego_model_bottom')
+    //     legoPieceBottom.scale.set(0.2, 0.2, 0.2)
+    //     legoPieceBottom.position.set(0, -0.15, 0)
+    //     this.scene.add(legoPieceBottom)
+    //   }
+    // )
   }
 }

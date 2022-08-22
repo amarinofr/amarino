@@ -26,24 +26,17 @@ export default class Experience {
     this.scene = new THREE.Scene()
     this.camera = new Camera()
     this.renderer = new Renderer()
-
     this.world = new World()
 
-    console.log(this.world)
+    setTimeout(() => {
+      console.log(this.scene.children)
+    }, 50)
 
-    this.setup()
     this.addEventListeners()
   }
 
-  setup () {
-    // this.world.world.add(this.camera.camera)
-  }
+  addEventListeners () {
 
-  addEventListeners (moved) {
-    // moved = window.addEventListener('mousemove', event => {
-    //   this.cursorY = event.clientY / this.sizes.height
-    //   this.cursorX = -(event.clientX / this.sizes.width - 0.5)
-    // })
   }
 
   onResize () {
@@ -66,12 +59,10 @@ export default class Experience {
     this.time.current = currentTime
     this.time.elapsed = this.time.current - this.time.start
 
-    // this.camera.controls.update()
-
     // Camera Movement
-    // this.camera.camera.position.x = this.cursorX * 0.5
-    // this.camera.camera.position.y = this.cursorY * 0.5
-    // this.camera.lookAt(new Vector3(this.legos.))
+    this.camera.camera.position.x = this.cursorX * 0.5
+    this.camera.camera.position.y = this.cursorY * 0.5
+    // this.camera.camera.lookAt(new Vector3(this.legos.))
 
     // Render
     this.renderer.renderer.render(this.scene, this.camera.camera)
