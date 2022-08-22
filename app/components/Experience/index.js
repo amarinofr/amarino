@@ -6,8 +6,11 @@ import Debug from './utils/Debug'
 
 import Camera from './components/Camera'
 import Renderer from './components/Renderer'
-
 import World from './World'
+import Resources from './utils/Resources'
+import sources from './sources'
+
+// import { Vector3 } from 'three'
 
 let instance = null
 
@@ -24,19 +27,24 @@ export default class Experience {
     this.sizes = new Sizes()
     this.time = new Time()
     this.scene = new THREE.Scene()
+    this.resources = new Resources(sources)
     this.camera = new Camera()
     this.renderer = new Renderer()
     this.world = new World()
 
-    setTimeout(() => {
-      console.log(this.scene.children)
-    }, 50)
+    this.cursor = {
+      x: 0,
+      y: 0
+    }
 
     this.addEventListeners()
   }
 
   addEventListeners () {
-
+    window.addEventListener('mousemove', moved => {
+      this.cursor.x = moved.clientX / this.sizes.width
+      this.cursor.y = -(moved.clientY / this.sizes.height)
+    })
   }
 
   onResize () {
@@ -60,9 +68,8 @@ export default class Experience {
     this.time.elapsed = this.time.current - this.time.start
 
     // Camera Movement
-    this.camera.camera.position.x = this.cursorX * 0.5
-    this.camera.camera.position.y = this.cursorY * 0.5
-    // this.camera.camera.lookAt(new Vector3(this.legos.))
+    this.camera.camera.position.x = this.cursor.x * 0.5
+    this.camera.camera.position.y = this.cursor.y * 0.25
 
     // Render
     this.renderer.renderer.render(this.scene, this.camera.camera)

@@ -4,10 +4,16 @@ import Legos from './Legos'
 
 export default class World {
   constructor () {
-    this.experiece = new Experience()
-    this.scene = this.experiece.scene
+    this.experience = new Experience()
+    this.scene = this.experience.scene
+    this.resources = this.experience.resources
 
-    this.legos = new Legos()
-    this.environment = new Environment()
+    this.resources.on('ready', () => {
+      console.log('were good')
+
+      this.legos = new Legos()
+
+      this.environment = new Environment()
+    })
   }
 }

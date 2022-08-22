@@ -15,9 +15,11 @@ export default class Renderer {
   createRenderer () {
     this.renderer = new WebGLRenderer({
       canvas: this.canvas,
+      alpha: true,
       antialias: true
     })
 
+    this.renderer.setClearColor(0x000000, 0)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = PCFSoftShadowMap
     this.renderer.setSize(this.sizes.width, this.sizes.height)

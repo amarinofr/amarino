@@ -1,12 +1,15 @@
+import * as THREE from 'three'
 import Experience from '..'
-import Loaders from '../utils/Loaders'
 
 export default class Legos {
   constructor () {
     this.experience = new Experience()
-    this.loaders = new Loaders()
-
     this.scene = this.experience.scene
+    this.resources = this.experience.resources
+
+    this.resource = this.resources.items.legoPieces
+
+    console.log(this.resource)
 
     this.debug = this.experience.debug
 
@@ -18,25 +21,14 @@ export default class Legos {
   }
 
   createObjects () {
-    let obj = null
+    this.model = this.resource.scene
+    this.model.scale.set(1, 1, 1)
+    this.scene.add(this.model)
 
-    this.loaders.gltfLoader.load(
-      'models/legos.glb',
-      (gltf) => {
-        obj = gltf.scene
-        obj.scale.set(0.2, 0.2, 0.2)
-        this.scene.add(obj)
+    this.model.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true
       }
-    )
-
-    // this.loaders.gltfLoader.load(
-    //   'models/legos.glb',
-    //   (gltf) => {
-    //     const legoPieceBottom = gltf.scene.children.find((child) => child.name === 'Lego_model_bottom')
-    //     legoPieceBottom.scale.set(0.2, 0.2, 0.2)
-    //     legoPieceBottom.position.set(0, -0.15, 0)
-    //     this.scene.add(legoPieceBottom)
-    //   }
-    // )
+    })
   }
 }

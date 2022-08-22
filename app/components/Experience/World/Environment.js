@@ -6,6 +6,8 @@ export default class Environment {
     this.experience = new Experience()
     this.scene = this.experience.scene
 
+    this.resources = this.experience.resources
+
     this.debug = this.experience.debug
 
     if (this.debug.active) {
@@ -14,6 +16,7 @@ export default class Environment {
 
     this.createDirectionalLight()
     this.createAmbientLight()
+    this.createEnvironmentMap()
   }
 
   createDirectionalLight () {
@@ -45,6 +48,25 @@ export default class Environment {
       this.debugFolder.add(this.ambientLight.position, 'x').name('AmLight PosX').min(0).max(100).step(1)
       this.debugFolder.add(this.ambientLight.position, 'z').name('AmLight PosZ').min(0).max(100).step(1)
       this.debugFolder.add(this.ambientLight, 'intensity').name('AmLight Intensity').min(0).max(2).step(0.001)
+    }
+  }
+
+  createEnvironmentMap () {
+    this.environmentMap = {}
+    this.environmentMap.intensity = 1
+    this.environmentMap.texture = this.resources.items.environmentMapTexture
+    this.environmentMap.texture.encoding = THREE.sRGBEncoding
+
+    this.scene.environment = this.environmentMap.texture
+
+    this.environmentMap.updateMaterials = () => {
+      this.scene.traverse((child) => {
+        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+          child.material.envMap = this.environmentMap.texture
+          child.material.envMapIntensity = this.environmentMap.intensity
+          child.material.needsUpdate = true
+        }
+      })
     }
   }
 }
