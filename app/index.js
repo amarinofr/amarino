@@ -100,12 +100,12 @@ class App {
   }
 
   update () {
-    if (this.page && this.page.update) {
-      this.page.update()
-    }
-
     if (this.experience && this.experience.update) {
       this.experience.update()
+    }
+
+    if (this.page && this.page.update) {
+      this.page.update()
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))
@@ -113,6 +113,10 @@ class App {
 
   addEventListeners () {
     window.addEventListener('resize', this.onResize.bind(this))
+
+    if (this.experience && this.experience.addEventListeners) {
+      this.experience.addEventListeners()
+    }
   }
 
   addLinkListeners () {

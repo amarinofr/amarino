@@ -11,7 +11,6 @@ export default [
       'textures/environmentMap/nz.jpg'
     ]
   },
-
   {
     name: 'legoPieces',
     type: 'gltfModel',

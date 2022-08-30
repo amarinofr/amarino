@@ -9,11 +9,15 @@ export default class World {
     this.resources = this.experience.resources
 
     this.resources.on('ready', () => {
-      console.log('were good')
-
       this.legos = new Legos()
 
       this.environment = new Environment()
     })
+  }
+
+  update () {
+    if (this.legos) {
+      this.legos.update()
+    }
   }
 }

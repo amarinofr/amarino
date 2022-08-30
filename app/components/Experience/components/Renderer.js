@@ -7,9 +7,15 @@ export default class Renderer {
     this.canvas = this.experience.canvas
     this.sizes = this.experience.sizes
     this.scene = this.experience.scene
-    this.camera = this.experience.camera
+    this.camera = this.experience.camera.camera
 
     this.createRenderer()
+  }
+
+  onResize () {
+    // Update renderer
+    this.renderer.setSize(this.sizes.width, this.sizes.height)
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
   createRenderer () {
@@ -24,5 +30,10 @@ export default class Renderer {
     this.renderer.shadowMap.type = PCFSoftShadowMap
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  }
+
+  update () {
+    // Render
+    this.renderer.render(this.scene, this.camera)
   }
 }

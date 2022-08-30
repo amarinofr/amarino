@@ -9,8 +9,6 @@ export default class Legos {
 
     this.resource = this.resources.items.legoPieces
 
-    console.log(this.resource)
-
     this.debug = this.experience.debug
 
     if (this.debug.active) {
@@ -23,6 +21,7 @@ export default class Legos {
   createObjects () {
     this.model = this.resource.scene
     this.model.scale.set(1, 1, 1)
+    this.model.rotation.set(0.25, 0, 0)
     this.scene.add(this.model)
 
     this.model.traverse((child) => {
@@ -30,5 +29,9 @@ export default class Legos {
         child.castShadow = true
       }
     })
+  }
+
+  update () {
+
   }
 }

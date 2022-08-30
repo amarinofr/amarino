@@ -20,7 +20,7 @@ export default class Environment {
   }
 
   createDirectionalLight () {
-    this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.6)
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.42)
     this.directionalLight.castShadow = true
     this.directionalLight.shadow.mapSize.set(1024, 1024)
     this.directionalLight.shadow.camera.far = 15
@@ -28,7 +28,7 @@ export default class Environment {
     this.directionalLight.shadow.camera.top = 7
     this.directionalLight.shadow.camera.right = 7
     this.directionalLight.shadow.camera.bottom = -7
-    this.directionalLight.position.set(-5, 5, 0)
+    this.directionalLight.position.set(100, 5, 64)
 
     this.scene.add(this.directionalLight)
 
@@ -36,6 +36,7 @@ export default class Environment {
       this.debugFolder.add(this.directionalLight.position, 'y').name('DirLig PosY').min(0).max(100).step(1)
       this.debugFolder.add(this.directionalLight.position, 'x').name('DirLig PosX').min(0).max(100).step(1)
       this.debugFolder.add(this.directionalLight.position, 'z').name('DirLig PosZ').min(0).max(100).step(1)
+      this.debugFolder.add(this.directionalLight, 'intensity').name('DirLig Intensity').min(0).max(1).step(0.01)
     }
   }
 
