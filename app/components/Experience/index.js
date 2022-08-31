@@ -34,7 +34,6 @@ export default class Experience {
   }
 
   onResize () {
-    // Update sizes
     this.sizes.width = window.innerWidth
     this.sizes.height = window.innerHeight
 
@@ -43,15 +42,8 @@ export default class Experience {
   }
 
   update () {
-    // const currentTime = Date.now()
-    // this.delta = currentTime - this.time.current
-    // this.time.current = currentTime
-    // this.time.elapsed = this.time.current - this.time.start
-
     this.camera.update()
     this.world.update()
     this.renderer.update()
-
-    // this.camera.camera.lookAt(this.world.scene.children[1].position)
   }
 }

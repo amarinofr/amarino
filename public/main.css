@@ -146,7 +146,7 @@ div, section {
   line-height: 100%;
 }
 
-.intro_ui, .work_content_solution_title, .about_process_title {
+.work_content_solution_title, .about_process_title {
   font-family: "VC Henrietta";
   font-size: 15.6rem;
   font-weight: bold;
@@ -165,7 +165,7 @@ div, section {
   line-height: 100%;
 }
 
-.work_content_suspects_problem_title, .work_content_suspects_solution_title {
+.intro_ui, .work_content_suspects_problem_title, .work_content_suspects_solution_title {
   font-family: "VC Henrietta";
   font-size: 4.8rem;
   line-height: 100%;
@@ -1068,10 +1068,9 @@ figcaption.about_azores_photo_caption {
 }
 
 .intro_ui {
-  font-size: 19.2rem;
   text-align: center;
   font-weight: bold;
-  padding-top: 14rem;
+  padding-top: 12rem;
 }
 
 .intro_second_view {

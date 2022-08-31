@@ -456,8 +456,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Legos)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .. */ "./app/components/Experience/index.js");
+
 
 
 class Legos {
@@ -477,11 +479,25 @@ class Legos {
 
   createObjects() {
     this.model = this.resource.scene;
-    this.model.scale.set(1, 1, 1);
+    this.model.scale.set(1.5, 1.5, 1.5);
     this.model.rotation.set(0.25, 0, 0);
-    this.scene.add(this.model);
+    this.scene.add(this.model); // console.log(this.model.children[0])
+
+    this.top = this.model.children[1];
+    this.bottom = this.model.children[0];
+    console.log(this.top);
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].fromTo(this.top.position, 0.5, {
+      y: 0.15,
+      duration: 1
+    }, {
+      y: 0.25,
+      duration: 1,
+      yoyo: true,
+      delay: 2,
+      repeat: -1
+    }, 5);
     this.model.traverse(child => {
-      if (child instanceof three__WEBPACK_IMPORTED_MODULE_1__.Mesh) {
+      if (child instanceof three__WEBPACK_IMPORTED_MODULE_2__.Mesh) {
         child.castShadow = true;
       }
     });
@@ -697,7 +713,6 @@ class Experience {
   }
 
   onResize() {
-    // Update sizes
     this.sizes.width = window.innerWidth;
     this.sizes.height = window.innerHeight;
     this.camera.onResize();
@@ -705,13 +720,9 @@ class Experience {
   }
 
   update() {
-    // const currentTime = Date.now()
-    // this.delta = currentTime - this.time.current
-    // this.time.current = currentTime
-    // this.time.elapsed = this.time.current - this.time.start
     this.camera.update();
     this.world.update();
-    this.renderer.update(); // this.camera.camera.lookAt(this.world.scene.children[1].position)
+    this.renderer.update();
   }
 
 }
@@ -28998,7 +29009,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1661857938216
+      // 1661903912446
       var cssReload = __webpack_require__(/*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {"publicPath":"","locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -35659,7 +35670,7 @@ function toTrianglesDrawMode(geometry, drawMode) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("489b458b8ca5a98794ad")
+/******/ 		__webpack_require__.h = () => ("2633b376489ca1f346be")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
