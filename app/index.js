@@ -3,6 +3,7 @@ import each from 'lodash/each'
 import Preloader from 'components/Preloader'
 import Nav from 'components/Nav'
 import Experience from 'components/Experience'
+import Canvas from 'components/Canvas'
 
 import Home from 'pages/Home'
 import About from 'pages/About'
@@ -28,6 +29,15 @@ class App {
 
   createExperience () {
     this.experience = new Experience(document.querySelector('.intro_pieces'))
+    this.gallery = new Canvas(this.template)
+  }
+
+  createIntro () {
+    this.intro = this.experience.intro
+    // this.intro.show()
+    // this.intro.destroy()
+    // this.intro.once('out', _ => this.introEnded())
+    this.introEnded()
   }
 
   createNav () {
@@ -53,9 +63,15 @@ class App {
   }
 
   onPreloaded () {
-    this.preloader.destroy()
+    // this.preloader.destroy()
+    this.createIntro()
+  }
+
+  introEnded () {
+    this.intro.destroy()
     this.createNav()
     this.page.show()
+    document.documentElement.style.overflow = 'auto'
   }
 
   async onChange (url) {
@@ -91,11 +107,16 @@ class App {
   }
 
   onResize () {
+    if (this.experience && this.experience.onResize) {
+      this.experience.onResize()
+    }
+
     if (this.page && this.page.onResize) {
       this.page.onResize()
     }
-    if (this.experience && this.experience.onResize) {
-      this.experience.onResize()
+
+    if (this.gallery && this.gallery.onResize) {
+      this.gallery.onResize()
     }
   }
 
@@ -106,6 +127,10 @@ class App {
 
     if (this.page && this.page.update) {
       this.page.update()
+    }
+
+    if (this.gallery && this.gallery.update) {
+      this.gallery.update()
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))

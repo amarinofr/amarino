@@ -14,18 +14,11 @@ block content
             .line_thick
             .line_thin
 
-      .home_works(data-animation="black")
+      .home_works(data-animation="change-bg-color")
         .home_works_wrapper
           .home_works_top
             .home_works_title_icon
-              //- svg(width="229" height="125" viewBox="0 0 229 125" fill="none" xmlns="http://www.w3.org/2000/svg")
-              //-   circle(cx="123.22" cy="62.5" r="61.875" stroke="#A8A39B" stroke-width="1.25")
-              //-   circle(cx="123.22" cy="62.5" r="61.875" stroke="#A8A39B" stroke-width="1.25")
-              //-   circle(cx="123.22" cy="62.5" r="61.875" stroke="#A8A39B" stroke-width="1.25")
-              //-   circle(cx="123.22" cy="62.5" r="61.875" stroke="#A8A39B" stroke-width="1.25")
-              //-   circle(cx="123.22" cy="62.5" r="61.875" stroke="#A8A39B" stroke-width="1.25")
-              //-   circle(cx="123.22" cy="62.5" r="61.875" stroke="#A8A39B" stroke-width="1.25")
-            h2.home_works_title Selected Works
+            h2.home_works_title(data-animation="miniTitle") Selected Works
 
           #works_list.home_works_list
             .home_works_list_wrapper
@@ -35,10 +28,12 @@ block content
                     .home_works_single_details
                       .home_works_single_skills=work.data.skills
                     h2.home_works_single_title=work.data.title
-                    figure.home_works_single_thumbnail
-                      img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
-                    figure.home_works_single_thumbnail_two
-                      img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                    .home_works_single_gallery
+                      canvas.home_works_single_gallery_wrapper
+                        figure.home_works_single_thumbnail.home_works_single_thumb
+                          img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                        figure.home_works_single_thumbnail_two.home_works_single_thumb
+                          img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
                   .home_works_single_button
                     a.home_works_single_link(a href=`/work/${work.uid}`) View more
                     .home_works_small_button_icon

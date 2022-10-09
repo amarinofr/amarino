@@ -23,9 +23,16 @@
 
 .home_intro_title {
   @extend %title-235;
+  opacity: 0;
+  transform: scaleX(0.5);
 
   span {
     display: block;
+
+    span {
+      opacity: 0;
+      transform: translateX(100%) skewX(-12deg) rotate(0.1deg)
+    }
   }
 }
 
@@ -83,7 +90,6 @@
 
   width: 100%;
   margin-top: 32rem;
-  background-color: $color-black;
   overflow: hidden;
 }
 
@@ -93,7 +99,7 @@
 
 .home_works_single {
   width: 100vw;
-  height: 70.6rem;
+  height: 100vh;
   overflow: hidden;
   position: relative;
 }
@@ -102,6 +108,14 @@
   height: 54.6rem;
   margin: 16.4rem 0;
   position: relative;
+}
+
+.home_works_single_gallery {
+  @extend %cover;
+}
+
+.home_works_single_gallery_wrapper {
+  @extend %cover;
 }
 
 .home_works_single_thumbnail {
@@ -142,7 +156,6 @@
 .home_works_single_title {
   @extend %title-235;
 
-  color: $color-white;
   font-weight: bold;
   padding-top: 4.4rem;
   text-transform: uppercase;
@@ -157,7 +170,6 @@
   display: flex;
   align-items: center;
   width: 18.4rem;
-  color: $color-white;
   bottom: 10rem;
   right: 40rem;
   position: absolute;
@@ -166,7 +178,6 @@
 
 .home_works_single_link {
   text-decoration: none;
-  color: $color-white;
 }
 
 .home_works_single_line {

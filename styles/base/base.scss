@@ -1,10 +1,12 @@
 html {
   @extend %cover;
   font-size: calc(100vw/1512*10);
+  overflow: hidden;
 
   @include media('<phone') {
     font-size: calc(100vw/768*10);
   }
+
 }
 
 body {
@@ -14,46 +16,55 @@ body {
   font-size: 16px;
   font-weight: normal;
   background-color: $color-white;
+  overflow: hidden;
 }
 
-body.black {
-  color: $color-white;
-  background-color: $color-black;
-
-  svg {
-    path {
-      stroke: $color-white;
-    }
-  }
-
-  a {
-    color: $color-white;
-  }
-
-  .line_bottom, .line_top > * {
-    border-color: $color-white;
-  }
-}
 
 body.white {
   color: $color-black;
   background-color: $color-white;
+  transition: all 1s $ease-out-expo;
 
   svg {
     path {
+      transition: all 1s $ease-out-expo;
       stroke: $color-black;
     }
   }
 
   a {
+    transition: all 1s $ease-out-expo;
     color: $color-black;
   }
 
   .line_bottom, .line_top > * {
+    transition: all 1s $ease-out-expo;
     border-color: $color-black;
   }
 }
 
+body.black {
+  color: $color-white;
+  background-color: $color-black;
+  transition: all 1s $ease-out-expo;
+
+  svg {
+    path {
+      transition: all 1s $ease-out-expo;
+      stroke: $color-white;
+    }
+  }
+
+  a {
+    transition: all 1s $ease-out-expo;
+    color: $color-white;
+  }
+
+  .line_bottom, .line_top > * {
+    transition: all 1s $ease-out-expo;
+    border-color: $color-white;
+  }
+}
 
 .content {
   width: 100%;
@@ -160,6 +171,20 @@ svg {
 }
 
 [data-animation="title"] {
+  opacity: 0;
+  transform: scaleX(3.5);
+
+  span {
+    display: inline-block;
+    margin-right: 0.6rem;
+  }
+
+  span span {
+    @extend %animation;
+  }
+}
+
+[data-animation="miniTitle"] {
   opacity: 0;
   transform: scaleX(3.5);
 

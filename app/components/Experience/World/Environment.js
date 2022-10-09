@@ -21,14 +21,9 @@ export default class Environment {
 
   createDirectionalLight () {
     this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.42)
+    this.directionalLight.position.set(2, 2, -1)
     this.directionalLight.castShadow = true
     this.directionalLight.shadow.mapSize.set(1024, 1024)
-    this.directionalLight.shadow.camera.far = 15
-    this.directionalLight.shadow.camera.left = -7
-    this.directionalLight.shadow.camera.top = 7
-    this.directionalLight.shadow.camera.right = 7
-    this.directionalLight.shadow.camera.bottom = -7
-    this.directionalLight.position.set(100, 5, 64)
 
     this.scene.add(this.directionalLight)
 

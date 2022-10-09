@@ -144,7 +144,7 @@ export default class Preloader extends Component {
 
     this.animateOut.call(_ => {
       this.emit('completed')
-      document.documentElement.style.overflow = 'auto'
+      console.log("Hello fellow Developer. I hope you don't find many bugs here.")
     })
   }
 

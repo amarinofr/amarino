@@ -9,7 +9,8 @@ export default class Home extends Page {
       elements: {
         wrapper: '.home_wrapper',
         nav: '.nav',
-        vortexBig: '.home_works_title_icon'
+        vortexBig: '.home_works_title_icon',
+        works: '.home_works_wrapper'
       }
     })
 
@@ -19,12 +20,16 @@ export default class Home extends Page {
   runLottie () {
     setTimeout(() => {
       Lottie.loadAnimation({
-        container: this.elements.vortexBig, // the dom element that will contain the animation
+        container: this.elements.vortexBig,
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'data.json' // the path to the animation json
+        path: 'data.json'
       })
     }, 1)
+  }
+
+  changeBgColor () {
+
   }
 }

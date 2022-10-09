@@ -1,7 +1,7 @@
 /*!******************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/index.scss ***!
   \******************************************************************************************************************************************************/
-.intro_pieces, .intro_third_view, .intro_second_view, .intro_first_view, .intro_wrapper, .intro, .preloader_wrapper, .preloader, .home, body, html {
+.intro_pieces, .intro_third_view, .intro_second_view, .intro_first_view, .intro_wrapper, .intro, .preloader_wrapper, .preloader, .home_works_single_gallery_wrapper, .home_works_single_gallery, .home, body, html {
   height: 100%;
   left: 0;
   position: absolute;
@@ -27,7 +27,7 @@
   display: flex;
 }
 
-.preloader_small_text span span, .preloader_big_text span span, [data-animation=title] span span {
+.preloader_small_text span span, .preloader_big_text span span, [data-animation=miniTitle] span span, [data-animation=title] span span {
   transform: translateX(100%) skewX(-12deg) rotate(0.1deg);
   opacity: 0;
   visibility: hidden;
@@ -159,13 +159,13 @@ div, section {
   line-height: 100%;
 }
 
-.contact_button, .work_content_next_project_link, .work_content_featured_text, .home_works_title, h1.about_intro_text {
+.contact_button, .intro_ui, .work_content_next_project_link, .work_content_featured_text, .home_works_title, h1.about_intro_text {
   font-family: "VC Henrietta";
   font-size: 6.4rem;
   line-height: 100%;
 }
 
-.intro_ui, .work_content_suspects_problem_title, .work_content_suspects_solution_title {
+.work_content_suspects_problem_title, .work_content_suspects_solution_title {
   font-family: "VC Henrietta";
   font-size: 4.8rem;
   line-height: 100%;
@@ -177,7 +177,7 @@ div, section {
   line-height: 100%;
 }
 
-.intro_second_view_button, .preloader_bottom_left, .work_details_bottom_techincal_title, .work_details_live, .home_works_single_button, .about_process_slider_list_item .about_process_slider_title, .about_process_slider_list_item .about_process_slider_number, figcaption.about_intro_photo_caption {
+.intro_third_view_button, .intro_second_view_button, .preloader_bottom_left, .work_details_bottom_techincal_title, .work_details_live, .home_works_single_button, .about_process_slider_list_item .about_process_slider_title, .about_process_slider_list_item .about_process_slider_number, figcaption.about_intro_photo_caption {
   font-family: "VC Henrietta";
   font-size: 2.4rem;
   line-height: 100%;
@@ -215,6 +215,7 @@ figcaption.about_azores_photo_caption {
 
 html {
   font-size: 0.6613756614vw;
+  overflow: hidden;
 }
 @media (max-width: 767px) {
   html {
@@ -228,34 +229,43 @@ body {
   font-size: 16px;
   font-weight: normal;
   background-color: #F8F3E5;
-}
-
-body.black {
-  color: #F8F3E5;
-  background-color: #0C090D;
-}
-body.black svg path {
-  stroke: #F8F3E5;
-}
-body.black a {
-  color: #F8F3E5;
-}
-body.black .line_bottom, body.black .line_top > * {
-  border-color: #F8F3E5;
+  overflow: hidden;
 }
 
 body.white {
   color: #0C090D;
   background-color: #F8F3E5;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 body.white svg path {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
   stroke: #0C090D;
 }
 body.white a {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
   color: #0C090D;
 }
 body.white .line_bottom, body.white .line_top > * {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
   border-color: #0C090D;
+}
+
+body.black {
+  color: #F8F3E5;
+  background-color: #0C090D;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+body.black svg path {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  stroke: #F8F3E5;
+}
+body.black a {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  color: #F8F3E5;
+}
+body.black .line_bottom, body.black .line_top > * {
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  border-color: #F8F3E5;
 }
 
 .content {
@@ -354,6 +364,14 @@ svg {
   transform: scaleX(3.5);
 }
 [data-animation=title] span {
+  display: inline-block;
+  margin-right: 0.6rem;
+}
+[data-animation=miniTitle] {
+  opacity: 0;
+  transform: scaleX(3.5);
+}
+[data-animation=miniTitle] span {
   display: inline-block;
   margin-right: 0.6rem;
 }
@@ -560,8 +578,16 @@ figcaption.about_azores_photo_caption {
   align-items: flex-start;
 }
 
+.home_intro_title {
+  opacity: 0;
+  transform: scaleX(0.5);
+}
 .home_intro_title span {
   display: block;
+}
+.home_intro_title span span {
+  opacity: 0;
+  transform: translateX(100%) skewX(-12deg) rotate(0.1deg);
 }
 
 .home_intro_skills {
@@ -604,7 +630,6 @@ figcaption.about_azores_photo_caption {
 .home_works_list {
   width: 100%;
   margin-top: 32rem;
-  background-color: #0C090D;
   overflow: hidden;
 }
 
@@ -614,7 +639,7 @@ figcaption.about_azores_photo_caption {
 
 .home_works_single {
   width: 100vw;
-  height: 70.6rem;
+  height: 100vh;
   overflow: hidden;
   position: relative;
 }
@@ -657,7 +682,6 @@ figcaption.about_azores_photo_caption {
 }
 
 .home_works_single_title {
-  color: #F8F3E5;
   font-weight: bold;
   padding-top: 4.4rem;
   text-transform: uppercase;
@@ -670,7 +694,6 @@ figcaption.about_azores_photo_caption {
   display: flex;
   align-items: center;
   width: 18.4rem;
-  color: #F8F3E5;
   bottom: 10rem;
   right: 40rem;
   position: absolute;
@@ -679,7 +702,6 @@ figcaption.about_azores_photo_caption {
 
 .home_works_single_link {
   text-decoration: none;
-  color: #F8F3E5;
 }
 
 .home_works_single_line {
@@ -1059,7 +1081,7 @@ figcaption.about_azores_photo_caption {
 .intro {
   position: fixed;
   background-color: #F8F3E5;
-  z-index: 5;
+  z-index: 1;
 }
 
 .intro_first_view {
@@ -1072,8 +1094,22 @@ figcaption.about_azores_photo_caption {
   font-weight: bold;
   padding-top: 12rem;
 }
+.intro_ui span {
+  display: inline-block;
+  margin-left: 1rem;
+}
+.intro_ui span:first-of-type {
+  margin-left: 0;
+}
+.intro_ui span span {
+  opacity: 0;
+  transform: translateY(-45%) rotate(0.1deg);
+  transform-origin: bottom center;
+}
 
 .intro_second_view {
+  opacity: 0;
+  visibility: hidden;
   width: 70.2rem;
   padding-left: 14rem;
   flex-direction: column;
@@ -1096,8 +1132,12 @@ figcaption.about_azores_photo_caption {
 }
 
 .intro_third_view {
+  opacity: 0;
+  visibility: hidden;
   justify-content: flex-start;
-  background-color: #0C090D;
+}
+.intro_third_view p:last-of-type {
+  margin-top: 3.2rem;
 }
 
 .intro_third_view_wrapper {
@@ -1113,15 +1153,14 @@ figcaption.about_azores_photo_caption {
   font-weight: bold;
 }
 
-.intro_second_view_button {
+.intro_third_view_button {
   align-self: flex-start;
   margin-top: 7.4rem;
   display: flex;
   line-height: 110%;
   cursor: pointer;
 }
-
-.intro_third_view_button_icon {
+.intro_third_view_button .small_button_icon {
   margin-left: 1rem;
 }
 

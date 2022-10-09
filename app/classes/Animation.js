@@ -20,7 +20,7 @@ export default class Animation extends Component {
           this.animateOut()
         }
       })
-    })
+    }, { threshold: 0.1 })
 
     this.observer.observe(this.element)
   }

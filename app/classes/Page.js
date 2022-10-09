@@ -1,9 +1,11 @@
 import GSAP from 'gsap'
 import Prefix from 'prefix'
-import { each } from 'lodash'
+import { each, map } from 'lodash'
 import { splitText, splitWords } from 'utils/splitText'
 
 import Title from 'animations/Title'
+import MiniTitle from 'animations/MiniTitle'
+import ChangeBgColor from 'animations/ChangeBgColor'
 
 import AsyncLoad from 'classes/AsyncLoad'
 
@@ -13,6 +15,8 @@ export default class Page {
     this.selectorChildren = {
       ...elements,
       animationsTitles: '[data-animation="title"]',
+      animationsMiniTitles: '[data-animation="miniTitle"]',
+      animationsBg: '[data-animation="change-bg-color"]',
 
       asyncloaders: '[data-src]'
     }
@@ -46,10 +50,10 @@ export default class Page {
       limit: 0,
       smoothness: 8 /* The Higher the less smooth it is */
     }
+
     this.scroll.smoothness = this.scroll.smoothness / 100
 
     this.createAsyncLoad()
-    this.createAnimations()
   }
 
   createAnimations () {
@@ -60,23 +64,51 @@ export default class Page {
         element
       })
     })
+
+    this.animationsMiniTitles = each(this.elements.animationsMiniTitles, element => {
+      splitWords(element)
+
+      return new MiniTitle({
+        element
+      })
+    })
+
+    if (this.elements.animationsBg) {
+      if (this.elements.animationsBg.length >= 2) {
+        this.animationsBg = map(this.elements.animationsBg, element => {
+          return new ChangeBgColor({
+            element
+          })
+        })
+      } else {
+        this.animationsBg = [
+          new ChangeBgColor({
+            element: this.elements.animationsBg
+          })
+        ]
+      }
+    }
+
+    // this.animationsBg = each(this.elements.animationsBg, element => {
+    //   console.log(element)
+    //   return new ChangeBgColor({
+    //     element
+    //   })
+    // })
   }
 
   show () {
     return new Promise(resolve => {
       this.animationIn = GSAP.timeline()
 
-      this.animationIn.fromTo(this.element, {
-        autoAlpha: 0
-      }, {
-        autoAlpha: 1
-      })
+      this.animationIn.to(this.element, {
+        onComplete: _ => {
+          this.addEventListeners()
+          this.onResize()
+          this.createAnimations()
 
-      this.animationIn.call(_ => {
-        this.addEventListeners()
-        this.onResize()
-
-        resolve()
+          resolve()
+        }
       })
     })
   }

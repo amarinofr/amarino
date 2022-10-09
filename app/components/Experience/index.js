@@ -1,13 +1,14 @@
 import * as THREE from 'three'
 
-import Sizes from './utils/Sizes'
-import Debug from './utils/Debug'
+import Sizes from '../utils/Sizes'
+import Debug from '../utils/Debug'
 
 import Camera from './components/Camera'
 import Renderer from './components/Renderer'
 import World from './World'
-import Resources from './utils/Resources'
+import Resources from '../utils/Resources'
 import sources from './sources'
+import Intro from '../Intro'
 
 let instance = null
 
@@ -27,6 +28,7 @@ export default class Experience {
     this.camera = new Camera()
     this.renderer = new Renderer()
     this.world = new World()
+    this.intro = new Intro()
   }
 
   addEventListeners () {
