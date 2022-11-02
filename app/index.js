@@ -120,6 +120,24 @@ class App {
     }
   }
 
+  onTouchDown (event) {
+    if (this.gallery && this.gallery.onTouchDown) {
+      this.gallery.onTouchDown(event)
+    }
+  }
+
+  onTouchMove (event) {
+    if (this.gallery && this.gallery.onTouchMove) {
+      this.gallery.onTouchMove(event)
+    }
+  }
+
+  onTouchUp (event) {
+    if (this.gallery && this.gallery.onTouchUp) {
+      this.gallery.onTouchUp(event)
+    }
+  }
+
   update () {
     if (this.experience && this.experience.update) {
       this.experience.update()
@@ -130,7 +148,7 @@ class App {
     }
 
     if (this.gallery && this.gallery.update) {
-      this.gallery.update()
+      this.gallery.update(this.page.scroll)
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))
@@ -138,6 +156,14 @@ class App {
 
   addEventListeners () {
     window.addEventListener('resize', this.onResize.bind(this))
+
+    window.addEventListener('mousedown', this.onTouchDown.bind(this))
+    window.addEventListener('mousemove', this.onTouchMove.bind(this))
+    window.addEventListener('mouseup', this.onTouchUp.bind(this))
+
+    window.addEventListener('touchstart', this.onTouchDown.bind(this))
+    window.addEventListener('touchmove', this.onTouchMove.bind(this))
+    window.addEventListener('touchend', this.onTouchUp.bind(this))
 
     if (this.experience && this.experience.addEventListeners) {
       this.experience.addEventListeners()

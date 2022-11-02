@@ -493,6 +493,7 @@ class Page {
     }
 
     this.elements.wrapper.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`;
+    this.scroll.last = this.scroll.current;
   }
 
   addEventListeners() {
@@ -516,6 +517,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Gallery)
 /* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! . */ "./app/components/Canvas/index.js");
@@ -523,45 +526,164 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 class Gallery {
   constructor({
     element,
-    index
+    index,
+    scene,
+    camera,
+    renderer,
+    world,
+    sizes
   }) {
     this.experience = new ___WEBPACK_IMPORTED_MODULE_1__["default"]();
-    this.geometry = this.experience.geometry;
-    this.renderer = this.experience.renderer;
-    this.scene = this.experience.scene;
-    this.sizes = this.experience.sizes;
     this.element = element;
     this.index = index;
+    this.sizes = sizes;
+    this.scene = scene;
+    this.camera = camera;
+    this.renderer = renderer;
+    this.world = world;
+    this.wrapper = this.element.parentNode;
+    this.x = {
+      current: 0,
+      target: 0,
+      lerp: 0.1
+    };
+    this.scrollX = 0;
+    this.scroll = {
+      current: 0,
+      target: 0,
+      last: 0,
+      x: 0,
+      lerp: 0.05
+    };
+    this.createRenderer();
+    this.createSizes();
+    this.createCamera();
     this.createMedias();
+    this.onResize({
+      sizes: this.sizes
+    });
+    this.addEventListeners();
+  }
+
+  createRenderer() {
+    this.renderer = new three__WEBPACK_IMPORTED_MODULE_3__.WebGLRenderer({
+      canvas: this.element,
+      alpha: true
+    });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setClearColor(0x000000, 0);
+  }
+
+  createSizes() {
+    this.renderer.setSize(this.sizes.width, this.sizes.height);
+    this.pixelRatio = Math.min(window.devicePixelRatio, 2);
   }
 
   createMedias() {
-    this.mediasElements = this.element.querySelectorAll('.home_works_single_image');
+    this.mediasElements = this.wrapper.querySelectorAll('.home_works_single_image');
     this.bounds = this.element.getBoundingClientRect();
     this.width = this.bounds.width / window.innerWidth * this.sizes.width;
     this.medias = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.mediasElements, (element, index) => {
-      element.innerWidth = this.sizes.width;
-      element.innerHeight = this.sizes.height;
+      this.geometry = new three__WEBPACK_IMPORTED_MODULE_3__.PlaneGeometry(1, 1);
+      this.material = new three__WEBPACK_IMPORTED_MODULE_3__.MeshBasicMaterial({
+        color: '#ffffff',
+        side: three__WEBPACK_IMPORTED_MODULE_3__.DoubleSide
+      });
+      this.plane = new three__WEBPACK_IMPORTED_MODULE_3__.Mesh(this.geometry, this.material);
+      this.scene.add(this.plane);
       return new _Media__WEBPACK_IMPORTED_MODULE_2__["default"]({
         element,
-        index
+        geometry: this.plane,
+        index,
+        scene: this.scene,
+        sizes: this.sizes,
+        viewport: this.element
       });
     });
   }
 
+  createCamera() {
+    this.scene.add(this.camera.camera);
+  }
+
   onResize(event) {
+    this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.bounds = this.element.getBoundingClientRect();
+    const fov = this.camera.camera.fov * (Math.PI / 100);
+    const height = 2 * Math.tan(fov / 2) * this.camera.camera.position.z;
+    const width = height * this.camera.aspect;
+    this.viewport = {
+      width,
+      height
+    };
     this.width = this.bounds.width / window.innerWidth * this.sizes.width;
-    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.medias, media => {
-      media.onResize(event);
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.medias, media => media.onResize(event, this.viewport, this.scroll));
+  }
+
+  onTouchDown({
+    x,
+    y
+  }) {
+    this.scrollX = this.scroll.x;
+  }
+
+  onTouchMove({
+    x,
+    y
+  }) {
+    const distance = (x.start - x.end) * 0.3;
+    this.x.target = this.scrollX - distance;
+    this.scroll.target = this.scroll.current - distance;
+  }
+
+  onTouchUp({
+    x,
+    y
+  }) {}
+
+  galleryScroll(event) {}
+
+  update(scroll) {
+    this.renderer.render(this.scene, this.camera.camera);
+    this.x.current = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].utils.interpolate(this.x.current, this.x.target, this.x.lerp);
+    this.scroll.x = this.x.current;
+    if (!this.bounds) return;
+
+    if (this.scroll.current < this.scroll.target) {
+      this.direction = 'right';
+    } else if (this.scroll.current > this.scroll.target) {
+      this.direction = 'left';
+    }
+
+    this.scroll.current = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp);
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.medias, (media, index) => {
+      const scaleX = media.geometry.position.x / 2;
+
+      if (this.direction === 'left') {
+        const x = media.geometry.position.x + scaleX;
+
+        if (x < -this.sizes.width / 2) {
+          media.extra += this.width;
+        }
+      } else if (this.direction === 'right') {
+        const x = media.geometry.position.x - scaleX;
+
+        if (x > this.sizes.width / 2) {
+          media.extra -= this.width;
+        }
+      }
+
+      media.update(this.scroll);
     });
   }
 
-  update() {
-    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.medias, (media, index) => {});
+  addEventListeners() {
+    window.addEventListener('scroll', this.galleryScroll.bind(this));
   }
 
   destroy() {}
@@ -581,25 +703,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Media)
 /* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! . */ "./app/components/Canvas/index.js");
+
 
 class Media {
   constructor({
     element,
-    index
+    index,
+    geometry,
+    scene,
+    renderer,
+    world,
+    sizes,
+    viewport,
+    width
   }) {
     this.experience = new ___WEBPACK_IMPORTED_MODULE_0__["default"]();
-    this.geometry = this.experience.geometry;
-    this.renderer = this.experience.renderer;
-    this.scene = this.experience.scene;
-    this.sizes = this.experience.sizes;
     this.element = element;
     this.index = index;
+    this.figure = this.element.parentElement;
+    this.geometry = geometry;
+    this.renderer = renderer;
+    this.scene = scene;
+    this.sizes = sizes;
+    this.viewport = viewport.getBoundingClientRect();
+    this.world = world;
+    this.extra = 0;
+    this.createTexture();
   }
 
-  onResize() {}
+  createTexture() {
+    this.image = new window.Image();
+    this.image.crossOrigin = 'anonymous';
+    this.image.src = this.element.getAttribute('data-src');
+    this.texture = new three__WEBPACK_IMPORTED_MODULE_1__.TextureLoader().load(this.image.src);
+    this.geometry.material.map = this.texture;
+  }
 
-  update() {}
+  createBounds(viewport) {
+    this.parent = this.figure.parentElement.getBoundingClientRect();
+    this.bounds = this.figure.getBoundingClientRect();
+    this.updateScale(viewport);
+    this.updateX();
+  }
+
+  updateScale({
+    height,
+    width
+  }) {
+    this.width = this.bounds.width / this.viewport.width;
+    this.height = this.bounds.height / this.viewport.height;
+    this.scale = {
+      width,
+      height
+    };
+    this.geometry.scale.x = width * this.width * 0.5;
+    this.geometry.scale.y = height * this.height * 0.5;
+    this.y = (this.bounds.top - this.parent.top) / this.viewport.height + 0.5;
+    console.log(this.y);
+    this.geometry.position.y = height / 2 - this.geometry.scale.y / 2 - this.y * height;
+  }
+
+  updateX(x = 0) {
+    this.x = (this.bounds.left + x) / window.innerWidth;
+    this.geometry.position.x = -this.scale.width / 2 + this.geometry.scale.x / 2 + this.x * this.scale.width + this.extra; // console.log(this.geometry.position.x)
+    // this.distance = -(this.bounds.left + current) / window.innerWidth
+    // const distance = (current - target) * 0.00001
+    // this.geometry.position.x = this.currentPos + this.distance
+    // this.geometry.position.x -= target * 0.00005
+    // this.geometry.position.x += distance
+  }
+
+  onResize(event, viewport, scroll) {
+    this.createBounds(viewport);
+  }
+
+  update(scroll) {
+    this.updateX(scroll.current);
+  }
 
 }
 
@@ -622,10 +804,10 @@ __webpack_require__.r(__webpack_exports__);
 
 class World {
   constructor() {
-    this.experience = new ___WEBPACK_IMPORTED_MODULE_0__["default"]();
-    this.scene = this.experience.scene;
-    this.resources = this.experience.resources;
-    this.camera = this.experience.camera;
+    this.experience = new ___WEBPACK_IMPORTED_MODULE_0__["default"](); // this.scene = this.experience.scene
+    // this.resources = this.experience.resources
+    // this.camera = this.experience.camera
+
     this.createPlane();
   }
 
@@ -635,9 +817,7 @@ class World {
       color: '#ffffff',
       side: three__WEBPACK_IMPORTED_MODULE_1__.DoubleSide
     });
-    this.plane = new three__WEBPACK_IMPORTED_MODULE_1__.Mesh(this.geometry, this.material);
-    this.scene.add(this.plane);
-    console.log(this.scene);
+    this.plane = new three__WEBPACK_IMPORTED_MODULE_1__.Mesh(this.geometry, this.material); // this.scene.add(this.plane)
   }
 
   update() {}
@@ -665,18 +845,14 @@ class Camera {
   constructor() {
     this.experience = new ___WEBPACK_IMPORTED_MODULE_0__["default"]();
     this.sizes = this.experience.sizes;
-    this.scene = this.experience.scene;
-    this.canvas = this.experience.canvas;
-    this.world = this.experience.world;
-    this.object = this.scene.children;
     this.createCamera();
+    this.onResize();
   }
 
   createCamera() {
     this.aspect = this.sizes.width / this.sizes.height;
     this.camera = new three__WEBPACK_IMPORTED_MODULE_1__.PerspectiveCamera(50, this.aspect, 0.1, 100);
-    this.camera.position.set(0, 0, 5);
-    this.scene.add(this.camera);
+    this.camera.position.set(0, 0, 3);
   }
 
   addEventListeners() {}
@@ -703,7 +879,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Renderer)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 /* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! .. */ "./app/components/Canvas/index.js");
 
 
@@ -711,27 +886,22 @@ class Renderer {
   constructor() {
     this.experience = new ___WEBPACK_IMPORTED_MODULE_0__["default"]();
     this.canvas = this.experience.canvas;
-    this.sizes = this.experience.sizes;
-    this.scene = this.experience.scene;
-    this.camera = this.experience.camera.camera;
+    this.sizes = this.experience.sizes; // this.scene = this.experience.scene
+    // this.camera = this.experience.camera.camera
+
     this.createRenderer();
   }
 
-  createRenderer() {
-    this.renderer = new three__WEBPACK_IMPORTED_MODULE_1__.WebGLRenderer({
-      canvas: this.canvas
-    });
-    this.renderer.setSize(this.sizes.width, this.sizes.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  createRenderer() {// this.renderer = new WebGLRenderer()
+    // this.renderer.setSize(this.sizes.width, this.sizes.height)
+    // this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
-  onResize() {
-    this.renderer.setSize(this.sizes.width, this.sizes.height);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  onResize() {// this.renderer.setSize(this.sizes.width, this.sizes.height)
+    // this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   }
 
-  update() {
-    this.renderer.render(this.scene, this.camera);
+  update() {// this.renderer.render(this.scene, this.camera)
   }
 
 }
@@ -780,17 +950,12 @@ class Canvas {
     this.canvas = document.querySelector('.home_works_single_gallery_wrapper');
     this.sizes = new _utils_SizesCanvas__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.debug = new _utils_Debug__WEBPACK_IMPORTED_MODULE_2__["default"]();
-    this.scene = new three__WEBPACK_IMPORTED_MODULE_8__.Scene();
-    this.camera = new _components_Camera__WEBPACK_IMPORTED_MODULE_3__["default"]();
-    this.renderer = new _components_Renderer__WEBPACK_IMPORTED_MODULE_4__["default"]();
-    this.world = new _World__WEBPACK_IMPORTED_MODULE_5__["default"]();
-    this.geometry = this.world.geometry;
-    console.log(this.canvas);
     this.onRouteUpdate(this.template);
-  }
-
-  addEventListeners() {
-    this.camera.addEventListeners();
+    this.x = {
+      start: 0,
+      distance: 0,
+      end: 0
+    };
   }
 
   createGalleries() {
@@ -798,17 +963,59 @@ class Canvas {
     this.galleries = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleriesElements, (element, index) => {
       return new _Gallery__WEBPACK_IMPORTED_MODULE_6__["default"]({
         element,
-        index
+        index,
+        sizes: this.sizes,
+        scene: new three__WEBPACK_IMPORTED_MODULE_8__.Scene(),
+        camera: new _components_Camera__WEBPACK_IMPORTED_MODULE_3__["default"](),
+        renderer: new _components_Renderer__WEBPACK_IMPORTED_MODULE_4__["default"](),
+        world: new _World__WEBPACK_IMPORTED_MODULE_5__["default"](),
+        galleriesElements: this.galleriesElements
       });
     });
   }
 
   onResize(event) {
-    this.camera.onResize();
-    this.renderer.onResize();
     (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => {
       gallery.onResize(event);
+      gallery.camera.onResize();
     });
+  }
+
+  onTouchDown(e) {
+    this.isDown = true;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    this.x.start = x;
+    const values = {
+      x: this.x
+    };
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => gallery.onTouchDown(values));
+  }
+
+  onTouchMove(e) {
+    if (!this.isDown) return;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    this.x.end = x;
+    this.x.distance = this.x.start - this.x.end;
+    const values = {
+      x: this.x
+    };
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => gallery.onTouchMove(values));
+  }
+
+  onTouchUp(e) {
+    this.isDown = false;
+    const x = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    this.x.end = x;
+    const values = {
+      x: this.x
+    };
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => gallery.onTouchUp(values));
+  }
+
+  onWheel({
+    pixelY
+  }) {
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => gallery.onWheel(pixelY));
   }
 
   destroyHome() {
@@ -820,15 +1027,22 @@ class Canvas {
       this.createGalleries();
     } else {
       this.destroyHome();
+      this.home = null;
     }
   }
 
-  update() {
-    this.camera.update();
-    this.world.update();
-    this.renderer.update();
+  addEventListeners(event) {
     (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => {
-      gallery.update();
+      gallery.camera.addEventListeners();
+      gallery.galleries.addEventListeners(event);
+    });
+  }
+
+  update(scroll) {
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => {
+      gallery.update(scroll);
+      gallery.camera.update();
+      gallery.world.update(); // gallery.renderer.update()
     });
   }
 
@@ -2110,6 +2324,24 @@ class App {
     }
   }
 
+  onTouchDown(event) {
+    if (this.gallery && this.gallery.onTouchDown) {
+      this.gallery.onTouchDown(event);
+    }
+  }
+
+  onTouchMove(event) {
+    if (this.gallery && this.gallery.onTouchMove) {
+      this.gallery.onTouchMove(event);
+    }
+  }
+
+  onTouchUp(event) {
+    if (this.gallery && this.gallery.onTouchUp) {
+      this.gallery.onTouchUp(event);
+    }
+  }
+
   update() {
     if (this.experience && this.experience.update) {
       this.experience.update();
@@ -2120,7 +2352,7 @@ class App {
     }
 
     if (this.gallery && this.gallery.update) {
-      this.gallery.update();
+      this.gallery.update(this.page.scroll);
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this));
@@ -2128,6 +2360,12 @@ class App {
 
   addEventListeners() {
     window.addEventListener('resize', this.onResize.bind(this));
+    window.addEventListener('mousedown', this.onTouchDown.bind(this));
+    window.addEventListener('mousemove', this.onTouchMove.bind(this));
+    window.addEventListener('mouseup', this.onTouchUp.bind(this));
+    window.addEventListener('touchstart', this.onTouchDown.bind(this));
+    window.addEventListener('touchmove', this.onTouchMove.bind(this));
+    window.addEventListener('touchend', this.onTouchUp.bind(this));
 
     if (this.experience && this.experience.addEventListeners) {
       this.experience.addEventListeners();
@@ -33053,7 +33291,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1665134645183
+      // 1667347931067
       var cssReload = __webpack_require__(/*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {"publicPath":"","locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -39714,7 +39952,7 @@ function toTrianglesDrawMode(geometry, drawMode) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("2649c470b62b6ba01fa2")
+/******/ 		__webpack_require__.h = () => ("bd6cc7f9b3f0e85d73de")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

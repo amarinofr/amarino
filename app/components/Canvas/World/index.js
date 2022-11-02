@@ -5,9 +5,9 @@ import Canvas from '..'
 export default class World {
   constructor () {
     this.experience = new Canvas()
-    this.scene = this.experience.scene
-    this.resources = this.experience.resources
-    this.camera = this.experience.camera
+    // this.scene = this.experience.scene
+    // this.resources = this.experience.resources
+    // this.camera = this.experience.camera
 
     this.createPlane()
   }
@@ -17,8 +17,7 @@ export default class World {
     this.material = new THREE.MeshBasicMaterial({ color: '#ffffff', side: THREE.DoubleSide })
     this.plane = new THREE.Mesh(this.geometry, this.material)
 
-    this.scene.add(this.plane)
-    console.log(this.scene)
+    // this.scene.add(this.plane)
   }
 
   update () {

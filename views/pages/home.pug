@@ -25,15 +25,23 @@ block content
               each work in projects
                 .home_works_single
                   .home_works_single_wrapper
-                    .home_works_single_details
-                      .home_works_single_skills=work.data.skills
-                    h2.home_works_single_title=work.data.title
+                    .home_works_single_details_wrapper
+                      .home_works_single_details
+                        .home_works_single_skills=work.data.skills
+                      h2.home_works_single_title=work.data.title
                     .home_works_single_gallery
+                      figure.home_works_single_thumbnail.home_works_single_thumb
+                        img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                      figure.home_works_single_thumbnail_two.home_works_single_thumb
+                        img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                      figure.home_works_single_thumbnail_three.home_works_single_thumb
+                        img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                      figure.home_works_single_thumbnail_four.home_works_single_thumb
+                        img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+                      figure.home_works_single_thumbnail_five.home_works_single_thumb
+                        img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
                       canvas.home_works_single_gallery_wrapper
-                        figure.home_works_single_thumbnail.home_works_single_thumb
-                          img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
-                        figure.home_works_single_thumbnail_two.home_works_single_thumb
-                          img.home_works_single_image(data-src=work.data.featured_image.url alt=work.data.featured_image.alt)
+
                   .home_works_single_button
                     a.home_works_single_link(a href=`/work/${work.uid}`) View more
                     .home_works_small_button_icon

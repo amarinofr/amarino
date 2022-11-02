@@ -7,21 +7,16 @@ export default class Camera {
     this.experience = new Canvas()
 
     this.sizes = this.experience.sizes
-    this.scene = this.experience.scene
-    this.canvas = this.experience.canvas
-    this.world = this.experience.world
-
-    this.object = this.scene.children
 
     this.createCamera()
+    this.onResize()
   }
 
   createCamera () {
     this.aspect = this.sizes.width / this.sizes.height
 
     this.camera = new THREE.PerspectiveCamera(50, this.aspect, 0.1, 100)
-    this.camera.position.set(0, 0, 5)
-    this.scene.add(this.camera)
+    this.camera.position.set(0, 0, 3)
   }
 
   addEventListeners () {

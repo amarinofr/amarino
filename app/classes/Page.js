@@ -150,6 +150,8 @@ export default class Page {
     }
 
     this.elements.wrapper.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`
+
+    this.scroll.last = this.scroll.current
   }
 
   addEventListeners () {

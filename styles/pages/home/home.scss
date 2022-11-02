@@ -10,6 +10,8 @@
 .home_intro {
   @extend %padding;
 
+  display: none;
+
   width: 100%;
   padding-top: 11.4rem;
 }
@@ -99,31 +101,36 @@
 
 .home_works_single {
   width: 100vw;
-  height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
 .home_works_single_wrapper {
-  height: 54.6rem;
+  @extend %center;
+
+  height: 94rem;
   margin: 16.4rem 0;
   position: relative;
 }
 
 .home_works_single_gallery {
-  @extend %cover;
+  // @extend %cover;
 }
 
 .home_works_single_gallery_wrapper {
   @extend %cover;
 }
 
+.home_works_single_thumb {
+  opacity: 0;
+}
+
 .home_works_single_thumbnail {
   position: absolute;
   width: 35.3rem;
   height: 42.5rem;
-  top: -10rem;
-  left: 0;
+  top: 25rem;
+  left: -30rem;
   z-index: z('bring-front');
 }
 
@@ -131,13 +138,38 @@
   position: absolute;
   width: 35.3rem;
   height: 42.5rem;
-  top: 10rem;
-  right: 0;
+  bottom: 15rem;
+  left: 40rem;
+}
+
+.home_works_single_thumbnail_three {
+  position: absolute;
+  width: 30.3rem;
+  height: 42.5rem;;
+  bottom: 5rem;
+  left: 80rem;
+}
+
+.home_works_single_thumbnail_four {
+  position: absolute;
+  width: 30.3rem;
+  height: 42.5rem;;
+  top: 20rem;
+  left: 130rem;
+}
+
+.home_works_single_thumbnail_five {
+  position: absolute;
+  width: 30.3rem;
+  height: 42.5rem;;
+  bottom: 15rem;
+  left: 190rem;
 }
 
 .home_works_single_image {
   @extend %contain;
   @extend %fill;
+
   border-radius: 4.4rem;
 }
 
@@ -170,7 +202,7 @@
   display: flex;
   align-items: center;
   width: 18.4rem;
-  bottom: 10rem;
+  bottom: 51rem;
   right: 40rem;
   position: absolute;
   z-index: z('bring-front');

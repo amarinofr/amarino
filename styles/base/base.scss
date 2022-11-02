@@ -3,6 +3,8 @@ html {
   font-size: calc(100vw/1512*10);
   overflow: hidden;
 
+  user-select: none;
+
   @include media('<phone') {
     font-size: calc(100vw/768*10);
   }

@@ -1,7 +1,7 @@
 /*!******************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/index.scss ***!
   \******************************************************************************************************************************************************/
-.intro_pieces, .intro_third_view, .intro_second_view, .intro_first_view, .intro_wrapper, .intro, .preloader_wrapper, .preloader, .home_works_single_gallery_wrapper, .home_works_single_gallery, .home, body, html {
+.intro_pieces, .intro_third_view, .intro_second_view, .intro_first_view, .intro_wrapper, .intro, .preloader_wrapper, .preloader, .home_works_single_gallery_wrapper, .home, body, html {
   height: 100%;
   left: 0;
   position: absolute;
@@ -21,7 +21,7 @@
   object-fit: cover;
 }
 
-.contact, .intro_third_view, .intro_second_view, .work_content_next_project_button, .work_content_next_project, .work_content_screenshots_list, .work_content_screenshots_icon, .work_content_ui_icon, .work_content_ui, .work_content_featured_images, .work_content_suspects_problem, .work_content_suspects_solution, .work_content_suspects, .work_intro_wrapper, .home_works_list, .home_intro_wrapper, .about_process_title, .about_process_description, .about_azores_photos_wrapper {
+.contact, .intro_third_view, .intro_second_view, .work_content_next_project_button, .work_content_next_project, .work_content_screenshots_list, .work_content_screenshots_icon, .work_content_ui_icon, .work_content_ui, .work_content_featured_images, .work_content_suspects_problem, .work_content_suspects_solution, .work_content_suspects, .work_intro_wrapper, .home_works_single_wrapper, .home_works_list, .home_intro_wrapper, .about_process_title, .about_process_description, .about_azores_photos_wrapper {
   align-items: center;
   justify-content: center;
   display: flex;
@@ -216,6 +216,7 @@ figcaption.about_azores_photo_caption {
 html {
   font-size: 0.6613756614vw;
   overflow: hidden;
+  user-select: none;
 }
 @media (max-width: 767px) {
   html {
@@ -569,6 +570,7 @@ figcaption.about_azores_photo_caption {
 }
 
 .home_intro {
+  display: none;
   width: 100%;
   padding-top: 11.4rem;
 }
@@ -639,23 +641,26 @@ figcaption.about_azores_photo_caption {
 
 .home_works_single {
   width: 100vw;
-  height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
 .home_works_single_wrapper {
-  height: 54.6rem;
+  height: 94rem;
   margin: 16.4rem 0;
   position: relative;
+}
+
+.home_works_single_thumb {
+  opacity: 0;
 }
 
 .home_works_single_thumbnail {
   position: absolute;
   width: 35.3rem;
   height: 42.5rem;
-  top: -10rem;
-  left: 0;
+  top: 25rem;
+  left: -30rem;
   z-index: 5;
 }
 
@@ -663,8 +668,32 @@ figcaption.about_azores_photo_caption {
   position: absolute;
   width: 35.3rem;
   height: 42.5rem;
-  top: 10rem;
-  right: 0;
+  bottom: 15rem;
+  left: 40rem;
+}
+
+.home_works_single_thumbnail_three {
+  position: absolute;
+  width: 30.3rem;
+  height: 42.5rem;
+  bottom: 5rem;
+  left: 80rem;
+}
+
+.home_works_single_thumbnail_four {
+  position: absolute;
+  width: 30.3rem;
+  height: 42.5rem;
+  top: 20rem;
+  left: 130rem;
+}
+
+.home_works_single_thumbnail_five {
+  position: absolute;
+  width: 30.3rem;
+  height: 42.5rem;
+  bottom: 15rem;
+  left: 190rem;
 }
 
 .home_works_single_image {
@@ -694,7 +723,7 @@ figcaption.about_azores_photo_caption {
   display: flex;
   align-items: center;
   width: 18.4rem;
-  bottom: 10rem;
+  bottom: 51rem;
   right: 40rem;
   position: absolute;
   z-index: 5;
