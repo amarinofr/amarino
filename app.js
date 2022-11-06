@@ -46,6 +46,9 @@ app.get('/', async (req, res) => {
       'works.data.project_number',
       'works.data.skills',
       'works.data.featured_image',
+      'works.data.featured_image_2',
+      'works.data.featured_image_3',
+      'works.data.featured_image_4',
       'works.uid',
       'works.href'
     ]
@@ -56,15 +59,24 @@ app.get('/', async (req, res) => {
 
 app.get('/about', async (req, res) => {
   const about = await client.getSingle('about')
+  const intro = await client.getSingle('intro')
 
-  res.render('pages/about', { about })
+  res.render('pages/about', { about, intro })
 })
 
 app.get('/work/:uid', async (req, res) => {
   const single = await client.getByUID('works', req.params.uid)
+  const intro = await client.getSingle('intro')
+  const projects = await client.getAllByType('works', {
+    fetchLinks: [
+      'works.data.title',
+      'works.uid',
+      'works.href'
+    ]
+  })
 
   res.render('pages/work', {
-    single
+    single, intro, projects
   })
 })
 

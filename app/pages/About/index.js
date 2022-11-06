@@ -1,7 +1,7 @@
 import Page from 'classes/Page'
 
 export default class About extends Page {
-  constructor () {
+  constructor ({ template }) {
     super({
       id: 'about',
 
@@ -11,5 +11,7 @@ export default class About extends Page {
         nav: '.nav'
       }
     })
+
+    this.template = template
   }
 }

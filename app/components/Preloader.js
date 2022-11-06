@@ -28,6 +28,8 @@ export default class Preloader extends Component {
     this.preloaderLeft = this.elements.preloaderBottom.querySelector('.preloader_bottom_left')
     this.preloaderRight = this.elements.preloaderBottom.querySelector('.preloader_bottom_right')
 
+    console.log(this.lineBottom)
+
     this.body = document.body
 
     this.length = 0

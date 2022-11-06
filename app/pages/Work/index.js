@@ -1,15 +1,17 @@
 import Page from 'classes/Page'
 
 export default class Work extends Page {
-  constructor () {
+  constructor ({ template }) {
     super({
       id: 'work',
-
       element: '.work',
       elements: {
         wrapper: '.work_wrapper',
-        nav: '.nav'
+        nav: '.nav',
+        featured_text: '.work_content_featured_text'
       }
     })
+
+    this.template = template
   }
 }

@@ -36,6 +36,6 @@ export default class Intro extends Component {
   }
 
   destroy () {
-    this.element.parentNode.removeChild(this.element)
+    this.element.remove()
   }
 }

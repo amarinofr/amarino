@@ -25,8 +25,25 @@
 
 h1.about_intro_text {
   @extend %title-64;
+  opacity: 0;
 
   z-index: z('navigation');
+
+  span {
+    display: inline-block;
+    margin: 0 0.4rem;
+
+    span {
+      opacity: 0;
+    }
+
+    &:last-of-type {
+      span {
+        color: $color-red;
+        font-weight: 700;
+      }
+    }
+  }
 
   strong {
     color: $color-red;
@@ -101,7 +118,7 @@ figcaption.about_intro_photo_caption {
 
 .about_azores {
   width: 100%;
-  margin-top: 24rem;
+  margin-top: 64rem;
 }
 
 .about_azores_wrapper {
@@ -193,7 +210,16 @@ figcaption.about_azores_photo_caption {
   font-weight: 500;
   display: block;
   position: relative;
-  padding: 14.8rem 0;
+  padding: 24rem 0;
+
+  span {
+    display: inline-block;
+    margin: 0 0.8rem;
+
+    span {
+      opacity: 0;
+    }
+  }
 
   p {
     &:nth-child(2) {

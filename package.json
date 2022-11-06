@@ -1,7 +1,7 @@
 {
   "name": "myproject",
   "version": "1.0.0",
-  "description": "My Project's website",
+  "description": "Amarino França's Portfolio",
   "scripts": {
     "backend:build": "node app.js",
     "backend:development": "nodemon app.js",

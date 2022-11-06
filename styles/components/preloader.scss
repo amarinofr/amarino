@@ -9,8 +9,9 @@
 
 .preloader_wrapper {
   @extend %cover;
+  @extend %padding;
 
-  padding: 16.8rem 14.4rem 0 14.4rem;
+  padding-top: 16.8rem;
   position: relative;
 }
 
@@ -31,10 +32,20 @@
   span span {
     @extend %animation;
   }
+
+  @include media('<phone') {
+    text-align: center;
+    margin-top: 10rem;
+
+    span {
+      margin-right: -0.2rem;
+    }
+  }
 }
 
 .preloader_small_text {
   @extend %title-82;
+
 
   color: $color-black;
   transform: scaleX(3.5);
@@ -43,15 +54,25 @@
   span span {
     @extend %animation;
   }
+
+  @include media('<phone') {
+    text-align: center;
+    margin-top: 1.2rem;
+  }
 }
 
 .preloader_bottom {
+  @extend %padding;
+
   width: 100%;
-  padding: 0 14.4rem;
   position: absolute;
   left: 0;
   bottom: 4rem;
   color: $color-black;
+
+  @include media('<phone') {
+    text-align: center;
+  }
 }
 
 .preloader_bottom_left {
@@ -61,6 +82,10 @@
   opacity: 0;
   float: left;
   margin-top: 3rem;
+
+  @include media('<phone') {
+    float: unset;
+  }
 }
 
 .preloader_bottom_right {
@@ -70,6 +95,10 @@
   opacity: 0;
   float: right;
   margin-top: 3rem;
+
+  @include media('<phone') {
+    float: unset;
+  }
 }
 
 .preloader_bottom_number {

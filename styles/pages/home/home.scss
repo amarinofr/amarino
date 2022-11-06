@@ -3,17 +3,25 @@
 }
 
 .home_wrapper {
+
+  width: 100%;
   position: fixed;
   will-change: transform;
+
+  @include media('<phone') {
+    width: 100%;
+  }
 }
 
 .home_intro {
   @extend %padding;
 
-  display: none;
-
   width: 100%;
   padding-top: 11.4rem;
+
+  @include media('<phone') {
+    position: relative;
+  }
 }
 
 .home_intro_wrapper {
@@ -21,6 +29,10 @@
 
   flex-direction: column;
   align-items: flex-start;
+
+  @include media('<phone') {
+
+  }
 }
 
 .home_intro_title {
@@ -36,6 +48,10 @@
       transform: translateX(100%) skewX(-12deg) rotate(0.1deg)
     }
   }
+
+  @include media('<phone') {
+    margin-top: 4.8rem;
+  }
 }
 
 .home_intro_skills {
@@ -47,12 +63,17 @@
   font-family: $font-ibm;
   font-weight: bold;
   margin-bottom: 8rem;
+  flex-wrap: wrap;
+
+  @include media('<phone') {
+    margin-top: 6.4rem;
+  }
 }
 
 .home_works {
   width: 100%;
   overflow: hidden;
-  margin-top: 32rem;
+  margin-top: 8rem;
 }
 
 .home_works_wrapper {
@@ -63,6 +84,10 @@
   @extend %padding;
 
   width: 100%;
+
+  @include media('<phone') {
+    margin-top: 4.8rem;
+  }
 }
 
 .home_works_title_icon {
@@ -70,10 +95,19 @@
   height: 12.5rem;
   position: relative;
 
+  @include media('<phone') {
+    height: 6.5rem;
+  }
+
   svg {
     width: 100%;
     height: 100%;
     position: relative;
+
+    @include media('<phone') {
+      width: 50% !important;
+      height: auto !important;
+    }
 
     circle {
       position: absolute;
@@ -93,6 +127,10 @@
   width: 100%;
   margin-top: 32rem;
   overflow: hidden;
+
+  @include media('<phone') {
+    margin-top: 0;
+  }
 }
 
 .home_works_list_wrapper {
@@ -108,9 +146,14 @@
 .home_works_single_wrapper {
   @extend %center;
 
-  height: 94rem;
+  width: 100%;
+  min-height: 94vh;
   margin: 16.4rem 0;
   position: relative;
+
+  @include media('<phone') {
+    margin: unset;
+  }
 }
 
 .home_works_single_gallery {
@@ -119,50 +162,51 @@
 
 .home_works_single_gallery_wrapper {
   @extend %cover;
+
+  @include media('<phone') {
+    z-index: z('content');
+  }
 }
 
 .home_works_single_thumb {
   opacity: 0;
+  width: 35.3rem;
+  height: 42.5rem;
+
+  @include media('<phone') {
+    width: 19.2rem;
+    height: 27.3rem;
+  }
 }
 
 .home_works_single_thumbnail {
   position: absolute;
-  width: 35.3rem;
-  height: 42.5rem;
-  top: 25rem;
-  left: -30rem;
+  top: 30rem;
+  left: 0;
   z-index: z('bring-front');
 }
 
 .home_works_single_thumbnail_two {
   position: absolute;
-  width: 35.3rem;
-  height: 42.5rem;
   bottom: 15rem;
   left: 40rem;
 }
 
 .home_works_single_thumbnail_three {
   position: absolute;
-  width: 30.3rem;
-  height: 42.5rem;;
   bottom: 5rem;
   left: 80rem;
 }
 
 .home_works_single_thumbnail_four {
   position: absolute;
-  width: 30.3rem;
-  height: 42.5rem;;
-  top: 20rem;
+  top: 35rem;
   left: 130rem;
 }
 
 .home_works_single_thumbnail_five {
   position: absolute;
-  width: 30.3rem;
-  height: 42.5rem;;
-  bottom: 15rem;
+  bottom: 5rem;
   left: 190rem;
 }
 
@@ -173,9 +217,24 @@
   border-radius: 4.4rem;
 }
 
+.home_works_single_details_wrapper {
+  @include media('<phone') {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .home_works_single_details {
   margin-left: 45.2rem;
-  margin-top: 18.3rem,
+
+  @include media('<phone') {
+    margin-left: unset;
+    z-index: z('bring-front');
+  }
 }
 
 .home_works_single_skills {
@@ -186,7 +245,7 @@
 }
 
 .home_works_single_title {
-  @extend %title-235;
+  @extend %title-115;
 
   font-weight: bold;
   padding-top: 4.4rem;
@@ -194,6 +253,10 @@
   text-align: center;
   z-index: z('bring-front');
   position: relative;
+
+  @include media('<phone') {
+    padding-top: 2rem;
+  }
 }
 
 .home_works_single_button {
@@ -202,14 +265,24 @@
   display: flex;
   align-items: center;
   width: 18.4rem;
-  bottom: 51rem;
-  right: 40rem;
+  padding-left: 1.2rem;
   position: absolute;
   z-index: z('bring-front');
+
+  @include media('<phone') {
+    position: relative;
+    margin-top: 2.4rem;
+  }
+}
+
+.home_works_small_button_icon {
+  margin-left: 0.8rem;
+  margin-top: 0.7rem;
 }
 
 .home_works_single_link {
   text-decoration: none;
+
 }
 
 .home_works_single_line {

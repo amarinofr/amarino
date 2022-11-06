@@ -3,13 +3,20 @@ extends ../base.pug
 block variables
   - var template = 'work'
 
+
 block content
+  .works_list
+    .works_list_title All works
+    each work in projects
+      .works_list_item
+        a.work_list_item_link(href=`/work/${work.uid}`)
+          .works_list_item_title=work.data.title
   .work
     .work_wrapper
       .work_intro
         .work_intro_wrapper
-          h2.work_intro_title=single.data.title
-          .work_intro_skills=single.data.skills
+          h2.work_intro_title(data-animation="title")=single.data.title
+          .work_intro_skills(data-animation="title")=single.data.skills
           .line_bottom
             .line_thick
             .line_thin
@@ -27,7 +34,7 @@ block content
                     circle(cx="47.3166" cy="24" r="23.5")
                     circle(cx="54.8956" cy="24" r="23.5")
                     circle(cx="63.7377" cy="24" r="23.5")
-                span Project Description
+                span(data-animation="title" data-delay="0.35") Project Description
               .work_details_text!=ctx.prismicH.asHTML(single.data.description)
             .work_details_bottom
               .work_details_live
@@ -44,7 +51,7 @@ block content
         .work_content
           .work_content_wrapper
             .work_content_solution
-              h2.work_content_solution_title The Usual Suspects
+              h2.work_content_solution_title(data-animation="title") The Usual Suspects
               .work_content_suspects
                 .work_content_suspects_problem
                   .work_content_suspects_problem_title_wrapper
@@ -61,7 +68,7 @@ block content
                 .work_content_featured_images
                   each image in single.data.auxiliar_images
                     figure.work_content_featured_images_photo
-                      img.work_content_featured_images_image(data-src=image.image.url alt=image.image.alt)
+                      img.work_content_featured_images_image(data-src=image.image.url alt=image.image.alt data-delay="0.5")
 
             if single.data.ui_and_color_palette
               .work_content_ui
@@ -86,7 +93,7 @@ block content
                       //-   rect(x="4.30951" y="8.11914" width="35.5716" height="35.5716" rx="2.5")
                       //-   rect(x="8.11908" y="4.30908" width="35.5716" height="35.5716" rx="2.5")
                       //-   rect(x="11.9286" y="0.5" width="35.5716" height="35.5716" rx="2.5")
-                  .work_content_screenshots_title Some Screenshots
+                  .work_content_screenshots_title(data-animation="title") Some Screenshots
                 .work_content_screenshots_list
                   each screenshot in single.data.screenshots
                     figure.work_content_screenshots_list_item

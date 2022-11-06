@@ -2,7 +2,7 @@ import Page from 'classes/Page'
 import Lottie from 'lottie-web'
 
 export default class Home extends Page {
-  constructor () {
+  constructor ({ template }) {
     super({
       id: 'home',
       element: '.home',
@@ -14,7 +14,11 @@ export default class Home extends Page {
       }
     })
 
-    this.runLottie()
+    this.template = template
+
+    if (this.template === 'home') {
+      this.runLottie()
+    }
   }
 
   runLottie () {
@@ -26,7 +30,7 @@ export default class Home extends Page {
         autoplay: true,
         path: 'data.json'
       })
-    }, 1)
+    }, 0.1)
   }
 
   changeBgColor () {

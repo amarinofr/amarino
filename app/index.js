@@ -13,7 +13,8 @@ class App {
   constructor () {
     this.createPreloader()
     this.createContent()
-    this.createExperience()
+    // this.createExperience()
+    this.createGallery()
     this.createPages()
 
     this.addLinkListeners()
@@ -24,20 +25,32 @@ class App {
 
   createPreloader () {
     this.preloader = new Preloader()
-    this.preloader.once('completed', _ => this.onPreloaded())
+
+    const sessionStorage = window.sessionStorage
+    if (sessionStorage.getItem('dontLoad') == null) {
+      sessionStorage.setItem('dontLoad', 'true')
+      this.preloader.once('completed', _ => this.onPreloaded())
+      this.createExperience()
+    } else {
+      document.querySelector('.intro').remove()
+      this.preloader.once('completed', _ => this.onPreloadedNoIntro())
+    }
   }
 
   createExperience () {
     this.experience = new Experience(document.querySelector('.intro_pieces'))
-    this.gallery = new Canvas(this.template)
+  }
+
+  createGallery () {
+    if (this.template === 'home') {
+      this.gallery = new Canvas(this.template)
+    }
   }
 
   createIntro () {
     this.intro = this.experience.intro
-    // this.intro.show()
-    // this.intro.destroy()
-    // this.intro.once('out', _ => this.introEnded())
-    this.introEnded()
+    this.intro.show()
+    this.intro.once('out', _ => this.introEnded())
   }
 
   createNav () {
@@ -53,18 +66,32 @@ class App {
 
   createPages () {
     this.pages = {
-      home: new Home(),
-      about: new About(),
-      work: new Work()
+      home: new Home({
+        template: this.template
+      }),
+      about: new About({
+        template: this.template
+      }),
+      work: new Work({
+        template: this.template
+      })
     }
 
     this.page = this.pages[this.template]
+
     this.page.create()
   }
 
   onPreloaded () {
-    // this.preloader.destroy()
+    this.preloader.destroy()
     this.createIntro()
+  }
+
+  onPreloadedNoIntro () {
+    this.preloader.destroy()
+    this.createNav()
+    this.page.show()
+    document.documentElement.style.overflow = 'auto'
   }
 
   introEnded () {
@@ -72,6 +99,10 @@ class App {
     this.createNav()
     this.page.show()
     document.documentElement.style.overflow = 'auto'
+  }
+
+  introDestroy () {
+    this.intro.destroy()
   }
 
   async onChange (url) {
@@ -99,6 +130,8 @@ class App {
       this.page.create()
 
       this.page.show()
+
+      this.createGallery()
 
       this.addLinkListeners()
     } else {
@@ -164,6 +197,10 @@ class App {
     window.addEventListener('touchstart', this.onTouchDown.bind(this))
     window.addEventListener('touchmove', this.onTouchMove.bind(this))
     window.addEventListener('touchend', this.onTouchUp.bind(this))
+
+    if (this.gallery && this.gallery.addEventListeners) {
+      this.gallery.addEventListeners()
+    }
 
     if (this.experience && this.experience.addEventListeners) {
       this.experience.addEventListeners()

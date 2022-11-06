@@ -23,6 +23,7 @@ export default class Canvas {
 
     this.template = template
     this.canvas = document.querySelector('.home_works_single_gallery_wrapper')
+    this.wrapper = document.querySelector('.home_works_single_wrapper')
     this.sizes = new SizesCanvas()
     this.debug = new Debug()
 
@@ -53,8 +54,15 @@ export default class Canvas {
   }
 
   onResize (event) {
+    this.sizes = {
+      width: window.innerWidth,
+      height: this.wrapper.getBoundingClientRect().height
+    }
+
     map(this.galleries, gallery => {
-      gallery.onResize(event)
+      gallery.onResize({
+        sizes: this.sizes
+      })
       gallery.camera.onResize()
     })
   }
@@ -108,7 +116,7 @@ export default class Canvas {
   }
 
   destroyHome () {
-    this.galleries.destroy()
+    map(this.galleries, gallery => { this.destroy() })
   }
 
   onRouteUpdate (template) {
@@ -123,7 +131,7 @@ export default class Canvas {
   addEventListeners (event) {
     map(this.galleries, gallery => {
       gallery.camera.addEventListeners()
-      gallery.galleries.addEventListeners(event)
+      gallery.addEventListeners(event)
     })
   }
 

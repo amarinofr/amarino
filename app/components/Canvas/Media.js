@@ -15,7 +15,9 @@ export default class Media {
     this.scene = scene
     this.sizes = sizes
 
-    this.viewport = viewport.getBoundingClientRect()
+    this.viewport = viewport
+
+    this.viewportSizes = viewport.getBoundingClientRect()
 
     this.world = world
     this.extra = 0
@@ -41,19 +43,18 @@ export default class Media {
   }
 
   updateScale ({ height, width }) {
-    this.width = this.bounds.width / this.viewport.width
-    this.height = this.bounds.height / this.viewport.height
-
     this.scale = {
       width,
       height
     }
 
+    this.width = this.bounds.width / this.viewportSizes.width
+    this.height = this.bounds.height / this.viewportSizes.height
+
     this.geometry.scale.x = (width * this.width) * 0.5
     this.geometry.scale.y = (height * this.height) * 0.5
 
-    this.y = (this.bounds.top - this.parent.top) / this.viewport.height + 0.5
-    console.log(this.y)
+    this.y = (this.bounds.top - this.parent.top) / this.viewportSizes.height + 0.5
     this.geometry.position.y = (height / 2) - (this.geometry.scale.y / 2) - (this.y * height)
   }
 
@@ -74,6 +75,9 @@ export default class Media {
 
   onResize (event, viewport, scroll) {
     this.createBounds(viewport)
+
+    this.parent = this.figure.parentElement.getBoundingClientRect()
+    this.bounds = this.figure.getBoundingClientRect()
   }
 
   update (scroll) {

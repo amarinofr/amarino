@@ -6,8 +6,10 @@ export default class SizesCanvas {
 
     this.canvas = this.experience.canvas
 
-    this.width = this.canvas.getBoundingClientRect().width
-    this.height = this.canvas.getBoundingClientRect().height
+    if (this.canvas) {
+      this.width = this.canvas.getBoundingClientRect().width
+      this.height = this.canvas.getBoundingClientRect().height
+    }
 
     this.pixelRatio = Math.min(window.devicePixelRatio, 2)
   }

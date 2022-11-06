@@ -1,6 +1,74 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./app/animations/AboutTitle.js":
+/*!**************************************!*\
+  !*** ./app/animations/AboutTitle.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AboutTitle)
+/* harmony export */ });
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var classes_Animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classes/Animation */ "./app/classes/Animation.js");
+
+
+class AboutTitle extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor({
+    element,
+    elements
+  }) {
+    super({
+      element,
+      elements: {
+        titleSpans: element.querySelectorAll('span span')
+      }
+    });
+    this.tl = gsap__WEBPACK_IMPORTED_MODULE_1__["default"].timeline();
+  }
+
+  animateIn() {
+    this.tl.restart();
+    this.tl.to(this.element, {
+      autoAlpha: 1,
+      scaleY: '1',
+      duration: 0.75,
+      ease: 'expo.out'
+    }).to(this.elements.titleSpans, {
+      y: '0%',
+      skewY: '0',
+      scaleY: '1',
+      transformOrigin: 'bottom center',
+      stagger: 0.05,
+      duration: 0.5,
+      ease: 'expo.out'
+    }, '+=0.025').to(this.elements.titleSpans, {
+      autoAlpha: 1,
+      stagger: 0.06,
+      duration: 0.5
+    }, '<');
+  }
+
+  animateOut() {
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.element, {
+      autoAlpha: 0,
+      scaleY: '0'
+    });
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.elements.titleSpans, {
+      autoAlpha: 0,
+      y: '100%',
+      scaleY: '0.3',
+      skewY: '12deg'
+    });
+  }
+
+}
+
+/***/ }),
+
 /***/ "./app/animations/ChangeBgColor.js":
 /*!*****************************************!*\
   !*** ./app/animations/ChangeBgColor.js ***!
@@ -42,6 +110,57 @@ class ChangeBgColor extends classes_Animation__WEBPACK_IMPORTED_MODULE_1__["defa
     this.body = document.body;
     this.body.classList.remove('black');
     this.body.classList.add('white');
+  }
+
+}
+
+/***/ }),
+
+/***/ "./app/animations/Line.js":
+/*!********************************!*\
+  !*** ./app/animations/Line.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Line)
+/* harmony export */ });
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var classes_Animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classes/Animation */ "./app/classes/Animation.js");
+
+
+class Line extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
+  constructor({
+    element,
+    elements
+  }) {
+    super({
+      element,
+      elements: {
+        lines: element.querySelectorAll('.line')
+      }
+    });
+    console.log(this.elements.lines);
+    this.tl = gsap__WEBPACK_IMPORTED_MODULE_1__["default"].timeline(); // this.showLine()
+  }
+
+  animateIn() {
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].to(this.elements.lines, {
+      autoAlpha: 1,
+      scaleX: 1,
+      duration: 0.5,
+      ease: 'expo.out',
+      delay: 0.25
+    });
+  }
+
+  animateOut() {
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.elements.lines, {
+      autoAlpha: 0,
+      scaleX: 0
+    });
   }
 
 }
@@ -142,6 +261,7 @@ class Title extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
       }
     });
     this.tl = gsap__WEBPACK_IMPORTED_MODULE_1__["default"].timeline();
+    this.delay = this.element.dataset.delay;
   }
 
   animateIn() {
@@ -150,6 +270,7 @@ class Title extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
       autoAlpha: 1,
       scaleX: '1',
       duration: 0.75,
+      delay: this.delay,
       ease: 'expo.out'
     }).to(this.elements.titleSpans, {
       x: '0%',
@@ -244,7 +365,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AsyncLoad)
 /* harmony export */ });
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var classes_Component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classes/Component */ "./app/classes/Component.js");
+
 
 class AsyncLoad extends classes_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor({
@@ -252,19 +375,31 @@ class AsyncLoad extends classes_Component__WEBPACK_IMPORTED_MODULE_0__["default"
   }) {
     super({
       element
-    }); // this.createObserver()
-
+    });
+    this.createObserver();
     this.element.src = this.element.getAttribute('data-src');
-  } // createObserver () {
-  //   this.observer = new window.IntersectionObserver(entries => {
-  //     entries.forEach(entry => {
-  //       if (entry.isIntersecting) {
-  //       }
-  //     })
-  //   })
-  //   this.observer.observe(this.element)
-  // }
+    this.delay = this.element.dataset.delay;
+    console.log(this.delay);
+    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.element, {
+      autoAlpha: 0
+    });
+  }
 
+  createObserver() {
+    this.observer = new window.IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          gsap__WEBPACK_IMPORTED_MODULE_1__["default"].to(entry.target, {
+            autoAlpha: 1,
+            ease: 'expo.out',
+            delay: this.delay,
+            duration: 2
+          });
+        }
+      });
+    });
+    this.observer.observe(this.element);
+  }
 
 }
 
@@ -342,7 +477,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Page)
 /* harmony export */ });
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var prefix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prefix */ "./node_modules/prefix/index.js");
 /* harmony import */ var prefix__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prefix__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
@@ -350,8 +485,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var utils_splitText__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! utils/splitText */ "./app/utils/splitText.js");
 /* harmony import */ var animations_Title__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! animations/Title */ "./app/animations/Title.js");
 /* harmony import */ var animations_MiniTitle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! animations/MiniTitle */ "./app/animations/MiniTitle.js");
-/* harmony import */ var animations_ChangeBgColor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! animations/ChangeBgColor */ "./app/animations/ChangeBgColor.js");
-/* harmony import */ var classes_AsyncLoad__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! classes/AsyncLoad */ "./app/classes/AsyncLoad.js");
+/* harmony import */ var animations_AboutTitle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! animations/AboutTitle */ "./app/animations/AboutTitle.js");
+/* harmony import */ var animations_ChangeBgColor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! animations/ChangeBgColor */ "./app/animations/ChangeBgColor.js");
+/* harmony import */ var animations_Line__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! animations/Line */ "./app/animations/Line.js");
+/* harmony import */ var classes_AsyncLoad__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! classes/AsyncLoad */ "./app/classes/AsyncLoad.js");
+
+
 
 
 
@@ -370,7 +509,9 @@ class Page {
     this.selectorChildren = { ...elements,
       animationsTitles: '[data-animation="title"]',
       animationsMiniTitles: '[data-animation="miniTitle"]',
+      animationsAboutTitles: '[data-animation="aboutTitle"]',
       animationsBg: '[data-animation="change-bg-color"]',
+      animationsLines: '[data-animation="line"]',
       asyncloaders: '[data-src]'
     };
     this.id = id;
@@ -420,32 +561,38 @@ class Page {
         element
       });
     });
+    this.animationsAboutTitles = (0,lodash__WEBPACK_IMPORTED_MODULE_1__.each)(this.elements.animationsAboutTitles, element => {
+      (0,utils_splitText__WEBPACK_IMPORTED_MODULE_2__.splitWords)(element);
+      return new animations_AboutTitle__WEBPACK_IMPORTED_MODULE_5__["default"]({
+        element
+      });
+    });
+    this.animationsLines = (0,lodash__WEBPACK_IMPORTED_MODULE_1__.each)(this.elements.animationsLines, element => {
+      return new animations_Line__WEBPACK_IMPORTED_MODULE_7__["default"]({
+        element
+      });
+    });
 
     if (this.elements.animationsBg) {
       if (this.elements.animationsBg.length >= 2) {
         this.animationsBg = (0,lodash__WEBPACK_IMPORTED_MODULE_1__.map)(this.elements.animationsBg, element => {
-          return new animations_ChangeBgColor__WEBPACK_IMPORTED_MODULE_5__["default"]({
+          return new animations_ChangeBgColor__WEBPACK_IMPORTED_MODULE_6__["default"]({
             element
           });
         });
       } else {
-        this.animationsBg = [new animations_ChangeBgColor__WEBPACK_IMPORTED_MODULE_5__["default"]({
+        this.animationsBg = [new animations_ChangeBgColor__WEBPACK_IMPORTED_MODULE_6__["default"]({
           element: this.elements.animationsBg
         })];
       }
-    } // this.animationsBg = each(this.elements.animationsBg, element => {
-    //   console.log(element)
-    //   return new ChangeBgColor({
-    //     element
-    //   })
-    // })
-
+    }
   }
 
   show() {
     return new Promise(resolve => {
-      this.animationIn = gsap__WEBPACK_IMPORTED_MODULE_7__["default"].timeline();
+      this.animationIn = gsap__WEBPACK_IMPORTED_MODULE_9__["default"].timeline();
       this.animationIn.to(this.element, {
+        autoAlpha: 1,
         onComplete: _ => {
           this.addEventListeners();
           this.onResize();
@@ -458,7 +605,7 @@ class Page {
 
   hide() {
     return new Promise(resolve => {
-      this.animationOut = gsap__WEBPACK_IMPORTED_MODULE_7__["default"].timeline();
+      this.animationOut = gsap__WEBPACK_IMPORTED_MODULE_9__["default"].timeline();
       this.animationOut.to(this.element, {
         autoAlpha: 0,
         onComplete: resolve
@@ -469,7 +616,7 @@ class Page {
 
   createAsyncLoad() {
     (0,lodash__WEBPACK_IMPORTED_MODULE_1__.each)(this.elements.asyncloaders, element => {
-      return new classes_AsyncLoad__WEBPACK_IMPORTED_MODULE_6__["default"]({
+      return new classes_AsyncLoad__WEBPACK_IMPORTED_MODULE_8__["default"]({
         element
       });
     });
@@ -485,7 +632,7 @@ class Page {
   }
 
   update() {
-    this.scroll.current = gsap__WEBPACK_IMPORTED_MODULE_7__["default"].utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.smoothness);
+    this.scroll.current = gsap__WEBPACK_IMPORTED_MODULE_9__["default"].utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.smoothness);
     this.scroll.target = Math.floor(this.scroll.target * 100) / 100;
 
     if (this.scroll.current < 0.01) {
@@ -550,6 +697,7 @@ class Gallery {
     this.x = {
       current: 0,
       target: 0,
+      direction: 'left',
       lerp: 0.1
     };
     this.scrollX = 0;
@@ -558,6 +706,7 @@ class Gallery {
       target: 0,
       last: 0,
       x: 0,
+      velocity: 2.5,
       lerp: 0.05
     };
     this.createRenderer();
@@ -567,7 +716,6 @@ class Gallery {
     this.onResize({
       sizes: this.sizes
     });
-    this.addEventListeners();
   }
 
   createRenderer() {
@@ -614,6 +762,7 @@ class Gallery {
   onResize(event) {
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.bounds = this.element.getBoundingClientRect();
+    this.sizes = event.sizes;
     const fov = this.camera.camera.fov * (Math.PI / 100);
     const height = 2 * Math.tan(fov / 2) * this.camera.camera.position.z;
     const width = height * this.camera.aspect;
@@ -621,7 +770,7 @@ class Gallery {
       width,
       height
     };
-    this.width = this.bounds.width / window.innerWidth * this.sizes.width;
+    this.width = this.bounds.width / window.innerWidth * this.viewport.width;
     (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.medias, media => media.onResize(event, this.viewport, this.scroll));
   }
 
@@ -636,9 +785,8 @@ class Gallery {
     x,
     y
   }) {
-    const distance = (x.start - x.end) * 0.3;
-    this.x.target = this.scrollX - distance;
-    this.scroll.target = this.scroll.current - distance;
+    const distance = (x.start - x.end) * 0.2; // this.x.target = this.scrollX - distance
+    // this.scroll.target = this.scroll.current - distance
   }
 
   onTouchUp({
@@ -650,30 +798,34 @@ class Gallery {
 
   update(scroll) {
     this.renderer.render(this.scene, this.camera.camera);
-    this.x.current = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].utils.interpolate(this.x.current, this.x.target, this.x.lerp);
-    this.scroll.x = this.x.current;
     if (!this.bounds) return;
+    const distance = (scroll.current - scroll.target) * 0.03;
+    const y = scroll.current / window.innerHeight;
 
     if (this.scroll.current < this.scroll.target) {
-      this.direction = 'right';
+      this.x.direction = 'right';
+      this.scroll.velocity = -2;
     } else if (this.scroll.current > this.scroll.target) {
-      this.direction = 'left';
+      this.x.direction = 'left';
+      this.scroll.velocity = 2;
     }
 
+    this.scroll.target -= this.scroll.velocity;
+    this.scroll.target += distance;
     this.scroll.current = gsap__WEBPACK_IMPORTED_MODULE_4__["default"].utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp);
     (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.medias, (media, index) => {
-      const scaleX = media.geometry.position.x / 2;
+      const scaleX = media.geometry.position.x;
 
-      if (this.direction === 'left') {
-        const x = media.geometry.position.x + scaleX;
+      if (this.x.direction === 'left') {
+        const x = media.geometry.position.x + scaleX / 2;
 
-        if (x < -this.sizes.width / 2) {
+        if (x < -this.width / 2) {
           media.extra += this.width;
         }
-      } else if (this.direction === 'right') {
-        const x = media.geometry.position.x - scaleX;
+      } else if (this.x.direction === 'right') {
+        const x = media.geometry.position.x + scaleX / 2;
 
-        if (x > this.sizes.width / 2) {
+        if (x > this.width / 2) {
           media.extra -= this.width;
         }
       }
@@ -727,7 +879,8 @@ class Media {
     this.renderer = renderer;
     this.scene = scene;
     this.sizes = sizes;
-    this.viewport = viewport.getBoundingClientRect();
+    this.viewport = viewport;
+    this.viewportSizes = viewport.getBoundingClientRect();
     this.world = world;
     this.extra = 0;
     this.createTexture();
@@ -752,16 +905,15 @@ class Media {
     height,
     width
   }) {
-    this.width = this.bounds.width / this.viewport.width;
-    this.height = this.bounds.height / this.viewport.height;
     this.scale = {
       width,
       height
     };
+    this.width = this.bounds.width / this.viewportSizes.width;
+    this.height = this.bounds.height / this.viewportSizes.height;
     this.geometry.scale.x = width * this.width * 0.5;
     this.geometry.scale.y = height * this.height * 0.5;
-    this.y = (this.bounds.top - this.parent.top) / this.viewport.height + 0.5;
-    console.log(this.y);
+    this.y = (this.bounds.top - this.parent.top) / this.viewportSizes.height + 0.5;
     this.geometry.position.y = height / 2 - this.geometry.scale.y / 2 - this.y * height;
   }
 
@@ -777,6 +929,8 @@ class Media {
 
   onResize(event, viewport, scroll) {
     this.createBounds(viewport);
+    this.parent = this.figure.parentElement.getBoundingClientRect();
+    this.bounds = this.figure.getBoundingClientRect();
   }
 
   update(scroll) {
@@ -948,6 +1102,7 @@ class Canvas {
     instance = this;
     this.template = template;
     this.canvas = document.querySelector('.home_works_single_gallery_wrapper');
+    this.wrapper = document.querySelector('.home_works_single_wrapper');
     this.sizes = new _utils_SizesCanvas__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.debug = new _utils_Debug__WEBPACK_IMPORTED_MODULE_2__["default"]();
     this.onRouteUpdate(this.template);
@@ -975,8 +1130,14 @@ class Canvas {
   }
 
   onResize(event) {
+    this.sizes = {
+      width: window.innerWidth,
+      height: this.wrapper.getBoundingClientRect().height
+    };
     (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => {
-      gallery.onResize(event);
+      gallery.onResize({
+        sizes: this.sizes
+      });
       gallery.camera.onResize();
     });
   }
@@ -1019,7 +1180,9 @@ class Canvas {
   }
 
   destroyHome() {
-    this.galleries.destroy();
+    (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => {
+      this.destroy();
+    });
   }
 
   onRouteUpdate(template) {
@@ -1034,7 +1197,7 @@ class Canvas {
   addEventListeners(event) {
     (0,lodash__WEBPACK_IMPORTED_MODULE_0__.map)(this.galleries, gallery => {
       gallery.camera.addEventListeners();
-      gallery.galleries.addEventListeners(event);
+      gallery.addEventListeners(event);
     });
   }
 
@@ -1657,7 +1820,7 @@ class Intro extends classes_Component__WEBPACK_IMPORTED_MODULE_0__["default"] {
   }
 
   destroy() {
-    this.element.parentNode.removeChild(this.element);
+    this.element.remove();
   }
 
 }
@@ -1762,6 +1925,7 @@ class Preloader extends classes_Component__WEBPACK_IMPORTED_MODULE_2__["default"
     this.lineBottom = this.elements.preloaderBottom.querySelector('.line_bottom');
     this.preloaderLeft = this.elements.preloaderBottom.querySelector('.preloader_bottom_left');
     this.preloaderRight = this.elements.preloaderBottom.querySelector('.preloader_bottom_right');
+    console.log(this.lineBottom);
     this.body = document.body;
     this.length = 0;
     this.initLoader();
@@ -2191,8 +2355,12 @@ class SizesCanvas {
   constructor() {
     this.experience = new _Canvas__WEBPACK_IMPORTED_MODULE_0__["default"]();
     this.canvas = this.experience.canvas;
-    this.width = this.canvas.getBoundingClientRect().width;
-    this.height = this.canvas.getBoundingClientRect().height;
+
+    if (this.canvas) {
+      this.width = this.canvas.getBoundingClientRect().width;
+      this.height = this.canvas.getBoundingClientRect().height;
+    }
+
     this.pixelRatio = Math.min(window.devicePixelRatio, 2);
   }
 
@@ -2229,8 +2397,9 @@ __webpack_require__.r(__webpack_exports__);
 class App {
   constructor() {
     this.createPreloader();
-    this.createContent();
-    this.createExperience();
+    this.createContent(); // this.createExperience()
+
+    this.createGallery();
     this.createPages();
     this.addLinkListeners();
     this.addEventListeners();
@@ -2239,20 +2408,32 @@ class App {
 
   createPreloader() {
     this.preloader = new components_Preloader__WEBPACK_IMPORTED_MODULE_1__["default"]();
-    this.preloader.once('completed', _ => this.onPreloaded());
+    const sessionStorage = window.sessionStorage;
+
+    if (sessionStorage.getItem('dontLoad') == null) {
+      sessionStorage.setItem('dontLoad', 'true');
+      this.preloader.once('completed', _ => this.onPreloaded());
+      this.createExperience();
+    } else {
+      document.querySelector('.intro').remove();
+      this.preloader.once('completed', _ => this.onPreloadedNoIntro());
+    }
   }
 
   createExperience() {
     this.experience = new components_Experience__WEBPACK_IMPORTED_MODULE_3__["default"](document.querySelector('.intro_pieces'));
-    this.gallery = new components_Canvas__WEBPACK_IMPORTED_MODULE_4__["default"](this.template);
+  }
+
+  createGallery() {
+    if (this.template === 'home') {
+      this.gallery = new components_Canvas__WEBPACK_IMPORTED_MODULE_4__["default"](this.template);
+    }
   }
 
   createIntro() {
-    this.intro = this.experience.intro; // this.intro.show()
-    // this.intro.destroy()
-    // this.intro.once('out', _ => this.introEnded())
-
-    this.introEnded();
+    this.intro = this.experience.intro;
+    this.intro.show();
+    this.intro.once('out', _ => this.introEnded());
   }
 
   createNav() {
@@ -2268,17 +2449,30 @@ class App {
 
   createPages() {
     this.pages = {
-      home: new pages_Home__WEBPACK_IMPORTED_MODULE_5__["default"](),
-      about: new pages_About__WEBPACK_IMPORTED_MODULE_6__["default"](),
-      work: new pages_Work__WEBPACK_IMPORTED_MODULE_7__["default"]()
+      home: new pages_Home__WEBPACK_IMPORTED_MODULE_5__["default"]({
+        template: this.template
+      }),
+      about: new pages_About__WEBPACK_IMPORTED_MODULE_6__["default"]({
+        template: this.template
+      }),
+      work: new pages_Work__WEBPACK_IMPORTED_MODULE_7__["default"]({
+        template: this.template
+      })
     };
     this.page = this.pages[this.template];
     this.page.create();
   }
 
   onPreloaded() {
-    // this.preloader.destroy()
+    this.preloader.destroy();
     this.createIntro();
+  }
+
+  onPreloadedNoIntro() {
+    this.preloader.destroy();
+    this.createNav();
+    this.page.show();
+    document.documentElement.style.overflow = 'auto';
   }
 
   introEnded() {
@@ -2286,6 +2480,10 @@ class App {
     this.createNav();
     this.page.show();
     document.documentElement.style.overflow = 'auto';
+  }
+
+  introDestroy() {
+    this.intro.destroy();
   }
 
   async onChange(url) {
@@ -2304,6 +2502,7 @@ class App {
       this.page = this.pages[this.template];
       this.page.create();
       this.page.show();
+      this.createGallery();
       this.addLinkListeners();
     } else {
       console.log('error');
@@ -2367,6 +2566,10 @@ class App {
     window.addEventListener('touchmove', this.onTouchMove.bind(this));
     window.addEventListener('touchend', this.onTouchUp.bind(this));
 
+    if (this.gallery && this.gallery.addEventListeners) {
+      this.gallery.addEventListeners();
+    }
+
     if (this.experience && this.experience.addEventListeners) {
       this.experience.addEventListeners();
     }
@@ -2408,7 +2611,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classes_Page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classes/Page */ "./app/classes/Page.js");
 
 class About extends classes_Page__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  constructor() {
+  constructor({
+    template
+  }) {
     super({
       id: 'about',
       element: '.about',
@@ -2417,6 +2622,7 @@ class About extends classes_Page__WEBPACK_IMPORTED_MODULE_0__["default"] {
         nav: '.nav'
       }
     });
+    this.template = template;
   }
 
 }
@@ -2440,7 +2646,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Home extends classes_Page__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  constructor() {
+  constructor({
+    template
+  }) {
     super({
       id: 'home',
       element: '.home',
@@ -2451,7 +2659,11 @@ class Home extends classes_Page__WEBPACK_IMPORTED_MODULE_0__["default"] {
         works: '.home_works_wrapper'
       }
     });
-    this.runLottie();
+    this.template = template;
+
+    if (this.template === 'home') {
+      this.runLottie();
+    }
   }
 
   runLottie() {
@@ -2463,7 +2675,7 @@ class Home extends classes_Page__WEBPACK_IMPORTED_MODULE_0__["default"] {
         autoplay: true,
         path: 'data.json'
       });
-    }, 1);
+    }, 0.1);
   }
 
   changeBgColor() {}
@@ -2486,15 +2698,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classes_Page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classes/Page */ "./app/classes/Page.js");
 
 class Work extends classes_Page__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  constructor() {
+  constructor({
+    template
+  }) {
     super({
       id: 'work',
       element: '.work',
       elements: {
         wrapper: '.work_wrapper',
-        nav: '.nav'
+        nav: '.nav',
+        featured_text: '.work_content_featured_text'
       }
     });
+    this.template = template;
   }
 
 }
@@ -33291,7 +33507,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1667347931067
+      // 1667686390078
       var cssReload = __webpack_require__(/*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {"publicPath":"","locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -39952,7 +40168,7 @@ function toTrianglesDrawMode(geometry, drawMode) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("bd6cc7f9b3f0e85d73de")
+/******/ 		__webpack_require__.h = () => ("34bc131181ef9da6bd54")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

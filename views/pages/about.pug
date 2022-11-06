@@ -8,11 +8,11 @@ block content
     .about_wrapper
       .about_intro
         .about_intro_wrapper
-          h1.about_intro_text!=ctx.prismicH.asHTML(about.data.intro)
+          h1.about_intro_text(data-animation="aboutTitle")!=ctx.prismicH.asText(about.data.intro)
           .about_intro_description
-            figure.about_intro_photo
+            figure.about_intro_photo(data-animation="photo")
               img.about_intro_photo_image(data-src=about.data.selfie.url alt=about.data.selfie.alt)
-              figcaption.about_intro_photo_caption=about.data.selfie_caption
+              figcaption.about_intro_photo_caption(data-animation="miniTitle")=about.data.selfie_caption
             .about_extras
               .about_extras_symbol *
               .about_extras_text=about.data.extras
@@ -20,7 +20,7 @@ block content
 
       .about_azores
         .about_azores_wrapper
-          h3.about_azores_title ... so look at some photos of where I'm from instead.
+          h3.about_azores_title(data-animation="miniTitle") ... so look at some photos of where I'm from instead.
           .about_azores_photos_wrapper
             each media in about.data.photos_azores
               figure.about_azores_photo
@@ -33,21 +33,23 @@ block content
 
       .about_process
         .about_process_wrapper
-         .about_process_description_wrapper
-            .line_top
+         .about_process_description_wrapper(data-animation="line")
+            .line_bottom.line
               .line_thin
               .line_thick
-            .about_process_description!= ctx.prismicH.asHTML(about.data.process_description)
-            .line_bottom
-              .line_thick
-              .line_thin
-        .about_process_title_wrapper
-          .about_process_title
-            p I always trust
-            p the process
 
-        .about_process_slider
-          .line_top
+            .about_process_description!= ctx.prismicH.asHTML(about.data.process_description)
+
+            .line_bottom.line
+              .line_thick
+              .line_thin
+        .about_process_title_wrapper(data-animation="line")
+          .about_process_title
+            p(data-animation="aboutTitle") I always trust
+            p(data-animation="aboutTitle") the process
+
+        .about_process_slider(data-animation="line")
+          .line_bottom.line
             .line_thin
           ul.about_process_slider_list
             each process in about.data.process
@@ -55,10 +57,11 @@ block content
                 .about_process_slider_number=process.process_number
                 .about_process_slider_title=process.process_title
                 .about_process_slider_list_item_bottom
-                  figure.about_process_slider_icon
-                    img.about_process_slider_image(data-src=process.process_image.url alt=process.process_image.url)
+                  if process.process_image.url
+                    figure.about_process_slider_icon
+                      img.about_process_slider_image(data-src=process.process_image.url alt=process.process_image.url)
                   .about_process_slider_text=process.process_text
-          .line_top
+          .line_bottom.line
             .line_thin
 
-        include ../components/contact
+      include ../components/contact

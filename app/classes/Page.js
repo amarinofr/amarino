@@ -5,7 +5,9 @@ import { splitText, splitWords } from 'utils/splitText'
 
 import Title from 'animations/Title'
 import MiniTitle from 'animations/MiniTitle'
+import AboutTitle from 'animations/AboutTitle'
 import ChangeBgColor from 'animations/ChangeBgColor'
+import Line from 'animations/Line'
 
 import AsyncLoad from 'classes/AsyncLoad'
 
@@ -16,7 +18,9 @@ export default class Page {
       ...elements,
       animationsTitles: '[data-animation="title"]',
       animationsMiniTitles: '[data-animation="miniTitle"]',
+      animationsAboutTitles: '[data-animation="aboutTitle"]',
       animationsBg: '[data-animation="change-bg-color"]',
+      animationsLines: '[data-animation="line"]',
 
       asyncloaders: '[data-src]'
     }
@@ -73,6 +77,20 @@ export default class Page {
       })
     })
 
+    this.animationsAboutTitles = each(this.elements.animationsAboutTitles, element => {
+      splitWords(element)
+
+      return new AboutTitle({
+        element
+      })
+    })
+
+    this.animationsLines = each(this.elements.animationsLines, element => {
+      return new Line({
+        element
+      })
+    })
+
     if (this.elements.animationsBg) {
       if (this.elements.animationsBg.length >= 2) {
         this.animationsBg = map(this.elements.animationsBg, element => {
@@ -88,20 +106,13 @@ export default class Page {
         ]
       }
     }
-
-    // this.animationsBg = each(this.elements.animationsBg, element => {
-    //   console.log(element)
-    //   return new ChangeBgColor({
-    //     element
-    //   })
-    // })
   }
 
   show () {
     return new Promise(resolve => {
       this.animationIn = GSAP.timeline()
-
       this.animationIn.to(this.element, {
+        autoAlpha: 1,
         onComplete: _ => {
           this.addEventListeners()
           this.onResize()

@@ -33,8 +33,13 @@
   visibility: hidden;
 }
 
-.nav_header_wrapper, .nav_header .line_top, .work_content_wrapper, .work_details_wrapper, .work_intro_wrapper, .home_works_top, .home_intro, .about_process_slider .line_top, .about_process_title_wrapper, .about_process_description_wrapper, .about_intro {
+.nav_header_wrapper, .nav_header .line_top, .preloader_bottom, .preloader_wrapper, .work_content_wrapper, .work_details_wrapper, .work_intro_wrapper, .home_works_top, .home_intro, .about_process_slider .line_top, .about_process_title_wrapper, .about_process_description_wrapper, .about_intro {
   padding: 0 14.4rem;
+}
+@media (max-width: 767px) {
+  .nav_header_wrapper, .nav_header .line_top, .preloader_bottom, .preloader_wrapper, .work_content_wrapper, .work_details_wrapper, .work_intro_wrapper, .home_works_top, .home_intro, .about_process_slider .line_top, .about_process_title_wrapper, .about_process_description_wrapper, .about_intro {
+    padding: 0 2rem;
+  }
 }
 
 .work_content_suspects_problem_text, .work_content_suspects_solution_text, .work_details_text, .about_process_description p, .about_extras_extra, .about_extras_text {
@@ -138,19 +143,41 @@ div, section {
   font-weight: bold;
   line-height: 100%;
 }
+@media (max-width: 767px) {
+  .preloader_big_text {
+    font-size: 9.6rem;
+  }
+}
 
-.work_intro_title, .home_works_single_title, .home_intro_title, .about_extras_symbol {
+.home_intro_title, .about_extras_symbol {
   font-family: "VC Henrietta";
   font-size: 26.5rem;
   font-weight: bold;
   line-height: 100%;
 }
+@media (max-width: 767px) {
+  .home_intro_title, .about_extras_symbol {
+    font-size: 6.4rem;
+  }
+}
 
-.work_content_solution_title, .about_process_title {
+.work_content_solution_title, .work_intro_title, .about_process_title {
   font-family: "VC Henrietta";
   font-size: 15.6rem;
   font-weight: bold;
   line-height: 100%;
+}
+
+.home_works_single_title {
+  font-family: "VC Henrietta";
+  font-size: 11.5rem;
+  font-weight: bold;
+  line-height: 100%;
+}
+@media (max-width: 767px) {
+  .home_works_single_title {
+    font-size: 3.2rem;
+  }
 }
 
 .preloader_small_text {
@@ -158,11 +185,21 @@ div, section {
   font-size: 8.2rem;
   line-height: 100%;
 }
+@media (max-width: 767px) {
+  .preloader_small_text {
+    font-size: 2.4rem;
+  }
+}
 
 .contact_button, .intro_ui, .work_content_next_project_link, .work_content_featured_text, .home_works_title, h1.about_intro_text {
   font-family: "VC Henrietta";
   font-size: 6.4rem;
   line-height: 100%;
+}
+@media (max-width: 767px) {
+  .contact_button, .intro_ui, .work_content_next_project_link, .work_content_featured_text, .home_works_title, h1.about_intro_text {
+    font-size: 3.2rem;
+  }
 }
 
 .work_content_suspects_problem_title, .work_content_suspects_solution_title {
@@ -183,7 +220,7 @@ div, section {
   line-height: 100%;
 }
 
-.nav_list, .nav_logo {
+.nav_list, .nav_logo, .works_list_item_title, .works_list_item_link, .works_list_title {
   font-family: "VC Henrietta";
   font-size: 2.2rem;
   line-height: 100%;
@@ -220,7 +257,7 @@ html {
 }
 @media (max-width: 767px) {
   html {
-    font-size: 1.3020833333vw;
+    font-size: 2.6315789474vw;
   }
 }
 
@@ -274,12 +311,18 @@ body.black .line_bottom, body.black .line_top > * {
   position: fixed;
   transform: rotate(0.01deg);
 }
+.content .home, .content .about, .content .work {
+  opacity: 0;
+}
+
+.line {
+  transform: scale(0, 1) rotate(0deg) translate3d(0, 0, 0.1px);
+  opacity: 0;
+  position: relative;
+}
 
 .line_bottom {
   width: 100%;
-  position: relative;
-  transform: scaleX(0);
-  opacity: 0;
 }
 .line_bottom .line_thick {
   width: 100%;
@@ -295,9 +338,6 @@ body.black .line_bottom, body.black .line_top > * {
 
 .line_top {
   width: 100%;
-  transform: scaleX("0");
-  opacity: 0;
-  position: relative;
 }
 .line_top .line_thick {
   width: 100%;
@@ -338,6 +378,10 @@ strong {
 [data-template=work] {
   color: #F8F3E5;
 }
+[data-template=work] .line_bottom {
+  opacity: 0;
+  transform: scale(0, 1);
+}
 [data-template=work] .line_bottom .line_thick {
   border-top: 3px solid #F8F3E5;
 }
@@ -346,7 +390,7 @@ strong {
 }
 [data-template=work] .line_top {
   opacity: 0;
-  transform: scaleX("0%");
+  transform: scale(0, 1);
 }
 [data-template=work] .line_top .line_thick {
   border-top: 3px solid #F8F3E5;
@@ -397,7 +441,19 @@ svg {
 }
 
 h1.about_intro_text {
+  opacity: 0;
   z-index: 3;
+}
+h1.about_intro_text span {
+  display: inline-block;
+  margin: 0 0.4rem;
+}
+h1.about_intro_text span span {
+  opacity: 0;
+}
+h1.about_intro_text span:last-of-type span {
+  color: #BB4430;
+  font-weight: 700;
 }
 h1.about_intro_text strong {
   color: #BB4430;
@@ -459,7 +515,7 @@ figcaption.about_intro_photo_caption {
 
 .about_azores {
   width: 100%;
-  margin-top: 24rem;
+  margin-top: 64rem;
 }
 
 .about_azores_wrapper {
@@ -522,7 +578,14 @@ figcaption.about_azores_photo_caption {
   font-weight: 500;
   display: block;
   position: relative;
-  padding: 14.8rem 0;
+  padding: 24rem 0;
+}
+.about_process_title span {
+  display: inline-block;
+  margin: 0 0.8rem;
+}
+.about_process_title span span {
+  opacity: 0;
 }
 .about_process_title p:nth-child(2) {
   text-align: right;
@@ -565,21 +628,30 @@ figcaption.about_azores_photo_caption {
 }
 
 .home_wrapper {
+  width: 100%;
   position: fixed;
   will-change: transform;
 }
+@media (max-width: 767px) {
+  .home_wrapper {
+    width: 100%;
+  }
+}
 
 .home_intro {
-  display: none;
   width: 100%;
   padding-top: 11.4rem;
+}
+@media (max-width: 767px) {
+  .home_intro {
+    position: relative;
+  }
 }
 
 .home_intro_wrapper {
   flex-direction: column;
   align-items: flex-start;
 }
-
 .home_intro_title {
   opacity: 0;
   transform: scaleX(0.5);
@@ -591,6 +663,11 @@ figcaption.about_azores_photo_caption {
   opacity: 0;
   transform: translateX(100%) skewX(-12deg) rotate(0.1deg);
 }
+@media (max-width: 767px) {
+  .home_intro_title {
+    margin-top: 4.8rem;
+  }
+}
 
 .home_intro_skills {
   text-align: left;
@@ -599,16 +676,27 @@ figcaption.about_azores_photo_caption {
   font-family: "IBM Plex Mono";
   font-weight: bold;
   margin-bottom: 8rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 767px) {
+  .home_intro_skills {
+    margin-top: 6.4rem;
+  }
 }
 
 .home_works {
   width: 100%;
   overflow: hidden;
-  margin-top: 32rem;
+  margin-top: 8rem;
 }
 
 .home_works_top {
   width: 100%;
+}
+@media (max-width: 767px) {
+  .home_works_top {
+    margin-top: 4.8rem;
+  }
 }
 
 .home_works_title_icon {
@@ -616,10 +704,21 @@ figcaption.about_azores_photo_caption {
   height: 12.5rem;
   position: relative;
 }
+@media (max-width: 767px) {
+  .home_works_title_icon {
+    height: 6.5rem;
+  }
+}
 .home_works_title_icon svg {
   width: 100%;
   height: 100%;
   position: relative;
+}
+@media (max-width: 767px) {
+  .home_works_title_icon svg {
+    width: 50% !important;
+    height: auto !important;
+  }
 }
 .home_works_title_icon svg circle {
   position: absolute;
@@ -634,6 +733,11 @@ figcaption.about_azores_photo_caption {
   margin-top: 32rem;
   overflow: hidden;
 }
+@media (max-width: 767px) {
+  .home_works_list {
+    margin-top: 0;
+  }
+}
 
 .home_works_list_wrapper {
   white-space: nowrap;
@@ -646,53 +750,63 @@ figcaption.about_azores_photo_caption {
 }
 
 .home_works_single_wrapper {
-  height: 94rem;
+  width: 100%;
+  min-height: 94vh;
   margin: 16.4rem 0;
   position: relative;
+}
+@media (max-width: 767px) {
+  .home_works_single_wrapper {
+    margin: unset;
+  }
+}
+
+@media (max-width: 767px) {
+  .home_works_single_gallery_wrapper {
+    z-index: 1;
+  }
 }
 
 .home_works_single_thumb {
   opacity: 0;
+  width: 35.3rem;
+  height: 42.5rem;
+}
+@media (max-width: 767px) {
+  .home_works_single_thumb {
+    width: 19.2rem;
+    height: 27.3rem;
+  }
 }
 
 .home_works_single_thumbnail {
   position: absolute;
-  width: 35.3rem;
-  height: 42.5rem;
-  top: 25rem;
-  left: -30rem;
+  top: 30rem;
+  left: 0;
   z-index: 5;
 }
 
 .home_works_single_thumbnail_two {
   position: absolute;
-  width: 35.3rem;
-  height: 42.5rem;
   bottom: 15rem;
   left: 40rem;
 }
 
 .home_works_single_thumbnail_three {
   position: absolute;
-  width: 30.3rem;
-  height: 42.5rem;
   bottom: 5rem;
   left: 80rem;
 }
 
 .home_works_single_thumbnail_four {
   position: absolute;
-  width: 30.3rem;
-  height: 42.5rem;
-  top: 20rem;
+  top: 35rem;
   left: 130rem;
 }
 
 .home_works_single_thumbnail_five {
   position: absolute;
-  width: 30.3rem;
-  height: 42.5rem;
-  bottom: 15rem;
+  bottom: 5rem;
   left: 190rem;
 }
 
@@ -700,9 +814,25 @@ figcaption.about_azores_photo_caption {
   border-radius: 4.4rem;
 }
 
+@media (max-width: 767px) {
+  .home_works_single_details_wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .home_works_single_details {
   margin-left: 45.2rem;
-  margin-top: 18.3rem;
+}
+@media (max-width: 767px) {
+  .home_works_single_details {
+    margin-left: unset;
+    z-index: 5;
+  }
 }
 
 .home_works_single_skills {
@@ -718,15 +848,30 @@ figcaption.about_azores_photo_caption {
   z-index: 5;
   position: relative;
 }
+@media (max-width: 767px) {
+  .home_works_single_title {
+    padding-top: 2rem;
+  }
+}
 
 .home_works_single_button {
   display: flex;
   align-items: center;
   width: 18.4rem;
-  bottom: 51rem;
-  right: 40rem;
+  padding-left: 1.2rem;
   position: absolute;
   z-index: 5;
+}
+@media (max-width: 767px) {
+  .home_works_single_button {
+    position: relative;
+    margin-top: 2.4rem;
+  }
+}
+
+.home_works_small_button_icon {
+  margin-left: 0.8rem;
+  margin-top: 0.7rem;
 }
 
 .home_works_single_link {
@@ -736,6 +881,41 @@ figcaption.about_azores_photo_caption {
 .home_works_single_line {
   width: 100%;
   height: 100%;
+}
+
+.works_list {
+  position: fixed;
+  right: 0;
+  top: 15rem;
+  min-height: 16.8rem;
+  padding: 10rem 5rem;
+  opacity: 0.25;
+  transform: translateX(10rem);
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 3;
+}
+.works_list:hover {
+  transform: translateX(0rem);
+  opacity: 1;
+  transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.works_list_title {
+  font-size: 1.6rem;
+  color: #A8A39B;
+}
+
+.works_list_item {
+  margin: 1rem 0;
+}
+
+.works_list_item_link {
+  color: #EAE5D8;
+  text-decoration: none;
+}
+
+.works_list_item_title {
+  color: #EAE5D8;
 }
 
 .work {
@@ -750,13 +930,25 @@ figcaption.about_azores_photo_caption {
   flex-direction: column;
 }
 
+.work_intro_title {
+  opacity: 0;
+  transform: scaleX(0.5);
+}
+.work_intro_title span {
+  display: inline-block;
+}
+.work_intro_title span span {
+  opacity: 0;
+  transform: translateX(100%) skewX(-12deg) rotate(0.1deg);
+}
+
 .work_intro_skills {
   margin-top: 4rem;
   margin-bottom: 14.4rem;
 }
 
 .work_details_live_link {
-  color: #EAE5D8;
+  color: #EAE5D8 !important;
 }
 
 .work_details_wrapper {
@@ -774,6 +966,9 @@ figcaption.about_azores_photo_caption {
 }
 .work_details_title span {
   margin-left: 1rem;
+}
+.work_details_title span span {
+  margin-left: 0.2rem;
 }
 
 .work_details_icon {
@@ -948,8 +1143,11 @@ figcaption.about_azores_photo_caption {
   stroke: #BB4430;
 }
 
+.work_content_next_project_link {
+  margin-left: 1.6rem;
+}
 .work_content_next_project_link a {
-  color: #EAE5D8;
+  color: #EAE5D8 !important;
   text-decoration: none;
 }
 
@@ -961,7 +1159,7 @@ figcaption.about_azores_photo_caption {
 }
 
 .preloader_wrapper {
-  padding: 16.8rem 14.4rem 0 14.4rem;
+  padding-top: 16.8rem;
   position: relative;
 }
 
@@ -976,18 +1174,39 @@ figcaption.about_azores_photo_caption {
   display: inline-block;
   margin-right: -1rem;
 }
+@media (max-width: 767px) {
+  .preloader_big_text {
+    text-align: center;
+    margin-top: 10rem;
+  }
+  .preloader_big_text span {
+    margin-right: -0.2rem;
+  }
+}
+
 .preloader_small_text {
   color: #0C090D;
   transform: scaleX(3.5);
   opacity: 0;
 }
+@media (max-width: 767px) {
+  .preloader_small_text {
+    text-align: center;
+    margin-top: 1.2rem;
+  }
+}
+
 .preloader_bottom {
   width: 100%;
-  padding: 0 14.4rem;
   position: absolute;
   left: 0;
   bottom: 4rem;
   color: #0C090D;
+}
+@media (max-width: 767px) {
+  .preloader_bottom {
+    text-align: center;
+  }
 }
 
 .preloader_bottom_left {
@@ -996,12 +1215,22 @@ figcaption.about_azores_photo_caption {
   float: left;
   margin-top: 3rem;
 }
+@media (max-width: 767px) {
+  .preloader_bottom_left {
+    float: unset;
+  }
+}
 
 .preloader_bottom_right {
   transform: translateY(-2rem);
   opacity: 0;
   float: right;
   margin-top: 3rem;
+}
+@media (max-width: 767px) {
+  .preloader_bottom_right {
+    float: unset;
+  }
 }
 
 .nav_header {
@@ -1011,6 +1240,7 @@ figcaption.about_azores_photo_caption {
   z-index: 3;
 }
 .nav_header .line_top {
+  opacity: 0;
   position: absolute !important;
   bottom: 0 !important;
 }
@@ -1202,6 +1432,14 @@ figcaption.about_azores_photo_caption {
   padding-bottom: 14rem;
 }
 
+.black .contact_button_link {
+  color: #F8F3E5 !important;
+}
+
+.white .contact_button_link {
+  color: #0C090D !important;
+}
+
 .contact {
   width: 100%;
   height: 80vh;
@@ -1212,13 +1450,11 @@ figcaption.about_azores_photo_caption {
   display: flex;
   align-items: center;
   width: 47.4rem;
-  color: #0C090D;
   text-align: center;
 }
 
 .contact_button_link {
   text-decoration: none;
-  color: #0C090D;
   margin-right: 3rem;
 }
 

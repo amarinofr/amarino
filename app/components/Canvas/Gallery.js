@@ -23,6 +23,7 @@ export default class Gallery {
     this.x = {
       current: 0,
       target: 0,
+      direction: 'left',
       lerp: 0.1
     }
 
@@ -33,6 +34,7 @@ export default class Gallery {
       target: 0,
       last: 0,
       x: 0,
+      velocity: 2.5,
       lerp: 0.05
     }
 
@@ -44,7 +46,6 @@ export default class Gallery {
     this.onResize({
       sizes: this.sizes
     })
-    this.addEventListeners()
   }
 
   createRenderer () {
@@ -95,6 +96,8 @@ export default class Gallery {
     this.renderer.setSize(this.sizes.width, this.sizes.height)
     this.bounds = this.element.getBoundingClientRect()
 
+    this.sizes = event.sizes
+
     const fov = this.camera.camera.fov * (Math.PI / 100)
     const height = 2 * Math.tan(fov / 2) * this.camera.camera.position.z
     const width = height * this.camera.aspect
@@ -104,7 +107,7 @@ export default class Gallery {
       height
     }
 
-    this.width = this.bounds.width / window.innerWidth * this.sizes.width
+    this.width = this.bounds.width / window.innerWidth * this.viewport.width
 
     map(this.medias, media => media.onResize(event, this.viewport, this.scroll))
   }
@@ -114,11 +117,11 @@ export default class Gallery {
   }
 
   onTouchMove ({ x, y }) {
-    const distance = (x.start - x.end) * 0.3
+    const distance = (x.start - x.end) * 0.2
 
-    this.x.target = this.scrollX - distance
+    // this.x.target = this.scrollX - distance
 
-    this.scroll.target = this.scroll.current - distance
+    // this.scroll.target = this.scroll.current - distance
   }
 
   onTouchUp ({ x, y }) {
@@ -131,33 +134,37 @@ export default class Gallery {
   update (scroll) {
     this.renderer.render(this.scene, this.camera.camera)
 
-    this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
-
-    this.scroll.x = this.x.current
-
     if (!this.bounds) return
 
+    const distance = (scroll.current - scroll.target) * 0.03
+    const y = scroll.current / window.innerHeight
+
     if (this.scroll.current < this.scroll.target) {
-      this.direction = 'right'
+      this.x.direction = 'right'
+      this.scroll.velocity = -2
     } else if (this.scroll.current > this.scroll.target) {
-      this.direction = 'left'
+      this.x.direction = 'left'
+      this.scroll.velocity = 2
     }
+
+    this.scroll.target -= this.scroll.velocity
+    this.scroll.target += distance
 
     this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.lerp)
 
     map(this.medias, (media, index) => {
-      const scaleX = media.geometry.position.x / 2
+      const scaleX = media.geometry.position.x
 
-      if (this.direction === 'left') {
-        const x = media.geometry.position.x + scaleX
+      if (this.x.direction === 'left') {
+        const x = media.geometry.position.x + scaleX / 2
 
-        if (x < -this.sizes.width / 2) {
+        if (x < -this.width / 2) {
           media.extra += this.width
         }
-      } else if (this.direction === 'right') {
-        const x = media.geometry.position.x - scaleX
+      } else if (this.x.direction === 'right') {
+        const x = media.geometry.position.x + scaleX / 2
 
-        if (x > this.sizes.width / 2) {
+        if (x > this.width / 2) {
           media.extra -= this.width
         }
       }

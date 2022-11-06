@@ -12,6 +12,8 @@ export default class Title extends Animation {
     })
 
     this.tl = GSAP.timeline()
+
+    this.delay = this.element.dataset.delay
   }
 
   animateIn () {
@@ -21,6 +23,7 @@ export default class Title extends Animation {
       autoAlpha: 1,
       scaleX: '1',
       duration: 0.75,
+      delay: this.delay,
       ease: 'expo.out'
     }).to(this.elements.titleSpans, {
       x: '0%',
