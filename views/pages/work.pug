@@ -5,16 +5,16 @@ block variables
 
 
 block content
-  .works_list
-    .works_list_button.regularButton
-      a.work_details_live_link.prevent(href='http://'+single.data.link target='blank')
-      span See live
+  .works_list_button.regularButton
+    a.work_details_live_link.prevent(href='http://'+single.data.link target='blank')
       .home_works_small_button_icon
         svg(width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg")
           path(d="M17.3823 8C17.3823 12.0913 13.6568 15.5 8.94114 15.5C4.22548 15.5 0.5 12.0913 0.5 8C0.5 3.90871 4.22548 0.5 8.94114 0.5C13.6568 0.5 17.3823 3.90871 17.3823 8Z")
           path(d="M20.2058 8C20.2058 12.0913 16.4803 15.5 11.7646 15.5C7.04897 15.5 3.32349 12.0913 3.32349 8C3.32349 3.90871 7.04897 0.5 11.7646 0.5C16.4803 0.5 20.2058 3.90871 20.2058 8Z")
           circle( cx="12" cy="8" r="2.5")
           path(d="M23.5001 8C23.5001 12.0913 19.7746 15.5 15.0589 15.5C10.3433 15.5 6.6178 12.0913 6.6178 8C6.6178 3.90871 10.3433 0.5 15.0589 0.5C19.7746 0.5 23.5001 3.90871 23.5001 8Z")
+      span See live
+  .works_list
     .works_list_title All works
     each work in projects
       .works_list_item
