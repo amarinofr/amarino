@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Scene } from 'three'
 
 import { map } from 'lodash'
 
@@ -44,7 +44,7 @@ export default class Canvas {
         element,
         index,
         sizes: this.sizes,
-        scene: new THREE.Scene(),
+        scene: new Scene(),
         camera: new Camera(),
         renderer: new Renderer(),
         world: new World(),

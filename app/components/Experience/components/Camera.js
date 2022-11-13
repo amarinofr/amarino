@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { PerspectiveCamera } from 'three'
 
 import Experience from '..'
 import { Vector2 } from 'three'
@@ -18,7 +18,7 @@ export default class Camera {
   }
 
   createCamera () {
-    this.camera = new THREE.PerspectiveCamera(50, this.sizes.width / this.sizes.height, 0.1, 100)
+    this.camera = new PerspectiveCamera(50, this.sizes.width / this.sizes.height, 0.1, 100)
     this.camera.position.set(0, 2, 5)
     this.scene.add(this.camera)
     this.mouse = new Vector2()

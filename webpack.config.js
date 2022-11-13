@@ -4,9 +4,9 @@ const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
-// const TerserPlugin = require('terser-webpack-plugin')
-// const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const BrotliPlugin = require('brotli-webpack-plugin')
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev'
 
@@ -18,8 +18,8 @@ const dirNode = path.join(__dirname, 'node_modules')
 
 module.exports = {
   entry: [
-    path.join(dirApp, 'index.js'),
-    path.join(dirStyles, 'index.scss')
+      path.join(dirApp, 'index.js'),
+      path.join(dirStyles, 'index.scss')
   ],
 
   resolve: {
@@ -45,34 +45,28 @@ module.exports = {
         }
       ]
     }),
+
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
 
-    // new ImageMinimizerPlugin({
-    //   minimizer: {
-    //     implementation: ImageMinimizerPlugin.imageminMinify,
-    //     options: {
-    //       plugins: [
-    //         ['gifsicle', { interlaced: true }],
-    //         ['jpegtran', { progressive: true }],
-    //         ['optipng', { optimizationLevel: 5 }]
-    //       ]
-    //     }
-    //   }
+    new CleanWebpackPlugin(),
+    // new CompressionPlugin({
+    //   algorithm: 'gzip'
     // }),
 
-    new CleanWebpackPlugin()
+    // new BrotliPlugin()
   ],
 
   module: {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules\/(?!(three)\/).*/,
         use: {
           loader: 'babel-loader'
-        }
+        },
       },
       {
         test: /\.s[ac]ss$/,
@@ -101,42 +95,22 @@ module.exports = {
           filename: 'assets/[hash][ext]'
         }
       }
-      // {
-      //   test: /\.(jpe?g|png|gif|svg|webp)$/i,
-      //   use: [
-      //     {
-      //       loader: ImageMinimizerPlugin.loader,
-      //       options: {
-      //         minimizer: {
-      //           implementation: ImageMinimizerPlugin.imageminMinify,
-      //           options: {
-      //             plugins: [
-      //               'imagemin-gifsicle',
-      //               'imagemin-mozjpeg',
-      //               'imagemin-pngquant'
-      //             ]
-      //           }
-      //         }
-      //       }
-      //     }
-      //   ]
-      // }
-      // {
-      //   test: /\.(glsl|frag|vert)$/,
-      //   loader: 'raw-loader',
-      //   exclude: /node_modules/
-      // },
-      // {
-      //   test: /\.(glsl|frag|vert)$/,
-      //   loader: 'glslify-loader',
-      //   exclude: /node_modules/
-      // }
     ]
   },
+
   optimization: {
-    minimize: true,
+    // minimize: true,
+    splitChunks: {
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        }
+      }
+    },
+
     minimizer: [
-      // new CssMinimizerPlugin()
       // new TerserPlugin()
     ]
   }

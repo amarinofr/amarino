@@ -50,6 +50,11 @@
   width: 70.2rem;
   padding-left: 14rem;
   flex-direction: column;
+
+  @include media('<phone') {
+    width: 100%;
+    padding: 0 4rem;
+  }
 }
 
 .intro_second_view_text {
@@ -93,6 +98,11 @@
   width: 70.2rem;
   padding-left: 14rem;
   flex-direction: column;
+
+  @include media('<phone') {
+    width: 100%;
+    padding: 4rem 4rem 0 4rem;
+  }
 }
 
 .intro_third_view_text {

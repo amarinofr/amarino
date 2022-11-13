@@ -1,6 +1,4 @@
-import each from 'lodash/each'
 import GSAP from 'gsap'
-import { splitText } from 'utils/splitText'
 
 import Component from 'classes/Component'
 

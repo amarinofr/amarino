@@ -1,4 +1,3 @@
-import each from 'lodash/each'
 import GSAP from 'gsap'
 import { splitText } from 'utils/splitText'
 
@@ -102,10 +101,12 @@ export default class Preloader extends Component {
   }
 
   createLoader () {
-    each(this.elements.images, element => {
-      element.onload = _ => this.onAssetLoaded(element)
-      element.src = element.getAttribute('data-src')
-    })
+    if(this.elements.images) {
+      this.elements.images.forEach(element => {
+        element.onload = _ => this.onAssetLoaded(element)
+        element.src = element.getAttribute('data-src')
+      })
+    }
   }
 
   onAssetLoaded (images) {

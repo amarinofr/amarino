@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { DirectionalLight, AmbientLight, sRGBEncoding, Mesh, MeshStandardMaterial } from 'three'
 import Experience from '..'
 
 export default class Environment {
@@ -20,7 +20,7 @@ export default class Environment {
   }
 
   createDirectionalLight () {
-    this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.42)
+    this.directionalLight = new DirectionalLight(0xffffff, 0.42)
     this.directionalLight.position.set(2, 2, -1)
     this.directionalLight.castShadow = true
     this.directionalLight.shadow.mapSize.set(1024, 1024)
@@ -36,7 +36,7 @@ export default class Environment {
   }
 
   createAmbientLight () {
-    this.ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
+    this.ambientLight = new AmbientLight(0xffffff, 0.8)
     this.scene.add(this.ambientLight)
 
     if (this.debug.active) {
@@ -51,13 +51,13 @@ export default class Environment {
     this.environmentMap = {}
     this.environmentMap.intensity = 1
     this.environmentMap.texture = this.resources.items.environmentMapTexture
-    this.environmentMap.texture.encoding = THREE.sRGBEncoding
+    this.environmentMap.texture.encoding = sRGBEncoding
 
     this.scene.environment = this.environmentMap.texture
 
     this.environmentMap.updateMaterials = () => {
       this.scene.traverse((child) => {
-        if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+        if (child instanceof Mesh && child.material instanceof MeshStandardMaterial) {
           child.material.envMap = this.environmentMap.texture
           child.material.envMapIntensity = this.environmentMap.intensity
           child.material.needsUpdate = true

@@ -4,6 +4,8 @@ const express = require('express')
 const fetch = require('node-fetch')
 
 const path = require('path')
+const staticGzip = require('express-static-gzip')
+
 const app = express()
 const port = 3000
 
@@ -12,6 +14,7 @@ const prismicH = require('@prismicio/helpers')
 
 const accessToken = process.env.PRISMIC_ACCESS_TOKEN
 const endpoint = process.env.PRISMIC_ENDPOINT
+
 
 const handleLinkResolver = (doc) => {
   if (doc.type === 'home') return `/${doc.uid}`
@@ -33,6 +36,7 @@ app.use((req, res, next) => {
   next()
 })
 
+// app.use(staticGzip(path.join(__dirname, 'public'), { index: false, enableBrotli: true, orderPreference: ['br', 'gz'] }))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'views')))
 app.set('view engine', 'pug')

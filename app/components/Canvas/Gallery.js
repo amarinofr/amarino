@@ -1,4 +1,5 @@
-import * as THREE from 'three'
+import { WebGLRenderer, PlaneGeometry, DoubleSide, Mesh, MeshBasicMaterial } from 'three'
+
 import GSAP from 'gsap'
 
 import { map } from 'lodash'
@@ -34,7 +35,7 @@ export default class Gallery {
       target: 0,
       last: 0,
       x: 0,
-      velocity: 2.5,
+      velocity: 1.5,
       lerp: 0.05
     }
 
@@ -49,7 +50,7 @@ export default class Gallery {
   }
 
   createRenderer () {
-    this.renderer = new THREE.WebGLRenderer({
+    this.renderer = new WebGLRenderer({
       canvas: this.element,
       alpha: true
     })
@@ -71,9 +72,9 @@ export default class Gallery {
     this.width = this.bounds.width / window.innerWidth * this.sizes.width
 
     this.medias = map(this.mediasElements, (element, index) => {
-      this.geometry = new THREE.PlaneGeometry(1, 1)
-      this.material = new THREE.MeshBasicMaterial({ color: '#ffffff', side: THREE.DoubleSide })
-      this.plane = new THREE.Mesh(this.geometry, this.material)
+      this.geometry = new PlaneGeometry(1, 1)
+      this.material = new MeshBasicMaterial({ color: '#ffffff', side: DoubleSide })
+      this.plane = new Mesh(this.geometry, this.material)
 
       this.scene.add(this.plane)
 
@@ -118,10 +119,6 @@ export default class Gallery {
 
   onTouchMove ({ x, y }) {
     const distance = (x.start - x.end) * 0.2
-
-    // this.x.target = this.scrollX - distance
-
-    // this.scroll.target = this.scroll.current - distance
   }
 
   onTouchUp ({ x, y }) {
@@ -141,10 +138,10 @@ export default class Gallery {
 
     if (this.scroll.current < this.scroll.target) {
       this.x.direction = 'right'
-      this.scroll.velocity = -2
+      this.scroll.velocity = -1
     } else if (this.scroll.current > this.scroll.target) {
       this.x.direction = 'left'
-      this.scroll.velocity = 2
+      this.scroll.velocity = 1
     }
 
     this.scroll.target -= this.scroll.velocity

@@ -163,6 +163,8 @@
 .home_works_single_gallery_wrapper {
   @extend %cover;
 
+  opacity: 0.25;
+
   @include media('<phone') {
     z-index: z('content');
   }
@@ -260,29 +262,8 @@
 }
 
 .home_works_single_button {
-  @extend %title-24;
-
-  display: flex;
-  align-items: center;
-  width: 18.4rem;
-  padding-left: 1.2rem;
-  position: absolute;
-  z-index: z('bring-front');
-
-  @include media('<phone') {
-    position: relative;
-    margin-top: 2.4rem;
-  }
-}
-
-.home_works_small_button_icon {
-  margin-left: 0.8rem;
-  margin-top: 0.7rem;
-}
-
-.home_works_single_link {
-  text-decoration: none;
-
+  margin-top: 4.8rem;
+  margin-left: 2.4rem;
 }
 
 .home_works_single_line {

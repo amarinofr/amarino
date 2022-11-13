@@ -49,7 +49,7 @@
 }
 
 .work_intro {
-  padding: 15.8rem 0 0 0;
+  padding: 10rem 0 15.8rem 0;
 }
 
 .work_intro_wrapper {
@@ -59,10 +59,29 @@
   flex-direction: column;
 }
 
+.work_details_photo {
+  width: 100%;
+  height: 61.6rem;
+  position: relative;
+
+  @include media('<phone') {
+    width: 100%;
+  }
+}
+
+.work_details_image {
+  @extend %contain;
+  @extend %fill;
+
+  border-radius: 4.4rem;
+}
+
 .work_intro_title {
   @extend %title-156;
   opacity: 0;
   transform: scaleX(0.5);
+  margin-top: 4.8rem;
+  text-transform: uppercase;
 
   span {
     display: inline-block;
@@ -93,15 +112,23 @@
   @extend %padding;
 
   display: flex;
-  margin-top: 7rem;
+  margin-top: 4.8rem;
+
+  @include media('<phone') {
+    flex-direction: column;
+  }
 }
 
 .work_details_left {
   position: relative;
+  display: flex;
 }
 
 .work_details_left_top {
-
+  @include media('<phone') {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .work_details_title {
@@ -134,26 +161,43 @@
   @extend %text-16;
   @extend %indent;
 
-  width: 82%;
-  margin-top: 6.4rem;
+  width: 80%;
+  margin-top: 4.8rem;
+
+  @include media('<phone') {
+    width: 100%;
+  }
 }
 
 .work_details_bottom {
   width: 100%;
-  position: absolute;
-  bottom: 0;
   display: flex;
   justify-content: space-between;
+
+  @include media('<phone') {
+    position: relative;
+    flex-direction: column-reverse;
+    margin-top: 4.8rem;
+  }
 }
 
 .work_details_live {
   @extend %title-24;
 
   align-self: flex-end;
+
+  @include media('<phone') {
+    align-self: flex-start;
+    margin-top: 3.2rem;
+  }
 }
 
 .work_details_technical {
   @extend %text-16;
+
+  @include media('<phone') {
+    margin-top: 4.8rem;
+  }
 }
 
 .work_details_bottom_techincal_title {
@@ -164,19 +208,11 @@
 
 .work_details_right {
   margin-left: 6rem;
-}
 
-.work_details_photo {
-  width: 60.2rem;
-  height: 70.6rem;
-  position: relative;
-}
-
-.work_details.image {
-  @extend %contain;
-  @extend %fill;
-
-  border-radius: 4.4rem;
+  @include media('<phone') {
+    margin-left: unset;
+    margin-top: 6.4rem;
+  }
 }
 
 .work_content {
@@ -200,6 +236,10 @@
 
   & > * {
     width: 50%;
+
+    @include media('<phone') {
+      width: 100%;
+    }
   }
 }
 
@@ -208,10 +248,18 @@
 
   width: 72.2rem;
   font-weight: 500;
+
+  @include media('<phone') {
+    width: 100%;
+  }
 }
 
 .work_content_suspects_problem, .work_content_suspects_solution {
   @extend %center;
+
+  @include media('<phone') {
+    flex-direction: row;
+  }
 }
 
 .work_content_suspects_problem_title, .work_content_suspects_solution_title {
@@ -224,7 +272,13 @@
 .work_content_suspects_problem_title_wrapper, .work_content_suspects_solution_title_wrapper {
   width: 10rem;
   height: 7rem;
-  align-self: flex-end
+  align-self: flex-end;
+
+  @include media('<phone') {
+    // width: 100%;
+    width: 5rem;
+    height: 5rem;
+  }
 }
 
 .work_content_suspects_problem_text, .work_content_suspects_solution_text {
@@ -250,6 +304,10 @@
 
   width: 98rem;
   color: $color-grey3;
+
+  @include media('<phone') {
+    width: 100%;
+  }
 }
 
 .work_content_featured_images {
@@ -266,6 +324,15 @@
 
   &:first-child {
     margin-top: 20rem;
+
+    @include media('<phone') {
+      margin-top: unset;
+      margin-bottom: 4rem;
+    }
+  }
+
+  @include media('<phone') {
+    width: 100%;
   }
 }
 
@@ -344,13 +411,15 @@
 }
 
 .work_content_screenshots_list_item {
-  max-width: 100%;
-  height: auto;
+  position: relative;
+  width: 100%;
+  height: 61.7rem;
 }
 
 .work_content_screenshots_list_image {
-  max-width: 100%;
-  height: auto;
+  @extend %cover;
+
+  object-fit: contain;
 }
 
 .work_content_next_project {

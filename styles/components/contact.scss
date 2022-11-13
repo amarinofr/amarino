@@ -28,6 +28,10 @@
   align-items: center;
   width: 47.4rem;
   text-align: center;
+
+  @include media('<phone') {
+    width: 100%;
+  }
 }
 
 .contact_button_link {

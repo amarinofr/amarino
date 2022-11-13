@@ -29,6 +29,10 @@
     align-items: center;
     justify-content: center;
     display: flex;
+
+    @include media('<phone') {
+      flex-direction: column;
+    }
 }
 
 %animation {

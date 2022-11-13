@@ -1,7 +1,6 @@
 import GSAP from 'gsap'
 import Prefix from 'prefix'
-import { each, map } from 'lodash'
-import { splitText, splitWords } from 'utils/splitText'
+import { splitWords } from 'utils/splitText'
 
 import Title from 'animations/Title'
 import MiniTitle from 'animations/MiniTitle'
@@ -33,7 +32,7 @@ export default class Page {
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
-    each(this.selectorChildren, (entry, key) => {
+    for (const [key, entry] of Object.entries(this.selectorChildren)) {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
         this.elements[key] = entry
       } else {
@@ -45,7 +44,7 @@ export default class Page {
           this.elements[key] = document.querySelector(entry)
         }
       }
-    })
+    }
 
     this.scroll = {
       current: 0,
@@ -61,39 +60,48 @@ export default class Page {
   }
 
   createAnimations () {
-    this.animationsTitles = each(this.elements.animationsTitles, element => {
-      splitWords(element)
 
-      return new Title({
-        element
+    if (this.elements.animationsTitles) {
+      this.animationsTitles = this.elements.animationsTitles.forEach(element => {
+        splitWords(element)
+
+        return new Title({
+          element
+        })
       })
-    })
+    }
 
-    this.animationsMiniTitles = each(this.elements.animationsMiniTitles, element => {
-      splitWords(element)
+    if (this.elements.animationsMiniTitles) {
+      this.animationsMiniTitles = this.elements.animationsMiniTitles.forEach(element => {
+        splitWords(element)
 
-      return new MiniTitle({
-        element
+        return new MiniTitle({
+          element
+        })
       })
-    })
+    }
 
-    this.animationsAboutTitles = each(this.elements.animationsAboutTitles, element => {
-      splitWords(element)
+    if (this.elements.animationsAboutTitles) {
+      this.animationsAboutTitles = this.elements.animationsAboutTitles.forEach(element => {
+        splitWords(element)
 
-      return new AboutTitle({
-        element
+        return new AboutTitle({
+          element
+        })
       })
-    })
+    }
 
-    this.animationsLines = each(this.elements.animationsLines, element => {
-      return new Line({
-        element
+    if (this.elements.animationsLines) {
+      this.animationsLines = this.elements.animationsLines.forEach(element => {
+        return new Line({
+          element
+        })
       })
-    })
+    }
 
     if (this.elements.animationsBg) {
       if (this.elements.animationsBg.length >= 2) {
-        this.animationsBg = map(this.elements.animationsBg, element => {
+        this.animationsBg = this.elements.animationsBg.forEach(element => {
           return new ChangeBgColor({
             element
           })
@@ -138,9 +146,12 @@ export default class Page {
   }
 
   createAsyncLoad () {
-    each(this.elements.asyncloaders, element => {
-      return new AsyncLoad({ element })
-    })
+    if (this.elements.asyncloaders) {
+      this.elements.asyncloaders.forEach( element => {
+        return new AsyncLoad({ element })
+      })
+    }
+
   }
 
   onResize () {

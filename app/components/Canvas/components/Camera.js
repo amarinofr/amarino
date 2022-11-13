@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { PerspectiveCamera } from 'three'
 
 import Canvas from '..'
 
@@ -15,7 +15,7 @@ export default class Camera {
   createCamera () {
     this.aspect = this.sizes.width / this.sizes.height
 
-    this.camera = new THREE.PerspectiveCamera(50, this.aspect, 0.1, 100)
+    this.camera = new PerspectiveCamera(50, this.aspect, 0.1, 100)
     this.camera.position.set(0, 0, 3)
   }
 

@@ -1,5 +1,4 @@
 import Page from 'classes/Page'
-import Lottie from 'lottie-web'
 
 export default class Home extends Page {
   constructor ({ template }) {
@@ -22,15 +21,15 @@ export default class Home extends Page {
   }
 
   runLottie () {
-    setTimeout(() => {
-      Lottie.loadAnimation({
-        container: this.elements.vortexBig,
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: 'data.json'
-      })
-    }, 0.1)
+    // setTimeout(() => {
+    //   Lottie.loadAnimation({
+    //     container: this.elements.vortexBig,
+    //     renderer: 'svg',
+    //     loop: true,
+    //     autoplay: true,
+    //     path: 'data.json'
+    //   })
+    // }, 0.1)
   }
 
   changeBgColor () {

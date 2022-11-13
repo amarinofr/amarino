@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { Scene } from 'three'
 
 import Sizes from '../utils/Sizes'
 import Debug from '../utils/Debug'
@@ -23,7 +23,7 @@ export default class Experience {
     this.canvas = canvas
     this.debug = new Debug()
     this.sizes = new Sizes()
-    this.scene = new THREE.Scene()
+    this.scene = new Scene()
     this.resources = new Resources(sources)
     this.camera = new Camera()
     this.renderer = new Renderer()

@@ -25,6 +25,10 @@
   font-size: 15.6rem;
   font-weight: bold;
   line-height: 100%;
+
+  @include media('<phone') {
+    font-size: 4.8rem;
+  }
 }
 
 
@@ -63,6 +67,10 @@
   font-family: $font-vc;
   font-size: 4.8rem;
   line-height: 100%;
+
+  @include media('<phone') {
+    font-size: 3.2rem;
+  }
 }
 
 %title-32 {
@@ -80,5 +88,11 @@
 %title-22 {
   font-family: $font-vc;
   font-size: 2.2rem;
+  line-height: 100%;
+}
+
+%title-16 {
+  font-family: $font-vc;
+  font-size: 1.6rem;
   line-height: 100%;
 }

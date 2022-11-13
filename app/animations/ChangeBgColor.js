@@ -1,5 +1,4 @@
 import GSAP from 'gsap'
-import { horizontalLoop } from 'utils/loop'
 
 import Animation from 'classes/Animation'
 

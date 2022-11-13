@@ -1,4 +1,4 @@
-import * as THREE from 'three'
+import { TextureLoader } from 'three'
 
 import Canvas from '.'
 
@@ -30,7 +30,7 @@ export default class Media {
     this.image.crossOrigin = 'anonymous'
     this.image.src = this.element.getAttribute('data-src')
 
-    this.texture = new THREE.TextureLoader().load(this.image.src)
+    this.texture = new TextureLoader().load(this.image.src)
     this.geometry.material.map = this.texture
   }
 
@@ -71,6 +71,7 @@ export default class Media {
     // this.geometry.position.x = this.currentPos + this.distance
     // this.geometry.position.x -= target * 0.00005
     // this.geometry.position.x += distance
+
   }
 
   onResize (event, viewport, scroll) {

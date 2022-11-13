@@ -1,5 +1,3 @@
-import each from 'lodash/each'
-
 import Preloader from 'components/Preloader'
 import Nav from 'components/Nav'
 import Experience from 'components/Experience'
@@ -105,6 +103,10 @@ class App {
     this.intro.destroy()
   }
 
+  onPopState () {
+    this.onChange(window.location.pathname)
+  }
+
   async onChange (url) {
     await this.page.hide()
 
@@ -113,6 +115,8 @@ class App {
     if (request.status === 200) {
       const html = await request.text()
       const div = document.createElement('div')
+
+      window.history.pushState({}, '', url)
 
       div.innerHTML = html
 
@@ -188,6 +192,8 @@ class App {
   }
 
   addEventListeners () {
+    window.addEventListener('popstate', this.onPopState.bind(this))
+
     window.addEventListener('resize', this.onResize.bind(this))
 
     window.addEventListener('mousedown', this.onTouchDown.bind(this))
@@ -210,7 +216,7 @@ class App {
   addLinkListeners () {
     const links = document.querySelectorAll('a')
 
-    each(links, link => {
+    links.forEach(link => {
       link.onclick = event => {
         if (!link.classList.contains('prevent')) {
           event.preventDefault()

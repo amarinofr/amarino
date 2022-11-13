@@ -15,12 +15,16 @@
 .about_intro_wrapper {
   position: relative;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .about_intro_description {
   display: flex;
   position: relative;
+
+  @include media('<phone') {
+    flex-direction: column;;
+  }
 }
 
 h1.about_intro_text {
@@ -49,6 +53,7 @@ h1.about_intro_text {
     color: $color-red;
     font-weight: 500;
   }
+
 }
 
 figure.about_intro_photo {
@@ -58,6 +63,12 @@ figure.about_intro_photo {
   margin-left: 12.5rem;
   margin-top: -12rem;
   z-index: z('bring-back');
+
+  @include media('<phone') {
+    width: 100%;
+    height: auto;
+    margin-left: unset;
+  }
 }
 
 img.about_intro_photo_image {
@@ -78,6 +89,12 @@ figcaption.about_intro_photo_caption {
   position: relative;
   margin-top: 2rem;
   color: $color-black;
+
+  @include media('<phone') {
+    position: absolute;
+    width: 100%;
+    bottom: -50rem;
+  }
 }
 
 .about_extras {
@@ -89,6 +106,12 @@ figcaption.about_intro_photo_caption {
   margin-bottom: 12.6rem;
   display: flex;
   flex-direction: column;
+
+  @include media('<phone') {
+    position: relative;
+    width: unset;
+    align-self: center;
+  }
 }
 
 .about_extras_symbol {
@@ -119,6 +142,10 @@ figcaption.about_intro_photo_caption {
 .about_azores {
   width: 100%;
   margin-top: 64rem;
+
+  @include media('<phone') {
+    margin-top: 48rem;
+  }
 }
 
 .about_azores_wrapper {
@@ -130,6 +157,11 @@ h3.about_azores_title {
 
   width: 35.5rem;
   margin-left: 51.7rem;
+
+  @include media('<phone') {
+    width: 100%;
+    margin-left: unset;
+  }
 }
 
 .about_azores_photos_wrapper {
@@ -137,6 +169,10 @@ h3.about_azores_title {
 
   margin-top: 7rem;
   align-items: flex-start;
+
+  @include media('<phone') {
+    flex-direction: column;
+  }
 }
 
 figure.about_azores_photo {
@@ -147,10 +183,23 @@ figure.about_azores_photo {
 
   &:nth-child(2) {
     height: 50rem;
+
+    @include media('<phone') {
+      width: 100%;
+    }
   }
 
   &:nth-child(3) {
     width: 77.7rem;
+
+    @include media('<phone') {
+      width: 100%;
+    }
+  }
+
+  @include media('<phone') {
+    width: 100%;
+    margin: 3rem 0;
   }
 }
 
@@ -196,6 +245,10 @@ figcaption.about_azores_photo_caption {
 
     padding: 14.8rem 0;
     width: 47.8rem;
+
+    @include media('<phone') {
+      width: 100%;
+    }
   }
 }
 
