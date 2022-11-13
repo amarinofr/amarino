@@ -72,13 +72,18 @@ export default class Page {
     }
 
     if (this.elements.animationsMiniTitles) {
-      this.animationsMiniTitles = this.elements.animationsMiniTitles.forEach(element => {
-        splitWords(element)
-
-        return new MiniTitle({
-          element
+      if (this.elements.animationsMiniTitles.length >= 2) {
+        this.animationsMiniTitles = this.elements.animationsMiniTitles.forEach(element => {
+          return new MiniTitle({
+            element
+          })
         })
-      })
+      } else {
+        this.animationsMiniTitles =
+          new MiniTitle({
+            element: this.elements.animationsMiniTitles
+          })
+      }
     }
 
     if (this.elements.animationsAboutTitles) {

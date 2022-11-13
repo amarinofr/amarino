@@ -17,8 +17,6 @@ export default class Title extends Animation {
   }
 
   animateIn () {
-    this.tl.restart()
-
     this.tl.to(this.element, {
       autoAlpha: 1,
       scaleX: '1',
@@ -41,15 +39,6 @@ export default class Title extends Animation {
   }
 
   animateOut () {
-    GSAP.set(this.element, {
-      autoAlpha: 0,
-      scaleX: '3.5'
-    })
 
-    GSAP.set(this.elements.titleSpans, {
-      autoAlpha: 0,
-      x: '100%',
-      skewX: '12deg'
-    })
   }
 }

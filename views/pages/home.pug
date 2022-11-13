@@ -27,8 +27,8 @@ block content
                   .home_works_single_wrapper
                     .home_works_single_details_wrapper
                       .home_works_single_details
-                        .home_works_single_skills=work.data.skills
-                      h2.home_works_single_title=work.data.title
+                        .home_works_single_skills(data-animation="title" data-delay="0")=work.data.skills
+                      h2.home_works_single_title(data-animation="miniTitle" data-delay="0")=work.data.title
                       .home_works_single_button.regularButton
                         a.home_works_single_link(a href=`/work/${work.uid}`)
                           span View project

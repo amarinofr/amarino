@@ -167,8 +167,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ MiniTitle)
 /* harmony export */ });
-/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
+/* harmony import */ var gsap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gsap */ "./node_modules/gsap/index.js");
 /* harmony import */ var classes_Animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classes/Animation */ "./app/classes/Animation.js");
+/* harmony import */ var utils_splitText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! utils/splitText */ "./app/utils/splitText.js");
+
 
 
 class MiniTitle extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
@@ -178,44 +180,36 @@ class MiniTitle extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"
   }) {
     super({
       element,
-      elements: {
-        titleSpans: element.querySelectorAll('span span')
-      }
+      elements: {}
     });
-    this.tl = gsap__WEBPACK_IMPORTED_MODULE_1__["default"].timeline();
+    (0,utils_splitText__WEBPACK_IMPORTED_MODULE_1__.splitWords)(this.element);
+    this.tl = gsap__WEBPACK_IMPORTED_MODULE_2__["default"].timeline();
+    this.titleSpans = this.element.querySelectorAll('span span');
+    if (this.element.dataset.delay) {
+      this.delay = this.element.dataset.delay;
+    }
   }
   animateIn() {
-    this.tl.restart();
     this.tl.to(this.element, {
       autoAlpha: 1,
       scaleX: '1',
       duration: 0.75,
       ease: 'expo.out'
-    }).to(this.elements.titleSpans, {
+    }).to(this.titleSpans, {
       x: '0%',
       skewX: '0',
       transformOrigin: 'center left',
       stagger: 0.05,
       duration: 0.75,
       ease: 'expo.out'
-    }, '+=0.025').to(this.elements.titleSpans, {
+    }, '+=0.025').to(this.titleSpans, {
       autoAlpha: 1,
       stagger: 0.09,
       duration: 0.6,
       ease: 'expo.out'
     }, '<');
   }
-  animateOut() {
-    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.element, {
-      autoAlpha: 0,
-      scaleX: '3.5'
-    });
-    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.elements.titleSpans, {
-      autoAlpha: 0,
-      x: '100%',
-      skewX: '12deg'
-    });
-  }
+  animateOut() {}
 }
 
 /***/ }),
@@ -249,7 +243,6 @@ class Title extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.delay = this.element.dataset.delay;
   }
   animateIn() {
-    this.tl.restart();
     this.tl.to(this.element, {
       autoAlpha: 1,
       scaleX: '1',
@@ -270,17 +263,7 @@ class Title extends classes_Animation__WEBPACK_IMPORTED_MODULE_0__["default"] {
       ease: 'expo.out'
     }, '<');
   }
-  animateOut() {
-    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.element, {
-      autoAlpha: 0,
-      scaleX: '3.5'
-    });
-    gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.elements.titleSpans, {
-      autoAlpha: 0,
-      x: '100%',
-      skewX: '12deg'
-    });
-  }
+  animateOut() {}
 }
 
 /***/ }),
@@ -353,8 +336,9 @@ class AsyncLoad extends classes_Component__WEBPACK_IMPORTED_MODULE_0__["default"
     });
     this.createObserver();
     this.element.src = this.element.getAttribute('data-src');
-    this.delay = this.element.dataset.delay;
-    console.log(this.delay);
+    if (this.element.dataset.delay) {
+      this.delay = this.element.dataset.delay;
+    }
     gsap__WEBPACK_IMPORTED_MODULE_1__["default"].set(this.element, {
       autoAlpha: 0
     });
@@ -515,12 +499,17 @@ class Page {
       });
     }
     if (this.elements.animationsMiniTitles) {
-      this.animationsMiniTitles = this.elements.animationsMiniTitles.forEach(element => {
-        (0,utils_splitText__WEBPACK_IMPORTED_MODULE_1__.splitWords)(element);
-        return new animations_MiniTitle__WEBPACK_IMPORTED_MODULE_3__["default"]({
-          element
+      if (this.elements.animationsMiniTitles.length >= 2) {
+        this.animationsMiniTitles = this.elements.animationsMiniTitles.forEach(element => {
+          return new animations_MiniTitle__WEBPACK_IMPORTED_MODULE_3__["default"]({
+            element
+          });
         });
-      });
+      } else {
+        this.animationsMiniTitles = new animations_MiniTitle__WEBPACK_IMPORTED_MODULE_3__["default"]({
+          element: this.elements.animationsMiniTitles
+        });
+      }
     }
     if (this.elements.animationsAboutTitles) {
       this.animationsAboutTitles = this.elements.animationsAboutTitles.forEach(element => {
@@ -2511,7 +2500,7 @@ __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
     if(true) {
-      // 1668370843615
+      // 1668379499161
       var cssReload = __webpack_require__(/*! ../node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js */ "./node_modules/mini-css-extract-plugin/dist/hmr/hotModuleReplacement.js")(module.id, {"publicPath":"","locals":false});
       module.hot.dispose(cssReload);
       module.hot.accept(undefined, cssReload);
@@ -2649,7 +2638,7 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("d97c278029b5c7c5f059")
+/******/ 		__webpack_require__.h = () => ("a0ee0576ff230048aba9")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */

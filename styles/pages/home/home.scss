@@ -73,7 +73,7 @@
 .home_works {
   width: 100%;
   overflow: hidden;
-  margin-top: 8rem;
+  margin-top: 32rem;
 }
 
 .home_works_wrapper {
@@ -118,14 +118,14 @@
 .home_works_title {
   @extend %title-64;
 
-  margin-top: 2.2rem;
+  margin-top: 3.2rem;
 }
 
 .home_works_list {
   @extend %center;
 
   width: 100%;
-  margin-top: 32rem;
+  margin-top: 6.4rem;
   overflow: hidden;
 
   @include media('<phone') {

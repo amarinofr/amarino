@@ -9,9 +9,9 @@ export default class AsyncLoad extends Component {
     this.createObserver()
     this.element.src = this.element.getAttribute('data-src')
 
-    this.delay = this.element.dataset.delay
-
-    console.log(this.delay)
+    if (this.element.dataset.delay) {
+      this.delay = this.element.dataset.delay
+    }
 
     GSAP.set(this.element, {
       autoAlpha: 0
