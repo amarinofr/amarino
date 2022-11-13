@@ -52,11 +52,11 @@ module.exports = {
     }),
 
     new CleanWebpackPlugin(),
-    // new CompressionPlugin({
-    //   algorithm: 'gzip'
-    // }),
+    new CompressionPlugin({
+      algorithm: 'gzip'
+    }),
 
-    // new BrotliPlugin()
+    new BrotliPlugin()
   ],
 
   module: {
@@ -111,7 +111,7 @@ module.exports = {
     },
 
     minimizer: [
-      // new TerserPlugin()
+      new TerserPlugin()
     ]
   }
 }
