@@ -9,11 +9,13 @@ export default class Nav extends Component {
       elements: {
         logo: '.nav_logo',
         list: '.nav_list_link',
-        line: '.line_top',
+        // line: '.line_top',
         social: '.nav_list_social_links_list'
       }
 
     })
+
+    this.line = this.element.querySelector('.line_top')
 
     this.show()
   }
@@ -24,7 +26,7 @@ export default class Nav extends Component {
       ease: 'expo.out'
     })
 
-    this.tl.to(this.elements.line, {
+    this.tl.to(this.line, {
       scaleX: '100%',
       autoAlpha: 1
     }).to(this.elements.logo, {

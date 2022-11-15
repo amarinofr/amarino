@@ -7,6 +7,7 @@ import MiniTitle from 'animations/MiniTitle'
 import AboutTitle from 'animations/AboutTitle'
 import ChangeBgColor from 'animations/ChangeBgColor'
 import Line from 'animations/Line'
+import Text from 'animations/Text'
 
 import AsyncLoad from 'classes/AsyncLoad'
 
@@ -19,6 +20,7 @@ export default class Page {
       animationsMiniTitles: '[data-animation="miniTitle"]',
       animationsAboutTitles: '[data-animation="aboutTitle"]',
       animationsBg: '[data-animation="change-bg-color"]',
+      animationsText: '[data-animation="text"]',
       animationsLines: '[data-animation="line"]',
 
       asyncloaders: '[data-src]'
@@ -55,12 +57,9 @@ export default class Page {
     }
 
     this.scroll.smoothness = this.scroll.smoothness / 100
-
-    this.createAsyncLoad()
   }
 
   createAnimations () {
-
     if (this.elements.animationsTitles) {
       this.animationsTitles = this.elements.animationsTitles.forEach(element => {
         splitWords(element)
@@ -97,11 +96,31 @@ export default class Page {
     }
 
     if (this.elements.animationsLines) {
-      this.animationsLines = this.elements.animationsLines.forEach(element => {
-        return new Line({
-          element
+      if (this.elements.animationsLines.length >= 2) {
+        this.animationsLines = this.elements.animationsLines.forEach(element => {
+          return new Line({
+            element
+          })
         })
-      })
+      } else {
+        this.animationsLines = new Line({
+            element: this.elements.animationsLines
+          })
+      }
+    }
+
+    if (this.elements.animationsText) {
+      if (this.elements.animationsText.length >= 2) {
+        this.animationsText = this.elements.animationsText.forEach(element => {
+          return new Text({
+            element
+          })
+        })
+      } else {
+        this.animationsText = new Text({
+            element: this.elements.animationsText
+        })
+      }
     }
 
     if (this.elements.animationsBg) {
@@ -124,12 +143,16 @@ export default class Page {
   show () {
     return new Promise(resolve => {
       this.animationIn = GSAP.timeline()
+      this.onResize()
+
       this.animationIn.to(this.element, {
         autoAlpha: 1,
         onComplete: _ => {
           this.addEventListeners()
-          this.onResize()
           this.createAnimations()
+
+    this.createAsyncLoad()
+
 
           resolve()
         }

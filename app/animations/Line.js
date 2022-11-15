@@ -11,27 +11,22 @@ export default class Line extends Animation {
       }
     })
 
-    console.log(this.elements.lines)
+    this.delay = this.element.dataset.delay
 
     this.tl = GSAP.timeline()
-
-    // this.showLine()
   }
 
   animateIn () {
-    GSAP.to(this.elements.lines, {
+    this.tl.to(this.element, {
       autoAlpha: 1,
       scaleX: 1,
       duration: 0.5,
-      ease: 'expo.out',
-      delay: 0.25
+      delay: this.delay,
+      ease: 'expo.out'
     })
   }
 
   animateOut () {
-    GSAP.set(this.elements.lines, {
-      autoAlpha: 0,
-      scaleX: 0
-    })
+
   }
 }

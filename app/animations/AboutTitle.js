@@ -12,11 +12,21 @@ export default class AboutTitle extends Animation {
     })
 
     this.tl = GSAP.timeline()
+
+    GSAP.set(this.element, {
+      autoAlpha: 0,
+      scaleY: '0'
+    })
+
+    GSAP.set(this.elements.titleSpans, {
+      autoAlpha: 0,
+      y: '100%',
+      scaleY: '0.3',
+      skewY: '12deg'
+    })
   }
 
   animateIn () {
-    this.tl.restart()
-
     this.tl.to(this.element, {
       autoAlpha: 1,
       scaleY: '1',
@@ -38,16 +48,6 @@ export default class AboutTitle extends Animation {
   }
 
   animateOut () {
-    GSAP.set(this.element, {
-      autoAlpha: 0,
-      scaleY: '0'
-    })
 
-    GSAP.set(this.elements.titleSpans, {
-      autoAlpha: 0,
-      y: '100%',
-      scaleY: '0.3',
-      skewY: '12deg'
-    })
   }
 }

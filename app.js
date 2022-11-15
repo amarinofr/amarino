@@ -36,8 +36,8 @@ app.use((req, res, next) => {
   next()
 })
 
-// app.use(staticGzip(path.join(__dirname, 'public'), { index: false, enableBrotli: true, orderPreference: ['br', 'gz'] }))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(staticGzip(path.join(__dirname, 'public'), { index: false, enableBrotli: true, orderPreference: ['br', 'gz'] }))
+// app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'views')))
 app.set('view engine', 'pug')
 

@@ -24,14 +24,13 @@ block content
     .work_wrapper
       .work_intro
         .work_intro_wrapper
-          figure.work_details_photo
-            img.work_details_image(data-src=single.data.featured_image.url alt=single.data.featured_image.alt)
-
           h2.work_intro_title(data-animation="title")=single.data.title
           .work_intro_skills(data-animation="title")=single.data.skills
-          .line_bottom
+          .line_top.line(data-animation="line" data-delay="0.5")
             .line_thick
             .line_thin
+          figure.work_details_photo(data-delay="4.5")
+            img.work_details_image(data-src=single.data.featured_image.url alt=single.data.featured_image.alt)
 
       .work_details
         .work_details_wrapper
@@ -47,11 +46,11 @@ block content
                     circle(cx="54.8956" cy="24" r="23.5")
                     circle(cx="63.7377" cy="24" r="23.5")
                 span(data-animation="title" data-delay="0.35") Project Description
-              .work_details_text!=ctx.prismicH.asHTML(single.data.description)
+              .work_details_text(data-animation="text" data-delay="0.75" data-duration="3")!=ctx.prismicH.asHTML(single.data.description)
             .work_details_bottom
               .work_details_technical
-                .work_details_bottom_techincal_title Technical Stuff
-                !=ctx.prismicH.asHTML(single.data.technical_stuff)
+                .work_details_bottom_techincal_title(data-animation="title") Technical Stuff
+                .work_details_bottom_technical_text(data-animation="text" data-delay="1")!=ctx.prismicH.asHTML(single.data.technical_stuff)
 
         .work_content
           .work_content_wrapper
@@ -59,16 +58,16 @@ block content
               .work_content_suspects
                 .work_content_suspects_problem
                   .work_content_suspects_problem_title_wrapper
-                    .work_content_suspects_problem_title Problem
-                  .work_content_suspects_problem_text!= ctx.prismicH.asHTML(single.data.problem)
+                    .work_content_suspects_problem_title(data-animation="title") Problem
+                  .work_content_suspects_problem_text(data-animation="text" data-delay="0.75")!= ctx.prismicH.asHTML(single.data.problem)
                 .work_content_suspects_solution
                   .work_content_suspects_solution_title_wrapper
-                    .work_content_suspects_solution_title Solution
-                  .work_content_suspects_solution_text!= ctx.prismicH.asHTML(single.data.solution)
+                    .work_content_suspects_solution_title(data-animation="title" data-delay="0.35") Solution
+                  .work_content_suspects_solution_text(data-animation="text" data-delay="1")!= ctx.prismicH.asHTML(single.data.solution)
 
             .work_content_featured
               .work_content_featured_wrapper
-                .work_content_featured_text=single.data.featured_text
+                .work_content_featured_text(data-animation="text" data-delay="0.15" data-duration="5.5")=single.data.featured_text
                 .work_content_featured_images
                   each image in single.data.auxiliar_images
                     figure.work_content_featured_images_photo

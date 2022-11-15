@@ -1,3 +1,5 @@
+import GSAP from 'gsap'
+
 import Page from 'classes/Page'
 
 export default class Work extends Page {
@@ -13,5 +15,17 @@ export default class Work extends Page {
     })
 
     this.template = template
+
+    this.photo = document.querySelector('.work_details_photo')
+
+    this.showPhoto()
+  }
+
+  showPhoto () {
+    GSAP.to(this.photo, {
+      autoAlpha: 1,
+      delay: this.delay,
+      ease: 'expo.out'
+    })
   }
 }

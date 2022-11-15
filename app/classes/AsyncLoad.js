@@ -11,6 +11,8 @@ export default class AsyncLoad extends Component {
 
     if (this.element.dataset.delay) {
       this.delay = this.element.dataset.delay
+    } else {
+      this.delay = 0
     }
 
     GSAP.set(this.element, {
@@ -26,11 +28,11 @@ export default class AsyncLoad extends Component {
             autoAlpha: 1,
             ease: 'expo.out',
             delay: this.delay,
-            duration: 2
+            duration: 5
           })
         }
       })
-    })
+    }, {threshold: 0.25})
 
     this.observer.observe(this.element)
   }
