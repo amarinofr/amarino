@@ -6,7 +6,7 @@ block variables
 
 block content
   .works_list_button.regularButton
-    a.work_details_live_link.prevent(href='http://'+single.data.link target='blank')
+    a.work_details_live_link.prevent(href=`http://${single.data.link}` target='blank')
       .home_works_small_button_icon
         svg(width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg")
           path(d="M17.3823 8C17.3823 12.0913 13.6568 15.5 8.94114 15.5C4.22548 15.5 0.5 12.0913 0.5 8C0.5 3.90871 4.22548 0.5 8.94114 0.5C13.6568 0.5 17.3823 3.90871 17.3823 8Z")
@@ -20,7 +20,7 @@ block content
       .works_list_item
         a.work_list_item_link(href=`/work/${work.uid}`)
           .works_list_item_title=work.data.title
-  .work
+  .work(data-animation="change-bg-color")
     .work_wrapper
       .work_intro
         .work_intro_wrapper
@@ -52,64 +52,62 @@ block content
                 .work_details_bottom_techincal_title(data-animation="title") Technical Stuff
                 .work_details_bottom_technical_text(data-animation="text" data-delay="1")!=ctx.prismicH.asHTML(single.data.technical_stuff)
 
-        .work_content
-          .work_content_wrapper
-            .work_content_solution
-              .work_content_suspects
-                .work_content_suspects_problem
-                  .work_content_suspects_problem_title_wrapper
-                    .work_content_suspects_problem_title(data-animation="title") Problem
-                  .work_content_suspects_problem_text(data-animation="text" data-delay="0.75")!= ctx.prismicH.asHTML(single.data.problem)
-                .work_content_suspects_solution
-                  .work_content_suspects_solution_title_wrapper
-                    .work_content_suspects_solution_title(data-animation="title" data-delay="0.35") Solution
-                  .work_content_suspects_solution_text(data-animation="text" data-delay="1")!= ctx.prismicH.asHTML(single.data.solution)
+      .work_content
+        .work_content_wrapper
+          .work_content_solution
+            .work_content_suspects
+              .work_content_suspects_problem
+                .work_content_suspects_problem_title_wrapper
+                  .work_content_suspects_problem_title(data-animation="title") Problem
+                .work_content_suspects_problem_text(data-animation="text" data-delay="0.75")!= ctx.prismicH.asHTML(single.data.problem)
+              .work_content_suspects_solution
+                .work_content_suspects_solution_title_wrapper
+                  .work_content_suspects_solution_title(data-animation="title" data-delay="0.35") Solution
+                .work_content_suspects_solution_text(data-animation="text" data-delay="1")!= ctx.prismicH.asHTML(single.data.solution)
 
-            .work_content_featured
-              .work_content_featured_wrapper
-                .work_content_featured_text(data-animation="text" data-delay="0.15" data-duration="5.5")=single.data.featured_text
-                .work_content_featured_images
-                  each image in single.data.auxiliar_images
-                    figure.work_content_featured_images_photo
-                      img.work_content_featured_images_image(data-src=image.image.url alt=image.image.alt data-delay="0.5")
+          .work_content_featured
+            .work_content_featured_wrapper
+              .work_content_featured_text(data-animation="text" data-delay="0.15" data-duration="5.5")=single.data.featured_text
+              .work_content_featured_images
+                each image in single.data.auxiliar_images
+                  figure.work_content_featured_images_photo
+                    img.work_content_featured_images_image(data-src=image.image.url alt=image.image.alt data-delay="0.5")
 
-            if single.data.ui_and_color_palette
-              .work_content_ui
-                .work_content_ui_wrapper
-                  .work_content_ui_icon
-                    .work_content_ui_icon_svg
-                      svg(width="48" height="45" viewBox="0 0 48 45" fill="none" xmlns="http://www.w3.org/2000/svg")
-                        circle(cx="13.9636" cy="30.5457" r="13.3386" stroke="#74706C" stroke-width="1.25")
-                        circle(cx="34.0364" cy="30.5457" r="13.3386" stroke="#74706C" stroke-width="1.25")
-                        circle(cx="24.4364" cy="13.9636" r="13.3386" stroke="#74706C" stroke-width="1.25")
-                    .work_content_ui_title UI & Color Palette
+          if single.data.ui_and_color_palette
+            .work_content_ui
+              .work_content_ui_wrapper
+                .work_content_ui_icon
+                  .work_content_ui_icon_svg
+                    svg(width="48" height="45" viewBox="0 0 48 45" fill="none" xmlns="http://www.w3.org/2000/svg")
+                      circle(cx="13.9636" cy="30.5457" r="13.3386" stroke="#74706C" stroke-width="1.25")
+                      circle(cx="34.0364" cy="30.5457" r="13.3386" stroke="#74706C" stroke-width="1.25")
+                      circle(cx="24.4364" cy="13.9636" r="13.3386" stroke="#74706C" stroke-width="1.25")
+                  .work_content_ui_title(data-animation="title" data-delay="0.5" data-duration="1.5") UI & Color Palette
 
-                  figure.work_content_ui_photo
-                    img.work_content_ui_image(data-src=single.data.ui_and_color_palette.url alt=single.data.ui_and_color_palette.alt)
+                figure.work_content_ui_photo
+                  img.work_content_ui_image(data-src=`${single.data.ui_and_color_palette}.svg`)
 
-            .work_content_screenshots
-              .work_content_screenshots_wrapper
-                .work_content_screenshots_icon
-                  .work_content_screenshots_icon_svg
-                      //- svg(width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg")
-                      //-   rect(x="0.5" y="11.9282" width="35.5716" height="35.5716" rx="2.5")
-                      //-   rect(x="4.30951" y="8.11914" width="35.5716" height="35.5716" rx="2.5")
-                      //-   rect(x="8.11908" y="4.30908" width="35.5716" height="35.5716" rx="2.5")
-                      //-   rect(x="11.9286" y="0.5" width="35.5716" height="35.5716" rx="2.5")
-                  .work_content_screenshots_title(data-animation="title") Some Screenshots
-                .work_content_screenshots_list
-                  each screenshot in single.data.screenshots
-                    figure.work_content_screenshots_list_item
-                      img.work_content_screenshots_list_image(data-src=screenshot.image.url alt=screenshot.image.alt)
+          .work_content_screenshots
+            .work_content_screenshots_wrapper
+              .work_content_screenshots_icon
+                .work_content_screenshots_icon_svg
+                    //- svg(width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg")
+                    //-   rect(x="0.5" y="11.9282" width="35.5716" height="35.5716" rx="2.5")
+                    //-   rect(x="4.30951" y="8.11914" width="35.5716" height="35.5716" rx="2.5")
+                    //-   rect(x="8.11908" y="4.30908" width="35.5716" height="35.5716" rx="2.5")
+                    //-   rect(x="11.9286" y="0.5" width="35.5716" height="35.5716" rx="2.5")
+                .work_content_screenshots_title(data-animation="title") Some Screenshots
+              .work_content_screenshots_list
+                each screenshot in single.data.screenshots
+                  figure.work_content_screenshots_list_item
+                    img.work_content_screenshots_list_image(data-src=screenshot.image.url alt=screenshot.image.alt)
 
-            .work_content_next_project
-              .work_content_next_project_wrapper
-                .work_content_next_project_button
-                  .work_content_next_project_icon
-                    svg(width="89" height="67" viewBox="0 0 89 67" fill="none" xmlns="http://www.w3.org/2000/svg")
-                      circle(cx="33.1176" cy="33.1176" r="32.4926" stroke-width="1.25")
-                      circle(cx="43.5759" cy="33.1176" r="32.4926" stroke-width="1.25")
-                      circle(cx="55.7772" cy="33.1176" r="32.4926" stroke-width="1.25")
-
-                  .work_content_next_project_link
-                    a(href=`/work/${single.data.next_project.uid}`) Next project
+          .work_content_next_project
+            .work_content_next_project_wrapper
+              .contact_button.regularBigButton
+                a.work_content_next_project_link(href=`/work/${single.data.next_project.uid}`)
+                  span Next project
+                  .work_big_button_icon
+                    svg(width="36" height="24" viewBox="0 0 36 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+                      path(d="M26.3234 12C26.3234 18.3004 20.5964 23.5 13.4117 23.5C6.22702 23.5 0.5 18.3004 0.5 12C0.5 5.69957 6.22702 0.5 13.4117 0.5C20.5964 0.5 26.3234 5.69957 26.3234 12Z" stroke="#BB4430")
+                      path(d="M35.5003 12C35.5003 18.3004 29.7733 23.5 22.5886 23.5C15.4039 23.5 9.67688 18.3004 9.67688 12C9.67688 5.69957 15.4039 0.5 22.5886 0.5C29.7733 0.5 35.5003 5.69957 35.5003 12Z" stroke="#BB4430")

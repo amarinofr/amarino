@@ -376,7 +376,18 @@
 .work_content_ui {
   @extend %center;
 
+
   margin-top: 46.8rem;
+  margin-bottom: 46.8rem;
+  position: relative;
+}
+
+.work_content_ui_wrapper {
+  @extend %center;
+
+  width: fit-content;
+  height: fit-content;
+  flex-direction: column;
 }
 
 .work_content_ui_icon {
@@ -489,3 +500,6 @@
   }
 }
 
+.work_big_button_icon {
+  margin-left: 2.4rem;
+}

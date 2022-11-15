@@ -11,7 +11,6 @@ class App {
   constructor () {
     this.createPreloader()
     this.createContent()
-    // this.createExperience()
     this.createGallery()
     this.createPages()
 
@@ -19,20 +18,17 @@ class App {
     this.addEventListeners()
 
     this.update()
+
+    this.homeLink = document.querySelector('.home_link')
+    this.worksLink = document.querySelector('.works_link')
+    this.aboutLink = document.querySelector('.about_link')
   }
 
   createPreloader () {
     this.preloader = new Preloader()
 
-    const sessionStorage = window.sessionStorage
-    if (sessionStorage.getItem('dontLoad') == null) {
-      sessionStorage.setItem('dontLoad', 'true')
-      this.preloader.once('completed', _ => this.onPreloaded())
-      this.createExperience()
-    } else {
-      document.querySelector('.intro').remove()
-      this.preloader.once('completed', _ => this.onPreloadedNoIntro())
-    }
+    this.preloader.once('completed', _ => this.onPreloaded())
+    this.createExperience()
   }
 
   createExperience () {
@@ -53,6 +49,7 @@ class App {
 
   createNav () {
     this.nav = new Nav()
+    this.navChangeState()
   }
 
   createContent () {
@@ -107,6 +104,26 @@ class App {
     this.onChange(window.location.pathname)
   }
 
+  navChangeState () {
+    if (this.template === 'home') {
+      this.homeLink.classList.add('active')
+      this.aboutLink.classList.remove('active')
+      this.worksLink.classList.remove('active')
+    } else if (this.template === 'work') {
+      this.homeLink.classList.remove('active')
+      this.aboutLink.classList.remove('active')
+      this.worksLink.classList.add('active')
+    } else if (this.template === 'about') {
+      this.homeLink.classList.remove('active')
+      this.aboutLink.classList.add('active')
+      this.worksLink.classList.remove('active')
+    } else {
+      this.homeLink.classList.remove('active')
+      this.aboutLink.classList.remove('active')
+      this.worksLink.classList.remove('active')
+    }
+  }
+
   async onChange (url) {
     await this.page.hide()
 
@@ -133,7 +150,31 @@ class App {
 
       this.page.create()
 
+      if (this.template === 'home') {
+        this.gallery = new Canvas(this.template)
+      }
+
       this.page.show()
+
+      this.navChangeState()
+
+      // if (this.template === 'home') {
+      //   this.homeLink.classList.add('active')
+      //   this.aboutLink.classList.remove('active')
+      //   this.worksLink.classList.remove('active')
+      // } else if (this.template === 'work') {
+      //   this.homeLink.classList.remove('active')
+      //   this.aboutLink.classList.remove('active')
+      //   this.worksLink.classList.add('active')
+      // } else if (this.template === 'about') {
+      //   this.homeLink.classList.remove('active')
+      //   this.aboutLink.classList.add('active')
+      //   this.worksLink.classList.remove('active')
+      // } else {
+      //   this.homeLink.classList.remove('active')
+      //   this.aboutLink.classList.remove('active')
+      //   this.worksLink.classList.remove('active')
+      // }
 
       this.createGallery()
 

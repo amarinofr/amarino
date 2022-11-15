@@ -134,11 +134,14 @@
 }
 
 .intro_skip {
+  @extend %title-22;
+
   position: absolute;
-  bottom: 0;
+  bottom: 14rem;
+  right: 12rem;
   text-align: right;
   padding: 0 14rem;
   align-self: flex-end;
-  padding-bottom: 14rem;
+  cursor: pointer;
 }
 

@@ -178,3 +178,48 @@
     margin-top: 2.4rem;
   }
 }
+
+.intro {
+  .intro_second_view_button {
+    padding: 0 2.4rem;
+    border: 0.04rem solid $color-black !important;
+
+    a {
+      color: $color-black !important;
+    }
+
+    &::before, &::after {
+      border: 0.04rem solid $color-black !important;
+    }
+  }
+
+  .intro_third_view_button {
+    padding: 0 2.4rem;
+  }
+}
+
+.black {
+  .regularBigButton {
+    border: 0.04rem solid $color-white;
+
+    a {
+      color: $color-white;
+    }
+
+    &::before, &::after {
+      border: 0.04rem solid $color-white;
+    }
+  }
+
+  .regularButton {
+    border: 0.04rem solid $color-white;
+
+    a {
+      color: $color-white;
+    }
+
+    &::before, &::after {
+      border: 0.04rem solid $color-white;
+    }
+  }
+}

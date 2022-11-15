@@ -73,13 +73,13 @@
 }
 
 .nav_link {
-  margin: 0 2rem;
+  margin: 0 1.2rem;
   color: $color-black;
   transition: all 1s $ease-out-expo;
   transition-delay: 0.5s;
 }
 
-.nav_link_active {
+.active {
   transition: all 1s $ease-out-expo;
   transition-delay: 0.5s;
   opacity: 0.5;
@@ -117,13 +117,12 @@
   }
 
   .nav_link {
-    margin: 0 2rem;
     color: $color-white;
       transition: all 1s $ease-out-expo;
       transition-delay: 0.5s;
   }
 
-  .nav_link_active {
+  .nav_link.active {
     color: $color-grey3;
       transition: all 1s $ease-out-expo;
       transition-delay: 0.5s;

@@ -9,10 +9,12 @@ export default class Nav extends Component {
       elements: {
         logo: '.nav_logo',
         list: '.nav_list_link',
+        home: '.home_link',
+        about: '.about_link',
+        works: '.works_link',
         // line: '.line_top',
         social: '.nav_list_social_links_list'
       }
-
     })
 
     this.line = this.element.querySelector('.line_top')

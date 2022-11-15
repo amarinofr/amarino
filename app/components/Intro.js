@@ -13,13 +13,21 @@ export default class Intro extends Component {
         thirdView: '.intro_third_view',
         secondViewButton: '.intro_second_view_button',
         thirdViewButton: '.intro_third_view_button',
-        introUI: '.intro_ui'
+        introUI: '.intro_ui',
+        skip: '.intro_skip'
       }
     })
   }
 
   show () {
     this.emit('show')
+    this.createSkipInteraction()
+  }
+
+  createSkipInteraction () {
+    this.elements.skip.addEventListener('click', () => {
+      this.animateOut()
+    })
   }
 
   animateOut () {

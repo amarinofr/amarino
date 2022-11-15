@@ -110,6 +110,8 @@ export default class Gallery {
 
     this.width = this.bounds.width / window.innerWidth * this.viewport.width
 
+    console.log(this.width);
+
     map(this.medias, media => media.onResize(event, this.viewport, this.scroll))
   }
 
