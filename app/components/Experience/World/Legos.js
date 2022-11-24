@@ -23,6 +23,8 @@ export default class Legos {
 
     this.camVelocity = 0.5
 
+    this.skip = document.querySelector('.intro_skip')
+
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder('Legos')
     }
@@ -120,6 +122,10 @@ export default class Legos {
     this.newTl = GSAP.timeline()
 
     this.camVelocity = 0.25
+
+    GSAP.to(this.skip, {
+      autoAlpha: 0
+    })
 
     GSAP.set(this.canvas, {
       zIndex: 0

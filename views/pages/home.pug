@@ -8,7 +8,8 @@ block content
     .home_wrapper
       .home_intro(data-animation="white")
         .home_intro_wrapper
-          h1.home_intro_title(data-animation="title")= home.data.intro_title
+          h1.home_intro_title.smaller(data-animation="title") Digital
+          h1.home_intro_title(data-animation="title") Designer
           .home_intro_skills(data-animation="title")= home.data.intro_skills
           .line_bottom
             .line_thick
@@ -17,7 +18,6 @@ block content
       .home_works(data-animation="change-bg-color")
         .home_works_wrapper
           .home_works_top
-            .home_works_title_icon
             h2.home_works_title(data-animation="miniTitle") Selected Works
 
           #works_list.home_works_list

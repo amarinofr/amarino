@@ -33,23 +33,23 @@ block content
 
       .about_process
         .about_process_wrapper
-         .about_process_description_wrapper(data-animation="line")
-            .line_bottom.line
+         .about_process_description_wrapper
+            .line_top.line(data-animation="line" data-delay="0.75")
               .line_thin
               .line_thick
 
             .about_process_description!= ctx.prismicH.asHTML(about.data.process_description)
 
-            .line_bottom.line
+            .line_top.line(data-animation="line" data-delay="0.75")
               .line_thick
               .line_thin
-        .about_process_title_wrapper(data-animation="line")
+        .about_process_title_wrapper
           .about_process_title
             p(data-animation="aboutTitle") I always trust
             p(data-animation="aboutTitle") the process
 
-        .about_process_slider(data-animation="line")
-          .line_bottom.line
+        .about_process_slider
+          .line_top.line(data-animation="line")
             .line_thin
           ul.about_process_slider_list
             each process in about.data.process
@@ -61,7 +61,7 @@ block content
                     figure.about_process_slider_icon
                       img.about_process_slider_image(data-src=process.process_image.url alt=process.process_image.url)
                   .about_process_slider_text=process.process_text
-          .line_bottom.line
+          .line_top.line(data-animation="line")
             .line_thin
 
       include ../components/contact

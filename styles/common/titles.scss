@@ -96,3 +96,27 @@
   font-size: 1.6rem;
   line-height: 100%;
 }
+
+%condensed-128 {
+  font-family: $font-vc-condensed;
+  font-size: 12.8rem;
+  line-height: 120%;
+}
+
+%condensed-64 {
+  font-family: $font-vc-condensed;
+  font-size: 6.4rem;
+  line-height: 120%;
+}
+
+%condensed-24 {
+  font-family: $font-vc-condensed;
+  font-size: 2.4rem;
+  line-height: 120%;
+}
+
+%condensed-32 {
+  font-family: $font-vc-condensed;
+  font-size: 3.2rem;
+  line-height: 120%;
+}

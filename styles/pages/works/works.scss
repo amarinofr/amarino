@@ -11,10 +11,14 @@
     transform: translateX(-1.2rem);
     transition: transform 1s $ease-out-expo;
   }
+
+  @include media('<phone') {
+    display: none;
+  }
 }
 
 .works_list_title {
-  @extend %title-22;
+  @extend %condensed-24;
 
   font-weight: 500;
   margin-left: 4.8rem;
@@ -69,6 +73,15 @@
     transition: transform 0.25s $ease-out-expo;
     transform: translateX(0);
   }
+
+  @include media('<phone') {
+    position: fixed;
+    top: 42rem;
+
+    a {
+      color:  $color-white !important;
+    }
+  }
 }
 
 .work_wrapper {
@@ -94,6 +107,7 @@
 
   @include media('<phone') {
     width: 100%;
+    height: 32rem;
   }
 }
 
@@ -102,6 +116,10 @@
   @extend %fill;
 
   border-radius: 4.4rem;
+
+  @include media('<phone') {
+    object-fit: contain;
+  }
 }
 
 .work_intro_title {
@@ -124,7 +142,7 @@
 }
 
 .work_intro_skills {
-  @extend %text-16;
+  @extend %condensed-24;
 
   margin-top: 4rem;
   margin-bottom: 10.4rem;
@@ -132,10 +150,6 @@
 
 .work_details {
 
-}
-
-.work_details_live_link {
-  color: $color-grey1 !important;
 }
 
 .work_details_wrapper {
@@ -152,6 +166,10 @@
 .work_details_left {
   position: relative;
   display: flex;
+
+  @include media('<phone') {
+    flex-direction: column;
+  }
 }
 
 .work_details_left_top {
@@ -167,7 +185,7 @@
   margin-bottom: 2.4rem;
 
   span {
-    @extend %title-32;
+    @extend %condensed-32;
 
     margin-left: 1rem;
 
@@ -231,7 +249,7 @@
 }
 
 .work_details_bottom_techincal_title {
-  @extend %title-24;
+  @extend %condensed-24;
 
   margin-bottom: 3.2rem;
 }
@@ -330,12 +348,13 @@
 }
 
 .work_content_featured_text {
-  @extend %title-64;
+  @extend %condensed-64;
 
   width: 98rem;
   color: $color-grey3;
 
   @include media('<phone') {
+    font-size: 3.2rem;
     width: 100%;
   }
 }
@@ -345,6 +364,10 @@
 
   width: 100%;
   justify-content: space-between;
+
+  @include media('<phone') {
+    margin-top: 2.4rem;
+  }
 }
 
 .work_content_featured_images_photo {
@@ -406,7 +429,7 @@
 }
 
 .work_content_ui_title {
-  @extend %title-32;
+  @extend %condensed-32;
 
   margin-left: 2rem;
 }
@@ -421,6 +444,10 @@
 
 .work_content_screenshots_icon {
   @extend %center;
+
+  @include media('<phone') {
+    flex-direction: row;
+  }
 }
 
 .work_content_screenshots_icon_svg {
@@ -435,7 +462,7 @@
 }
 
 .work_content_screenshots_title {
-  @extend %title-32;
+  @extend %condensed-32;
 
   margin-left: 2rem;
 }
@@ -455,6 +482,10 @@
   position: relative;
   width: 100%;
   height: 61.7rem;
+
+  @include media('<phone') {
+    height: 25.7rem;
+  }
 }
 
 .work_content_screenshots_list_image {
@@ -466,11 +497,20 @@
 .work_content_next_project {
   @extend %center;
 
+  height: 100vh;
   padding: 24rem 0;
 }
 
 .work_content_next_project_wrapper {
+  .regularBigButton {
+    &:hover {
+      background-color: $color-grey1;
 
+      a {
+        color: $color-black;
+      }
+    }
+  }
 }
 
 .work_content_next_project_button {
@@ -489,14 +529,26 @@
   }
 }
 
+.work_content_next_project_wrapper {
+  .regularBigButton {
+    border-color: $color-grey1 !important;
+
+    &::after, &::before {
+      border-color: $color-grey1 !important;
+    }
+  }
+}
+
 .work_content_next_project_link {
   @extend %title-64;
 
   margin-left: 1.6rem;
 
-  a {
-    color: $color-grey1 !important;
-    text-decoration: none;
+  color: $color-white;
+  text-decoration: none;
+
+  span {
+    color: $color-white;
   }
 }
 

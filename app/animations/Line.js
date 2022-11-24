@@ -13,6 +13,8 @@ export default class Line extends Animation {
 
     this.delay = this.element.dataset.delay
 
+    console.log(this.elements.lines);
+
     this.tl = GSAP.timeline()
   }
 

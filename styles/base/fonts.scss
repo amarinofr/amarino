@@ -17,10 +17,19 @@
 }
 
 @font-face {
+  font-family: $font-vc-condensed;
+  src: url('../fonts/vc_condensed.woff2') format('woff2'),
+      url('../fonts/vc_condensed.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: $font-ibm;
-  src: url('../fonts/ibm_medium.woff2') format('woff2'),
-      url('../fonts/ibm_medium.woff') format('woff');
-  font-weight: 500;
+  src: url('../fonts/ibm_regular.woff2') format('woff2'),
+      url('../fonts/ibm_regular.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }

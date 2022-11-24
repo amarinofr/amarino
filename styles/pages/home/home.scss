@@ -37,8 +37,11 @@
 
 .home_intro_title {
   @extend %title-235;
+
+  font-size: 22.5rem;
   opacity: 0;
   transform: scaleX(0.5);
+  text-transform: uppercase;
 
   span {
     display: block;
@@ -51,33 +54,35 @@
 
   @include media('<phone') {
     margin-top: 4.8rem;
+    font-size: 6.2rem;
+    margin-top: 1.2rem;
   }
 }
 
 .home_intro_skills {
-  @extend %text-14;
+  @extend %condensed-24;
 
   text-align: left;
   align-self: flex-start;
   color: $color-red;
-  font-family: $font-ibm;
-  font-weight: bold;
   margin-bottom: 8rem;
   flex-wrap: wrap;
 
   @include media('<phone') {
     margin-top: 6.4rem;
+    font-size: 1.8rem;
   }
 }
 
 .home_works {
   width: 100%;
   overflow: hidden;
-  margin-top: 32rem;
+  margin-top: 48rem;
 }
 
 .home_works_top {
   @extend %padding;
+  @extend %center;
 
   width: 100%;
 
@@ -112,9 +117,16 @@
 }
 
 .home_works_title {
-  @extend %title-64;
+  @extend %condensed-128;
 
-  margin-top: 3.2rem;
+  margin: 4.8rem 0 4.8rem 0;
+  text-align: center;
+
+  @include media('<phone') {
+    font-size: 6.4rem;
+    margin: 1.2rem 0;
+
+  }
 }
 
 .home_works_list {
@@ -236,9 +248,8 @@
 }
 
 .home_works_single_skills {
-  @extend %text-16;
+  @extend %condensed-24;
 
-  font-weight: bold;
   color: $color-white;
 }
 

@@ -2,7 +2,6 @@ html {
   @extend %cover;
   font-size: calc(100vw/1512*10);
   overflow: hidden;
-
   user-select: none;
 
   @include media('<phone') {
@@ -13,6 +12,7 @@ html {
 
 body {
   @extend %cover;
+
   font-family: $font-vc;
   color: $color-black;
   font-size: 16px;
@@ -20,6 +20,10 @@ body {
   background-color: $color-white;
   overflow: hidden;
   overflow-anchor: none;
+
+  @include media('<phone') {
+    overflow-y: auto;
+  }
 }
 
 
@@ -67,6 +71,15 @@ body.black {
     transition: all 1s $ease-out-expo;
     border-color: $color-white;
   }
+
+  .nav_link {
+    transition-delay: 0s !important;
+
+    &:hover {
+      color: $color-red !important;
+      transition-delay: 0 !important;
+    }
+  }
 }
 
 .content {
@@ -76,6 +89,13 @@ body.black {
 
   .home, .about, .work {
     opacity: 0;
+    will-change: opacity;
+  }
+
+  will-change: transform, opacity;
+
+  @include media('<phone') {
+    position: relative;
   }
 }
 
@@ -181,11 +201,28 @@ svg {
 
   span {
     display: inline-block;
-    margin-right: 0.6rem;
+    margin-right: 0.4rem;
   }
 
   span span {
     @extend %animation;
+  }
+}
+
+[data-animation="text"] {
+  opacity: 0;
+  transform: translateY(2rem);
+}
+
+img {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.empty {
+  &::after {
+    content: " ";
+    padding: 0 1rem;
   }
 }
 
@@ -200,22 +237,5 @@ svg {
 
   span span {
     @extend %animation;
-  }
-}
-
-[data-animation="text"] {
-  opacity: 0;
-  transform: translateY(2rem);
-}
-
-
-img {
-  opacity: 0;
-}
-
-.empty {
-  &::after {
-    content: " ";
-    padding: 0 1rem;
   }
 }

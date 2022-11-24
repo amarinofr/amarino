@@ -116,7 +116,7 @@ export default class Canvas {
   }
 
   destroyHome () {
-    map(this.galleries, gallery => { this.destroy() })
+    map(this.galleries, gallery => { gallery.destroy() })
   }
 
   onRouteUpdate (template) {

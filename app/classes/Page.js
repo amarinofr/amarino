@@ -1,6 +1,7 @@
 import GSAP from 'gsap'
 import Prefix from 'prefix'
 import { splitWords } from 'utils/splitText'
+import { lerp } from 'utils/lerp'
 
 import Title from 'animations/Title'
 import MiniTitle from 'animations/MiniTitle'
@@ -57,6 +58,8 @@ export default class Page {
     }
 
     this.scroll.smoothness = this.scroll.smoothness / 100
+
+    this.parallaxEls = document.querySelectorAll('[data-animation="parallax"]')
   }
 
   createAnimations () {
@@ -150,8 +153,7 @@ export default class Page {
         onComplete: _ => {
           this.addEventListeners()
           this.createAnimations()
-
-    this.createAsyncLoad()
+          this.createAsyncLoad()
 
 
           resolve()
@@ -183,8 +185,10 @@ export default class Page {
   }
 
   onResize () {
-    this.scroll.limit = this.elements.wrapper.clientHeight + 'px'
-    document.body.style.height = this.scroll.limit
+    if (window.innerWidth > 768) {
+      this.scroll.limit = this.elements.wrapper.clientHeight + 'px'
+      document.body.style.height = this.scroll.limit
+    }
   }
 
   easeScroll () {
@@ -192,20 +196,48 @@ export default class Page {
   }
 
   update () {
-    this.scroll.current = GSAP.utils.interpolate(this.scroll.current, this.scroll.target, this.scroll.smoothness)
-    this.scroll.target = Math.floor(this.scroll.target * 100) / 100
+    if (window.innerWidth > 768) {
 
-    if (this.scroll.current < 0.01) {
-      this.scroll.current = 0
+      this.scroll.target = parseFloat(this.scroll.target.toFixed(2))
+      this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.smoothness)
+
+      if (this.scroll.current < 0.01) {
+        this.scroll.current = 0
+      }
+
+      this.elements.wrapper.style[this.transformPrefix] = `matrix(1, 0, 0, 1, 0, -${this.scroll.current})`
+
+      this.wrapperHeight = this.elements.wrapper.getBoundingClientRect().height
+
+      this.imgHeight = this.wrapperHeight / this.parallaxEls.length
+
+      this.observer = new window.IntersectionObserver(entries => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            this.intersectionRatioIndex = parseInt(index / this.parallaxEls.length)
+            this.intersectionRatioValue = this.ratio - this.intersectionRatioIndex
+            this.indexRandom = index * 0.5
+
+            this.ratio = (this.scroll.current * this.indexRandom) / this.imgHeight
+
+
+            entry.target.style[this.transformPrefix] = `matrix(1, 0, 0, 1, 0, -${this.intersectionRatioValue * (200 * this.indexRandom)})`
+          }
+        })
+      })
+
+      this.parallaxEls.forEach((image, index) => {
+        this.observer.observe(image)
+      })
+
+      this.scroll.last = this.scroll.current
     }
-
-    this.elements.wrapper.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`
-
-    this.scroll.last = this.scroll.current
   }
 
   addEventListeners () {
-    window.addEventListener('scroll', this.onMouseWheelEvent)
+    if (window.innerWidth > 768) {
+      window.addEventListener('scroll', this.easeScroll.bind(this))
+    }
   }
 
   removeEventListeners () {

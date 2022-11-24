@@ -44,16 +44,9 @@ h1.about_intro_text {
     &:last-of-type {
       span {
         color: $color-red;
-        font-weight: 700;
       }
     }
   }
-
-  strong {
-    color: $color-red;
-    font-weight: 500;
-  }
-
 }
 
 figure.about_intro_photo {
@@ -82,7 +75,7 @@ img.about_intro_photo_image {
 }
 
 figcaption.about_intro_photo_caption {
-  @extend %title-24;
+  @extend %condensed-24;
 
   width: 38.6rem;
   position: relative;
@@ -152,7 +145,7 @@ figcaption.about_intro_photo_caption {
 }
 
 h3.about_azores_title {
-  @extend %title-32;
+  @extend %condensed-64;
 
   width: 35.5rem;
   margin-left: 51.7rem;
@@ -240,10 +233,15 @@ figcaption.about_azores_photo_caption {
 
   p {
     @extend %indent;
-    @extend %text-24;
+    @extend %condensed-24;
 
     padding: 14.8rem 0;
     width: 47.8rem;
+    line-height: 145%;
+
+    strong {
+      @extend %title-24;
+    }
 
     @include media('<phone') {
       width: 100%;

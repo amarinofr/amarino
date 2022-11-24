@@ -76,7 +76,7 @@
 }
 
 .preloader_bottom_left {
-  @extend %title-24;
+  @extend %condensed-24;
 
   transform: translateY(-2rem);
   opacity: 0;

@@ -20,10 +20,14 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  @include media('<phone') {
+    justify-content: center;
+  }
 }
 
 .nav_logo {
-  @extend %title-22;
+  @extend %condensed-24;
 
   margin-top: 1.8rem;
   transform: translateY(-3rem);
@@ -32,6 +36,7 @@
 
   @include media('<phone') {
     font-size: 1.8rem;
+    display: none;
   }
 }
 
@@ -47,14 +52,7 @@
 }
 
 .nav_list {
-  @extend %title-22;
-
   margin-top: 1.8rem;
-  font-weight: bold;
-
-  @include media('<phone') {
-    font-size: 1.6rem;
-  }
 }
 
 .nav_list_link {
@@ -73,10 +71,21 @@
 }
 
 .nav_link {
+  @extend %title-22;
+
   margin: 0 1.2rem;
   color: $color-black;
   transition: all 1s $ease-out-expo;
   transition-delay: 0.5s;
+  font-weight: bold;
+
+  &:hover {
+    color: $color-red;
+  }
+
+  @include media('<phone') {
+    font-size: 1.6rem;
+  }
 }
 
 .active {
@@ -118,21 +127,18 @@
 
   .nav_link {
     color: $color-white;
-      transition: all 1s $ease-out-expo;
-      transition-delay: 0.5s;
+    transition: all 1s $ease-out-expo;
   }
 
   .nav_link.active {
     color: $color-grey3;
       transition: all 1s $ease-out-expo;
-      transition-delay: 0.5s;
   }
 
   .nav_list_social_links {
     a {
       color: $color-white;
       transition: all 1s $ease-out-expo;
-      transition-delay: 0.5s;
     }
   }
 }

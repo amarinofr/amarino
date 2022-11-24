@@ -20,7 +20,6 @@
 .intro_ui {
   @extend %title-64;
 
-  // font-size: 19.2rem;
   text-align: center;
   font-weight: bold;
   padding-top: 12rem;
@@ -143,5 +142,11 @@
   padding: 0 14rem;
   align-self: flex-end;
   cursor: pointer;
+
+  @include media('<phone') {
+    width: 40rem;
+    bottom: 4rem;
+    right: 4rem;
+  }
 }
 

@@ -25,6 +25,10 @@ export default class AsyncLoad extends Component {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           GSAP.to(entry.target, {
+            scale: '1',
+            duration: 1.5
+          })
+          GSAP.to(entry.target, {
             autoAlpha: 1,
             ease: 'expo.out',
             delay: this.delay,

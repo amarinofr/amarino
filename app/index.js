@@ -29,6 +29,11 @@ class App {
 
     this.preloader.once('completed', _ => this.onPreloaded())
     this.createExperience()
+
+    window.dataLayer = window.dataLayer || []
+    function gtag(){dataLayer.push(arguments)}
+    gtag('js', new Date())
+    gtag('config', 'G-BCPC5ZNGWR')
   }
 
   createExperience () {
@@ -158,23 +163,7 @@ class App {
 
       this.navChangeState()
 
-      // if (this.template === 'home') {
-      //   this.homeLink.classList.add('active')
-      //   this.aboutLink.classList.remove('active')
-      //   this.worksLink.classList.remove('active')
-      // } else if (this.template === 'work') {
-      //   this.homeLink.classList.remove('active')
-      //   this.aboutLink.classList.remove('active')
-      //   this.worksLink.classList.add('active')
-      // } else if (this.template === 'about') {
-      //   this.homeLink.classList.remove('active')
-      //   this.aboutLink.classList.add('active')
-      //   this.worksLink.classList.remove('active')
-      // } else {
-      //   this.homeLink.classList.remove('active')
-      //   this.aboutLink.classList.remove('active')
-      //   this.worksLink.classList.remove('active')
-      // }
+      this.body.scrollTop = 0
 
       this.createGallery()
 
